@@ -1349,3 +1349,215 @@ section:nth-child(odd) {
         font-size: 0.8rem;
     }
 }
+/* ==============================================
+   MODAL BIOGRAPHIES
+   ============================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--white-pure);
+    max-width: 90%;
+    max-height: 90%;
+    width: 600px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8) translateY(30px);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--purple-psyche), var(--pink-hot));
+    color: var(--white-pure);
+    padding: 25px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-musician-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.modal-musician-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--white-pure);
+}
+
+.modal-musician-details h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    font-family: var(--font-primary);
+}
+
+.modal-musician-details h4 {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--white-pure);
+    font-size: 2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    padding: 30px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--purple-psyche);
+    border-radius: 3px;
+}
+
+.modal-body p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.modal-highlight {
+    background: linear-gradient(135deg, var(--yellow-primary), var(--yellow-daisy));
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border-left: 4px solid var(--purple-psyche);
+}
+
+.modal-highlight strong {
+    color: var(--purple-psyche);
+    display: block;
+    margin-bottom: 5px;
+    font-family: var(--font-primary);
+}
+
+/* Bouton "Lire la suite" */
+.read-more-btn {
+    background: linear-gradient(135deg, var(--purple-psyche), var(--pink-hot));
+    color: var(--white-pure);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.read-more-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(147, 112, 219, 0.4);
+}
+
+.read-more-btn i {
+    font-size: 0.8rem;
+}
+
+/* Responsive modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-height: 85%;
+    }
+    
+    .modal-header {
+        padding: 20px;
+    }
+    
+    .modal-musician-info {
+        gap: 10px;
+    }
+    
+    .modal-musician-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .modal-musician-details h3 {
+        font-size: 1.3rem;
+    }
+    
+    .modal-body {
+        padding: 20px;
+        max-height: 300px;
+    }
+    
+    .modal-body p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Amélioration des cartes musiciens pour le bouton */
+.musician-card {
+    position: relative;
+}
+
+.musician-info {
+    position: relative;
+}
