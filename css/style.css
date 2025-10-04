@@ -349,6 +349,12 @@ p {
     60% { transform: translateX(-50%) translateY(-5px); }
 }
 
+/* Animation de rotation pour la fleur pâquerette */
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 /* ==============================================
    PARALLAX SECTION
    ============================================== */
