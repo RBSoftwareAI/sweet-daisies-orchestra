@@ -119,68 +119,108 @@ class MusiciansManager {
     // Événement pour ouvrir la biographie complète
     readMoreBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      this.expandBiography(musicianId, readMoreBtn, fullBio);
+      e.stopPropagation();
+      this.expandBiography(musicianId, card);
     });
 
     // Événement pour fermer la biographie complète
     collapseBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      this.collapseBiography(musicianId, readMoreBtn, fullBio);
+      e.stopPropagation();
+      this.collapseBiography(musicianId, card);
     });
   }
 
-  expandBiography(musicianId, readMoreBtn, fullBio) {
+  expandBiography(musicianId, card) {
     // Fermer toutes les autres biographies ouvertes
     this.closeAllBiographies();
 
-    // Ouvrir cette biographie
-    fullBio.classList.add('expanded');
-    readMoreBtn.classList.add('expanded');
+    const readMoreBtn = card.querySelector('.read-more-btn');
+    const fullBio = card.querySelector('.musician-full-bio');
     
-    // Changer le texte et l'icône du bouton
-    const btnText = readMoreBtn.querySelector('span');
-    const btnIcon = readMoreBtn.querySelector('i');
-    btnText.textContent = 'Réduire';
-    btnIcon.className = 'fas fa-chevron-up';
+    if (!fullBio || !readMoreBtn) {
+      console.error('❌ Éléments manquants pour:', musicianId);
+      return false;
+    }
 
-    // Scroll vers la carte pour une meilleure visibilité
+    console.log('🔄 Expansion de la biographie pour:', musicianId);
+    
+    // Calculer la hauteur réelle nécessaire
+    const originalDisplay = fullBio.style.display;
+    const originalMaxHeight = fullBio.style.maxHeight;
+    const originalOverflow = fullBio.style.overflow;
+    
+    fullBio.style.display = 'block';
+    fullBio.style.maxHeight = 'none';
+    fullBio.style.overflow = 'visible';
+    const realHeight = fullBio.scrollHeight;
+    
+    fullBio.style.display = originalDisplay;
+    fullBio.style.maxHeight = '0';
+    fullBio.style.overflow = 'hidden';
+    
+    // Ouvrir cette biographie avec la vraie hauteur
+    requestAnimationFrame(() => {
+      fullBio.classList.add('expanded');
+      fullBio.style.maxHeight = Math.max(realHeight + 150, 400) + 'px'; // +150px pour le padding et marge de sécurité
+      readMoreBtn.classList.add('expanded');
+      
+      // Masquer le bouton "Lire la suite"
+      readMoreBtn.style.display = 'none';
+    });
+
+    // Scroll vers le contenu après animation
     setTimeout(() => {
-      fullBio.scrollIntoView({ 
+      card.scrollIntoView({ 
         behavior: 'smooth', 
-        block: 'center' 
+        block: 'start'
       });
-    }, 300);
+    }, 700);
 
-    console.log('🔄 Biographie ouverte pour:', musicianId);
+    console.log('✅ Biographie ouverte pour:', musicianId, '- Hauteur calculée:', realHeight + 'px');
+    return true;
   }
 
-  collapseBiography(musicianId, readMoreBtn, fullBio) {
+  collapseBiography(musicianId, card) {
+    const readMoreBtn = card.querySelector('.read-more-btn');
+    const fullBio = card.querySelector('.musician-full-bio');
+    
+    if (!fullBio || !readMoreBtn) {
+      console.error('❌ Éléments manquants pour:', musicianId);
+      return;
+    }
+
+    console.log('🔄 Fermeture de la biographie pour:', musicianId);
+
+    // Fermer la biographie avec animation
+    fullBio.style.maxHeight = '0';
     fullBio.classList.remove('expanded');
     readMoreBtn.classList.remove('expanded');
     
-    // Remettre le texte et l'icône originaux du bouton
-    const btnText = readMoreBtn.querySelector('span');
-    const btnIcon = readMoreBtn.querySelector('i');
-    btnText.textContent = 'Lire la suite';
-    btnIcon.className = 'fas fa-chevron-right';
+    // Réafficher le bouton "Lire la suite" après l'animation
+    setTimeout(() => {
+      readMoreBtn.style.display = 'flex';
+    }, 300);
 
-    console.log('🔄 Biographie fermée pour:', musicianId);
+    console.log('✅ Biographie fermée pour:', musicianId);
   }
 
   closeAllBiographies() {
-    const allFullBios = document.querySelectorAll('.musician-full-bio.expanded');
-    const allReadMoreBtns = document.querySelectorAll('.read-more-btn.expanded');
+    const allCards = document.querySelectorAll('.musician-card');
 
-    allFullBios.forEach(bio => {
-      bio.classList.remove('expanded');
-    });
-
-    allReadMoreBtns.forEach(btn => {
-      btn.classList.remove('expanded');
-      const btnText = btn.querySelector('span');
-      const btnIcon = btn.querySelector('i');
-      btnText.textContent = 'Lire la suite';
-      btnIcon.className = 'fas fa-chevron-right';
+    allCards.forEach(card => {
+      const fullBio = card.querySelector('.musician-full-bio');
+      const readMoreBtn = card.querySelector('.read-more-btn');
+      
+      if (fullBio && fullBio.classList.contains('expanded')) {
+        fullBio.style.maxHeight = '0';
+        fullBio.classList.remove('expanded');
+      }
+      
+      if (readMoreBtn) {
+        readMoreBtn.classList.remove('expanded');
+        readMoreBtn.style.display = 'flex'; // Toujours réafficher le bouton
+      }
     });
   }
 
@@ -214,7 +254,89 @@ window.closeAllBios = () => {
 };
 
 // Debug global
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.includes('e2b.dev')) {
   window.musiciansManager = musiciansManager;
   console.log('🎯 Mode développement - musiciansManager disponible globalement');
+  
+  // Ajouter des fonctions de test globales
+  window.testExpandCollapse = function() {
+    console.log('🧪 DÉBUT DES TESTS EXPAND/COLLAPSE');
+    const cards = document.querySelectorAll('.musician-card');
+    let testResults = { passed: 0, failed: 0, details: [] };
+    
+    cards.forEach((card, index) => {
+      try {
+        const readMoreBtn = card.querySelector('.read-more-btn');
+        const collapseBtn = card.querySelector('.collapse-btn');
+        const fullBio = card.querySelector('.musician-full-bio');
+        
+        if (!readMoreBtn || !collapseBtn || !fullBio) {
+          testResults.failed++;
+          testResults.details.push(`❌ Carte ${index + 1}: Éléments manquants`);
+          return;
+        }
+        
+        // Test d'expansion
+        readMoreBtn.click();
+        setTimeout(() => {
+          if (fullBio.classList.contains('expanded') && readMoreBtn.style.display === 'none') {
+            // Test de fermeture
+            setTimeout(() => {
+              collapseBtn.click();
+              setTimeout(() => {
+                if (!fullBio.classList.contains('expanded') && readMoreBtn.style.display === 'flex') {
+                  testResults.passed++;
+                  testResults.details.push(`✅ Carte ${index + 1}: OK`);
+                } else {
+                  testResults.failed++;
+                  testResults.details.push(`❌ Carte ${index + 1}: Échec fermeture`);
+                }
+              }, 900);
+            }, 100);
+          } else {
+            testResults.failed++;
+            testResults.details.push(`❌ Carte ${index + 1}: Échec ouverture`);
+          }
+        }, 900);
+        
+      } catch (error) {
+        testResults.failed++;
+        testResults.details.push(`❌ Carte ${index + 1}: Erreur - ${error.message}`);
+      }
+    });
+    
+    // Afficher les résultats après tous les tests
+    setTimeout(() => {
+      console.log('🧪 RÉSULTATS DES TESTS:');
+      console.log(`✅ Réussis: ${testResults.passed}`);
+      console.log(`❌ Échoués: ${testResults.failed}`);
+      testResults.details.forEach(detail => console.log(detail));
+      
+      // Envoyer les résultats au parent si c'est un test automatisé
+      if (window.opener) {
+        window.opener.postMessage({
+          type: 'TEST_RESULTS',
+          success: testResults.failed === 0,
+          details: `${testResults.passed} réussis, ${testResults.failed} échoués`
+        }, '*');
+      }
+    }, (cards.length * 1000) + 2000);
+  };
+  
+  // Écouter les messages de test
+  window.addEventListener('message', (event) => {
+    if (event.data.type === 'RUN_EXPAND_COLLAPSE_TEST') {
+      setTimeout(() => window.testExpandCollapse(), 1000);
+    } else if (event.data.type === 'TEST_SPECIFIC_CARD') {
+      const cardIndex = event.data.cardIndex || 0;
+      const cards = document.querySelectorAll('.musician-card');
+      if (cards[cardIndex]) {
+        const readMoreBtn = cards[cardIndex].querySelector('.read-more-btn');
+        if (readMoreBtn) {
+          console.log(`🧪 Test de la carte ${cardIndex + 1}`);
+          readMoreBtn.click();
+        }
+      }
+    }
+  });
 }

@@ -641,13 +641,14 @@ section:nth-child(odd) {
 .musician-full-bio {
     max-height: 0;
     overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: max-height 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.8s ease;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 0 0 25px 25px;
+    padding: 0 2rem;
 }
 
 .musician-full-bio.expanded {
-    max-height: 800px;
+    /* max-height will be set dynamically by JavaScript */
     padding: 2rem;
     border-top: 2px solid var(--yellow-primary);
 }
