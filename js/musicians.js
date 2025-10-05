@@ -1,333 +1,220 @@
 /**
  * Gestionnaire des biographies des musiciens
- * Gère l'affichage des modals et la réorganisation alphabétique
+ * Système vertical avec expand/collapse et photos personnelles
  */
-
-// Données des musiciens réorganisées par ordre alphabétique
-const musiciansData = [
-  {
-    "id": "bahri",
-    "firstName": "Christophe",
-    "lastName": "Bahri",
-    "instrument": "Batterie, percussions",
-    "icon": "fas fa-drum",
-    "shortBio": "Prix de percussion classique au conservatoire de Douai, prix de l'école de batterie Agostini de Paris. Membre-fondateur de la troupe Jazzy kids qui sillonne la France depuis 2017.",
-    "fullBio": "Prix de percussion classique au conservatoire de Douai, prix de l'école de batterie Agostini de Paris, Christophe est également titulaire du D.A.E. et du C.E.S.M.A., deux diplômes d'enseignement aux méthodes Agostini. Par ailleurs, il est P.E.A., professeur-coordinateur des musiques actuelles. Christophe est membre-fondateur de la troupe Jazzy kids qui sillonne la France depuis 2017 avec le spectacle « Nina et le jazz dans tous ses états ». Il est aussi batteur du trio Smooth Jazz Band et du quartet latin Afinado. En outre, il a régulièrement rejoint le pupitre des percussionnistes de l'Orchestre National de Lille, et ce pendant 20 ans. Christophe est un batteur tout-terrain avec pour credo : « Tempo, jeu simple et groove ». Un cocktail qui le caractérise dans tous les projets musicaux auxquels il participe.",
-    "motto": "Tempo, jeu simple et groove",
-    "imagePlaceholder": "drummer.jpg"
-  },
-  {
-    "id": "bargibant",
-    "firstName": "Valérie",
-    "lastName": "Bargibant",
-    "instrument": "Harpe",
-    "icon": "fas fa-music",
-    "shortBio": "Médaille d'or et prix de perfectionnement au conservatoire de Roubaix. 1er prix de harpe et diplôme supérieur au conservatoire Royal de Bruxelles auprès de Susanna Mildonian.",
-    "fullBio": "Valérie débute la harpe au conservatoire de Roubaix où elle obtient une médaille d'or et un prix de perfectionnement, ainsi qu'un 1er prix de solfège et une médaille d'or en musique de chambre. Elle poursuit ses études auprès de Susanna Mildonian au conservatoire Royal de Bruxelles où elle est lauréate d'un 1er prix de harpe, d'un 1er prix de musique de chambre, puis d'un diplôme supérieur de harpe. Détentrice d'un diplôme d'État (DE) de musique, spécialité harpe, elle n'a jamais cessé d'accorder un intérêt significatif au face à face pédagogique et à la transmission ; elle enseigne aujourd'hui dans les conservatoires de Wasquehal et de Wattrelos. Dans le registre du jazz et du blues, Valérie effectue une série de concerts à travers la France avec Ray Charles. Elle joue régulièrement avec l'orchestre national de Lille et a souvent collaboré avec l'orchestre philharmonique d'Anvers et l'orchestre de l'opéra flamand. Elle a effectué de nombreuses tournées en France comme à l'étranger, (Chine, Autriche, Allemagne, Liban…). Passionnée également par la musique de chambre, elle est membre de l'association Arabesque et joue fréquemment en duo et en quatuor.",
-    "highlight": "Concerts avec Ray Charles, orchestre national de Lille",
-    "imagePlaceholder": "harpist.jpg"
-  },
-  {
-    "id": "breyne",
-    "firstName": "Louise",
-    "lastName": "Breyne",
-    "instrument": "Clarinette",
-    "icon": "fas fa-music",
-    "shortBio": "Médaille d'or au conservatoire de Tourcoing en clarinette et musique de chambre. Lauréate du prix de la ville de Paris dans la classe de Bruno Martinez.",
-    "fullBio": "Louise étudie au conservatoire de Tourcoing où elle obtient une médaille d'or dans chacune des classes de clarinette et de musique de chambre. Trois ans plus tard, elle est lauréate du prix de la ville de Paris dans la classe de Bruno Martinez au conservatoire du 18ème arrondissement de Paris. Titulaire du diplôme d'État de professeur de clarinette (DE), Louise enseigne son instrument au conservatoire de Wattrelos et à l'école de musique de Saint-André-lez-Lille. Outre le face à face pédagogique, elle apprécie particulièrement le travail en collectif et s'investit ainsi dans la pratique instrumentale en orchestres d'harmonie, ensembles de clarinettes et autres formations de musique de chambre. Ainsi, elle a récemment joué « Les Mousquetaires » d'Oscar Navarro pour quatuor de clarinettes et orchestre à vent, participé à de nombreux contes musicaux et donné des concerts en clarinette piano. Son engagement la conduit à porter haut les valeurs qui définissent l'association ECLA dans le cadre du développement de la clarinette dans les Hauts-de-France. Louise ravit l'auditoire par le son velouté de sa clarinette et sa joyeuse énergie.",
-    "speciality": "Son velouté de clarinette et joyeuse énergie",
-    "imagePlaceholder": "clarinetist.jpg"
-  },
-  {
-    "id": "dasilva",
-    "firstName": "Pedro",
-    "lastName": "DA SILVA",
-    "instrument": "Chant",
-    "icon": "fas fa-microphone-alt",
-    "shortBio": "Commence la musique à 5 ans au conservatoire de Wattrelos. Formé au conservatoire de Lille, s'illustre dans le programme Popstar sur M6 où il est repéré par un producteur.",
-    "fullBio": "Pedro commence la musique à l'âge de 5 ans au conservatoire de Wattrelos. Très vite, il joue de son violon en orchestre et dans diverses formations de musique de chambre. Le chant le passionne ensuite, jusqu'à aujourd'hui encore. En effet, et en parallèle à un enseignement classique et lyrique qu'il reçoit au conservatoire de Lille, Pedro, jeune lycéen, crée son premier groupe de musiques actuelles ; depuis, il ne cesse de se produire sur scène. Les projets auxquels il participe sont multiples et l'amènent vers des esthétiques plurielles : comédies musicales, opérettes (notamment avec la compagnie des Mus'Arts, de Tourcoing) et groupes de musiques actuelles (tel Pep'Live). Pedro s'illustre également, plusieurs semaines durant, dans le programme télévisé Popstar, sur la chaîne M6. Sa participation à ce télé-crochet n'a pas manqué de lui apporter un succès significatif. Repéré par un producteur, il enregistre un clip et un single. Chanteur polyvalent, il séduit par l'élégance de sa voix et son aisance scénique.",
-    "achievements": "Chanteur polyvalent, élégance vocale et aisance scénique",
-    "imagePlaceholder": "male_singer.jpg"
-  },
-  {
-    "id": "habare",
-    "firstName": "Emmeline",
-    "lastName": "Habare",
-    "instrument": "Chant",
-    "icon": "fas fa-microphone",
-    "shortBio": "Touche à tout et engagée, Emmeline explore, soutient et nourrit bon nombre de mouvements éducatifs, alternatifs et artistiques. Diplômée des Beaux-Arts.",
-    "fullBio": "Touche à tout et engagée, Emmeline explore, soutient et nourrit bon nombre de mouvements éducatifs, alternatifs et artistiques. Diplômée des Beaux-Arts, elle travaille autour de plusieurs médiums tels que la peinture, l'encre, la laine, le fil, dans un univers médiéval fantastique un tantinet farfelu. Passionnée de permaculture, Emmeline défend les modes de vie simples, épurés et chaleureux, dans le respect de la nature et de l'être sensible. Son expérience en tant que cheffe de chœur et professeure de chant nourrit sa fibre pédagogique et son engagement à rendre accessible la musique à tous. Emmeline tricote les sons, dessine la liberté et célèbre la vie. Ses nombreuses influences et expériences font d'elle aujourd'hui une artiste loufoque et éclatante.",
-    "philosophy": "Emmeline tricote les sons, dessine la liberté et célèbre la vie",
-    "imagePlaceholder": "female_singer.jpg"
-  },
-  {
-    "id": "helderwerdt",
-    "firstName": "Nicolas",
-    "lastName": "Helderwerdt",
-    "instrument": "Guitare",
-    "icon": "fas fa-guitar",
-    "shortBio": "Études au CMA de Valenciennes, conservatoires de Lille (guitare-jazz avec Gérard Marais) et Calais (médaille de vermeil). Perfectionnement à Bruxelles et Paris.",
-    "fullBio": "Nicolas étudie au Centre de musiques actuelles (CMA) de Valenciennes, au conservatoire de Lille dans la classe de guitare-jazz dirigée par Gérard Marais, puis au conservatoire de Calais où il obtient une médaille de vermeil. Il se perfectionne à Bruxelles avec Pierre Van Dormael, et à Paris avec Nelson Veras. Depuis, Nicolas devient également titulaire du diplôme d'État (DE) de professeur de musiques actuelles amplifiées, option guitare. Il partage ainsi sa vie de musicien entre sa vocation d'enseignant et son investissement dans des répertoires stimulant sa veine créative et son goût de la musique jouée en direct. Issu de l'univers des musiques actuelles, Nicolas met ses talents de musicien au service de nombreux ensembles, dans des styles très divers allant du jazz au pop-rock, du blues à la chanson (« Die Dreigroschenoper » avec le Trio Près de la Frontière, Chansons à Croquer, O. Lovergne, le N. Helderwerdt duo Jazz, le trio Pep'Live…). Les envolées lyriques et virtuoses de chacun de ses solos, ainsi que sa maîtrise issue des arts martiaux qu'il pratique et enseigne à très haut niveau, caractérisent le style à la fois brillant et singulier de Nicolas.",
-    "style": "Envolées lyriques et virtuoses, maîtrise des arts martiaux",
-    "imagePlaceholder": "guitarist.jpg"
-  },
-  {
-    "id": "rinaldo",
-    "firstName": "Clarisse",
-    "lastName": "Rinaldo",
-    "instrument": "Violon Alto",
-    "icon": "fas fa-music",
-    "shortBio": "Débute ses études musicales en Guadeloupe et les poursuit au conservatoire de Lille. Médaille d'or de violon, premier prix de musique de chambre.",
-    "fullBio": "Clarisse débute ses études musicales en Guadeloupe et les poursuit au conservatoire de Lille. Violoniste, elle y obtient tout d'abord la médaille d'or puis le prix de perfectionnement dans la classe de Fernand Iaciu, ainsi qu'un premier prix de musique de chambre et une médaille d'or avec prix de la SACEM en écriture musicale. Elle se tourne ensuite vers l'alto et étudie au conservatoire de Boulogne-Billancourt où elle obtient son premier prix dans la classe d'Isabelle Lequien. Passionnée autant par la musique baroque que moderne, Clarisse donne de nombreux concerts avec des formations telles l'orchestre national de Lille, l'orchestre de Douai, l'Accademia Amsterdam… Elle intègre l'orchestre La Grande Ecurie et La Chambre Du Roy fondée par Jean-Claude Malgoire, devenue Les Ambassadeurs-La Grande Ecurie. Son amour pour la musique de chambre l'amène à intégrer le quatuor Sirius. Titulaire du diplôme d'État de professeur de d'alto, Clarisse enseigne avec passion dans les conservatoires et écoles de musique de Lille et de Hem. La générosité de Clarisse et sa joie de vivre transparaissent au travers des notes chaudes et frémissantes de son alto.",
-    "passion": "Passionnée autant par la musique baroque que moderne",
-    "imagePlaceholder": "violist.jpg"
-  },
-  {
-    "id": "smolarski",
-    "firstName": "David",
-    "lastName": "Smolarski",
-    "instrument": "Violoncelle",
-    "icon": "fas fa-music",
-    "shortBio": "Commence le violoncelle au conservatoire de Wasquehal, puis poursuit ses études dans les conservatoires de Lille et d'Aubervilliers. Lauréat d'un master de musique en Italie (2017).",
-    "fullBio": "David commence le violoncelle au conservatoire de Wasquehal, puis poursuit ses études dans les conservatoires de Lille et d'Aubervilliers où il obtient un prix de perfectionnement dans cette discipline. Il entame alors une licence au conservatoire Royal de Bruxelles, qu'il finalise en Italie. C'est là, à Potenza, qu'il est lauréat, en 2017, d'un master de musique, spécialité violoncelle. David enseigne son instrument à l'école de musique de Villeneuve D'ascq et aux conservatoires de Wasquehal et de Cambrai où il délivre également des cours de musique de chambre. Souvent invité à rejoindre le pupitre de violoncelle solo au Flemish Chamber Philharmonic et à l'orchestre de la Chapelle Royale de Tournai, il joue aussi, et de façon régulière, avec l'orchestre national de Lille et l'orchestre de Douai. Très intéressé également par l'interprétation de musiques plus intimistes, David se produit très souvent dans le cadre notamment des concerts organisés par l'association « Chambre à part ». Le violoncelle de David, par sa profondeur de son et sa puissance d'émotion, est un élément incontournable de notre groupe.",
-    "quality": "Profondeur de son et puissance d'émotion",
-    "imagePlaceholder": "cellist.jpg"
-  },
-  {
-    "id": "thoumire",
-    "firstName": "Cécile",
-    "lastName": "Thoumire",
-    "instrument": "Accordéon",
-    "icon": "fas fa-accordion",
-    "shortBio": "Grande amoureuse de l'accordéon depuis sa plus tendre enfance. Travaille sa maîtrise au conservatoire du 12ème arrondissement de Paris dans la classe de Max Bonnay.",
-    "fullBio": "Grande amoureuse de l'accordéon depuis sa plus tendre enfance, Cécile en travaille la maîtrise au conservatoire du 12ème arrondissement de Paris dans la classe de Max Bonnay. En 1996, au conservatoire de Roubaix, elle est lauréate du premier prix de formation musicale. Elle y enrichit ses compétences dans les classes de piano, écriture, analyse et histoire de la musique. Pédagogue dans l'âme, elle obtient ensuite ses diplômes d'État d'accordéon et de formation musicale. Elle rejoint, en 2000, le conservatoire de Wattrelos pour y enseigner la formation musicale. Depuis, sa vie est étroitement liée à l'enseignement : « L'éducation est l'arme la plus puissante que l'on puisse utiliser pour changer le monde. » Par la finesse de son interprétation et l'émotion à fleur de peau qui colore son jeu instrumental, Cécile offre au public la possibilité de découvrir une facette tout en beauté et trop souvent méconnue de l'accordéon.",
-    "quote": "L'éducation est l'arme la plus puissante que l'on puisse utiliser pour changer le monde.",
-    "imagePlaceholder": "accordionist.jpg"
-  }
-];
-
-/**
- * Gestion du modal des biographies
- */
-class BiographyModal {
-  constructor() {
-    this.modal = null;
-    this.init();
-  }
-
-  init() {
-    // Créer le modal dans le DOM
-    this.createModal();
-    
-    // Attacher les événements
-    this.attachEvents();
-  }
-
-  createModal() {
-    // Créer la structure du modal
-    const modalHTML = `
-      <div id="biography-modal" class="modal-overlay">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="modal-musician-info">
-              <div class="modal-musician-icon">
-                <i id="modal-icon"></i>
-              </div>
-              <div class="modal-musician-details">
-                <h3 id="modal-name"></h3>
-                <h4 id="modal-instrument"></h4>
-              </div>
-            </div>
-            <button class="modal-close" id="modal-close">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p id="modal-full-bio"></p>
-            <div id="modal-highlight" class="modal-highlight" style="display: none;">
-              <strong id="modal-highlight-label"></strong>
-              <span id="modal-highlight-text"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    // Ajouter au body
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    this.modal = document.getElementById('biography-modal');
-  }
-
-  attachEvents() {
-    // Fermer le modal
-    const closeBtn = document.getElementById('modal-close');
-    const modalOverlay = document.getElementById('biography-modal');
-
-    closeBtn.addEventListener('click', () => this.close());
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) {
-        this.close();
-      }
-    });
-
-    // Échap pour fermer
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modal.classList.contains('active')) {
-        this.close();
-      }
-    });
-  }
-
-  open(musicianData) {
-    // Remplir les données
-    document.getElementById('modal-icon').className = musicianData.icon;
-    document.getElementById('modal-name').textContent = `${musicianData.firstName} ${musicianData.lastName}`;
-    document.getElementById('modal-instrument').textContent = musicianData.instrument;
-    document.getElementById('modal-full-bio').textContent = musicianData.fullBio;
-
-    // Gestion des informations additionnelles
-    const highlight = document.getElementById('modal-highlight');
-    const highlightLabel = document.getElementById('modal-highlight-label');
-    const highlightText = document.getElementById('modal-highlight-text');
-
-    // Déterminer quelle information additionnnelle afficher
-    if (musicianData.motto) {
-      highlightLabel.textContent = 'Credo :';
-      highlightText.textContent = `"${musicianData.motto}"`;
-      highlight.style.display = 'block';
-    } else if (musicianData.philosophy) {
-      highlightLabel.textContent = 'Philosophie :';
-      highlightText.textContent = musicianData.philosophy;
-      highlight.style.display = 'block';
-    } else if (musicianData.speciality) {
-      highlightLabel.textContent = 'Spécialité :';
-      highlightText.textContent = musicianData.speciality;
-      highlight.style.display = 'block';
-    } else if (musicianData.highlight) {
-      highlightLabel.textContent = 'Expérience :';
-      highlightText.textContent = musicianData.highlight;
-      highlight.style.display = 'block';
-    } else if (musicianData.achievements) {
-      highlightLabel.textContent = 'Atouts :';
-      highlightText.textContent = musicianData.achievements;
-      highlight.style.display = 'block';
-    } else if (musicianData.style) {
-      highlightLabel.textContent = 'Style :';
-      highlightText.textContent = musicianData.style;
-      highlight.style.display = 'block';
-    } else if (musicianData.passion) {
-      highlightLabel.textContent = 'Passion :';
-      highlightText.textContent = musicianData.passion;
-      highlight.style.display = 'block';
-    } else if (musicianData.quality) {
-      highlightLabel.textContent = 'Qualité :';
-      highlightText.textContent = musicianData.quality;
-      highlight.style.display = 'block';
-    } else if (musicianData.quote) {
-      highlightLabel.textContent = 'Citation :';
-      highlightText.textContent = `"${musicianData.quote}"`;
-      highlight.style.display = 'block';
-    } else {
-      highlight.style.display = 'none';
-    }
-
-    // Afficher le modal
-    this.modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  close() {
-    this.modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-}
 
 /**
  * Gestionnaire principal des musiciens
  */
 class MusiciansManager {
   constructor() {
-    this.modal = new BiographyModal();
+    this.musiciansData = [];
     this.init();
   }
 
-  init() {
-    // Attendre que le DOM soit chargé
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.regenerateMusiciansSection());
-    } else if (document.readyState === 'interactive' || document.readyState === 'complete') {
-      // Utiliser un setTimeout pour s'assurer que tous les éléments sont rendus
-      setTimeout(() => this.regenerateMusiciansSection(), 100);
+  async init() {
+    try {
+      // Charger les données des musiciens depuis le JSON
+      await this.loadMusiciansData();
+      
+      // Attendre que le DOM soit chargé
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => this.generateMusiciansSection());
+      } else {
+        setTimeout(() => this.generateMusiciansSection(), 100);
+      }
+    } catch (error) {
+      console.error('❌ Erreur lors du chargement des données des musiciens:', error);
     }
   }
 
-  regenerateMusiciansSection() {
-    const musiciansGrid = document.querySelector('.musicians-grid');
+  async loadMusiciansData() {
+    try {
+      const response = await fetch('./assets/bios/biographies.json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      this.musiciansData = await response.json();
+      console.log('✅ Données des musiciens chargées:', this.musiciansData.length, 'musiciens');
+    } catch (error) {
+      console.error('❌ Erreur lors du chargement du fichier JSON:', error);
+      // Fallback: utiliser des données par défaut si le JSON ne charge pas
+      this.musiciansData = this.getFallbackData();
+    }
+  }
+
+  generateMusiciansSection() {
+    const musiciansGrid = document.querySelector('.musicians-grid-vertical');
     if (!musiciansGrid) {
-      console.error('❌ Element .musicians-grid non trouvé !');
+      console.error('❌ Element .musicians-grid-vertical non trouvé !');
       return;
     }
 
     // Vider la grille existante
     musiciansGrid.innerHTML = '';
 
-    // Générer les cartes des musiciens dans l'ordre alphabétique
-    musiciansData.forEach((musician) => {
-      const musicianCard = this.createMusicianCard(musician);
+    // Générer les cartes des musiciens
+    this.musiciansData.forEach((musician, index) => {
+      const musicianCard = this.createMusicianCard(musician, index);
       musiciansGrid.appendChild(musicianCard);
     });
 
-    // Ajouter la carte placeholder pour Mathieu Petit
-    const placeholderCard = this.createPlaceholderCard();
-    musiciansGrid.appendChild(placeholderCard);
+    console.log('🌼 Section musiciens générée avec', this.musiciansData.length, 'cartes');
   }
 
-  createMusicianCard(musician) {
+  createMusicianCard(musician, index) {
     const card = document.createElement('div');
     card.className = 'musician-card';
+    card.style.animationDelay = `${index * 0.1}s`;
 
+    const photoPath = `assets/bios/${musician.photo}`;
+    
     card.innerHTML = `
-      <div class="musician-image">
-        <i class="${musician.icon}"></i>
+      <div class="musician-header">
+        <img src="${photoPath}" alt="${musician.firstName} ${musician.lastName}" class="musician-photo" 
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="musician-icon-fallback" style="display: none; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--yellow-primary), var(--orange-retro)); align-items: center; justify-content: center; margin-right: 1.5rem;">
+          <i class="${musician.icon}" style="font-size: 2.5rem; color: white;"></i>
+        </div>
+        <div class="musician-basic-info">
+          <h3>${musician.firstName} ${musician.lastName}</h3>
+          <h4>${musician.instrument}</h4>
+          <p class="musician-resume">${musician.resume}</p>
+          <button class="read-more-btn" data-musician-id="${musician.id}">
+            <span>Lire la suite</span>
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
       </div>
-      <div class="musician-info">
-        <h3>${musician.firstName} ${musician.lastName}</h3>
-        <h4>${musician.instrument}</h4>
-        <p>${musician.shortBio}</p>
-        <button class="read-more-btn" data-musician-id="${musician.id}">
-          <span>Lire la suite</span>
-          <i class="fas fa-arrow-right"></i>
+      <div class="musician-full-bio" data-musician-id="${musician.id}">
+        <div class="bio-content">${musician.biographie_complete}</div>
+        ${musician.specialites && musician.specialites.length > 0 ? `
+          <div class="bio-specialties">
+            ${musician.specialites.map(specialty => `<span class="specialty-tag">${specialty}</span>`).join('')}
+          </div>
+        ` : ''}
+        ${musician.citation ? `
+          <div class="bio-citation">
+            ${musician.citation}
+          </div>
+        ` : ''}
+        <button class="collapse-btn" data-musician-id="${musician.id}">
+          <i class="fas fa-chevron-up"></i>
+          <span>Réduire</span>
         </button>
       </div>
     `;
 
-    // Attacher l'événement pour ouvrir le modal
-    const readMoreBtn = card.querySelector('.read-more-btn');
-    readMoreBtn.addEventListener('click', () => {
-      this.modal.open(musician);
-    });
+    // Attacher les événements pour expand/collapse
+    this.attachExpandCollapseEvents(card, musician.id);
 
     return card;
   }
 
-  createPlaceholderCard() {
-    const card = document.createElement('div');
-    card.className = 'musician-card placeholder';
+  attachExpandCollapseEvents(card, musicianId) {
+    const readMoreBtn = card.querySelector('.read-more-btn');
+    const collapseBtn = card.querySelector('.collapse-btn');
+    const fullBio = card.querySelector('.musician-full-bio');
 
-    card.innerHTML = `
-      <div class="musician-image">
-        <i class="fas fa-plus"></i>
-      </div>
-      <div class="musician-info">
-        <h3>Mathieu Petit</h3>
-        <h4>Biographie en attente</h4>
-        <p>La biographie de Mathieu sera bientôt disponible pour compléter notre présentation des 10 musiciens de l'orchestre.</p>
-      </div>
-    `;
+    // Événement pour ouvrir la biographie complète
+    readMoreBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.expandBiography(musicianId, readMoreBtn, fullBio);
+    });
 
-    return card;
+    // Événement pour fermer la biographie complète
+    collapseBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.collapseBiography(musicianId, readMoreBtn, fullBio);
+    });
+  }
+
+  expandBiography(musicianId, readMoreBtn, fullBio) {
+    // Fermer toutes les autres biographies ouvertes
+    this.closeAllBiographies();
+
+    // Ouvrir cette biographie
+    fullBio.classList.add('expanded');
+    readMoreBtn.classList.add('expanded');
+    
+    // Changer le texte et l'icône du bouton
+    const btnText = readMoreBtn.querySelector('span');
+    const btnIcon = readMoreBtn.querySelector('i');
+    btnText.textContent = 'Réduire';
+    btnIcon.className = 'fas fa-chevron-up';
+
+    // Scroll vers la carte pour une meilleure visibilité
+    setTimeout(() => {
+      fullBio.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }, 300);
+
+    console.log('🔄 Biographie ouverte pour:', musicianId);
+  }
+
+  collapseBiography(musicianId, readMoreBtn, fullBio) {
+    fullBio.classList.remove('expanded');
+    readMoreBtn.classList.remove('expanded');
+    
+    // Remettre le texte et l'icône originaux du bouton
+    const btnText = readMoreBtn.querySelector('span');
+    const btnIcon = readMoreBtn.querySelector('i');
+    btnText.textContent = 'Lire la suite';
+    btnIcon.className = 'fas fa-chevron-right';
+
+    console.log('🔄 Biographie fermée pour:', musicianId);
+  }
+
+  closeAllBiographies() {
+    const allFullBios = document.querySelectorAll('.musician-full-bio.expanded');
+    const allReadMoreBtns = document.querySelectorAll('.read-more-btn.expanded');
+
+    allFullBios.forEach(bio => {
+      bio.classList.remove('expanded');
+    });
+
+    allReadMoreBtns.forEach(btn => {
+      btn.classList.remove('expanded');
+      const btnText = btn.querySelector('span');
+      const btnIcon = btn.querySelector('i');
+      btnText.textContent = 'Lire la suite';
+      btnIcon.className = 'fas fa-chevron-right';
+    });
+  }
+
+  getFallbackData() {
+    // Données de fallback en cas d'échec du chargement JSON
+    return [
+      {
+        "id": "fallback",
+        "firstName": "Données",
+        "lastName": "En cours de chargement...",
+        "instrument": "Veuillez patienter",
+        "icon": "fas fa-spinner",
+        "photo": "placeholder.jpg",
+        "resume": "Les biographies des musiciens sont en cours de chargement. Veuillez rafraîchir la page.",
+        "biographie_complete": "Les données des musiciens sont actuellement en cours de chargement depuis notre serveur. Si ce message persiste, veuillez rafraîchir la page ou contacter l'administrateur du site.",
+        "specialites": [],
+        "citation": "Patience et longueur de temps font plus que force ni que rage."
+      }
+    ];
   }
 }
 
 // Initialiser le gestionnaire des musiciens
 const musiciansManager = new MusiciansManager();
+
+// Fonction globale pour fermer toutes les biographies (utile pour le débogage)
+window.closeAllBios = () => {
+  if (window.musiciansManager) {
+    window.musiciansManager.closeAllBiographies();
+  }
+};
+
+// Debug global
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  window.musiciansManager = musiciansManager;
+  console.log('🎯 Mode développement - musiciansManager disponible globalement');
+}
