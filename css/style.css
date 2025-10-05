@@ -504,7 +504,7 @@ section:nth-child(odd) {
 }
 
 /* ==============================================
-   MUSICIENS - SCROLL HORIZONTAL
+   MUSICIENS - GRILLE VERTICALE AVEC EXPAND/COLLAPSE
    ============================================== */
 .musicians {
     background: linear-gradient(135deg, var(--green-mint) 0%, var(--blue-sky) 50%, var(--pink-soft) 100%);
@@ -517,43 +517,25 @@ section:nth-child(odd) {
     margin-bottom: 3rem;
 }
 
-.musicians-scroll-container {
+.musicians-vertical-container {
     position: relative;
-    overflow: hidden;
     padding: 20px 0;
 }
 
-.musicians-grid {
-    display: flex;
+.musicians-grid-vertical {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 2rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 20px 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--yellow-primary) transparent;
-}
-
-.musicians-grid::-webkit-scrollbar {
-    height: 8px;
-}
-
-.musicians-grid::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-}
-
-.musicians-grid::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, var(--yellow-primary), var(--orange-retro));
-    border-radius: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .musician-card {
-    flex: 0 0 350px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 0;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border: 2px solid transparent;
     position: relative;
     overflow: hidden;
@@ -565,59 +547,228 @@ section:nth-child(odd) {
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
+    height: 5px;
     background: linear-gradient(90deg, var(--yellow-primary), var(--orange-retro), var(--pink-hot));
+    z-index: 2;
 }
 
 .musician-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
     border-color: var(--yellow-primary);
 }
 
-.musician-card.placeholder {
-    border: 2px dashed var(--purple-psyche);
-    background: rgba(147, 112, 219, 0.1);
+.musician-header {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+    border-radius: 25px 25px 0 0;
 }
 
-.musician-image {
-    text-align: center;
-    margin-bottom: 1.5rem;
+.musician-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--yellow-primary);
+    margin-right: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
-.musician-image i {
-    font-size: 4rem;
+.musician-card:hover .musician-photo {
+    border-color: var(--pink-hot);
+    transform: scale(1.05);
+}
+
+.musician-basic-info {
+    flex: 1;
+}
+
+.musician-basic-info h3 {
     color: var(--purple-psyche);
-    background: linear-gradient(135deg, var(--yellow-primary), var(--orange-retro));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.musician-info h3 {
-    color: var(--purple-psyche);
-    text-align: center;
     margin-bottom: 0.5rem;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
-.musician-info h4 {
+.musician-basic-info h4 {
     color: var(--pink-hot);
-    text-align: center;
     font-weight: 600;
     margin-bottom: 1rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
-.musician-info p {
-    color: #555;
+.musician-resume {
+    color: #666;
     font-size: 0.95rem;
     line-height: 1.6;
     margin-bottom: 1rem;
 }
 
-.musician-info strong {
-    color: var(--orange-retro);
+.read-more-btn {
+    background: linear-gradient(135deg, var(--yellow-primary), var(--orange-retro));
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.read-more-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    background: linear-gradient(135deg, var(--orange-retro), var(--pink-hot));
+    color: white;
+}
+
+.read-more-btn i {
+    transition: transform 0.3s ease;
+}
+
+.read-more-btn.expanded i {
+    transform: rotate(90deg);
+}
+
+.musician-full-bio {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.8s ease;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 0 0 25px 25px;
+    padding: 0 2rem;
+}
+
+.musician-full-bio.expanded {
+    /* max-height will be set dynamically by JavaScript */
+    padding: 2rem;
+    border-top: 2px solid var(--yellow-primary);
+}
+
+.bio-content {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.bio-specialties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.specialty-tag {
+    background: linear-gradient(135deg, var(--blue-sky), var(--green-mint));
+    color: #333;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.bio-citation {
+    background: linear-gradient(135deg, var(--pink-soft), var(--yellow-daisy));
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    border-left: 4px solid var(--pink-hot);
+    font-style: italic;
+    color: #444;
+    position: relative;
+}
+
+.bio-citation::before {
+    content: '"';
+    font-size: 3rem;
+    color: var(--pink-hot);
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-family: serif;
+}
+
+.collapse-btn {
+    background: linear-gradient(135deg, var(--purple-psyche), var(--pink-hot));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.collapse-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
+}
+
+/* Animations d'entrée */
+.musician-card {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.musician-card:nth-child(1) { animation-delay: 0.1s; }
+.musician-card:nth-child(2) { animation-delay: 0.2s; }
+.musician-card:nth-child(3) { animation-delay: 0.3s; }
+.musician-card:nth-child(4) { animation-delay: 0.4s; }
+.musician-card:nth-child(5) { animation-delay: 0.5s; }
+.musician-card:nth-child(6) { animation-delay: 0.6s; }
+.musician-card:nth-child(7) { animation-delay: 0.7s; }
+.musician-card:nth-child(8) { animation-delay: 0.8s; }
+.musician-card:nth-child(9) { animation-delay: 0.9s; }
+.musician-card:nth-child(10) { animation-delay: 1s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .musicians-grid-vertical {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .musician-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .musician-photo {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        width: 100px;
+        height: 100px;
+    }
+    
+    .musician-basic-info h3 {
+        font-size: 1.3rem;
+    }
+    
+    .musician-full-bio.expanded {
+        padding: 1.5rem;
+    }
 }
 
 /* ==============================================
@@ -1259,14 +1410,7 @@ section:nth-child(odd) {
         padding: 20px;
     }
     
-    .musicians-grid {
-        gap: 1rem;
-    }
-    
-    .musician-card {
-        flex: 0 0 280px;
-        padding: 1.5rem;
-    }
+    /* Musicians grid: now uses vertical layout defined in main section */
     
     .gallery-grid {
         grid-template-columns: 1fr;
