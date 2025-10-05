@@ -1,0 +1,25 @@
+# Headers pour la sécurité et performance
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Headers pour les polices
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000
+  Access-Control-Allow-Origin: *
+
+# Headers pour les images
+/images/*
+  Cache-Control: public, max-age=31536000
+
+# Headers pour CSS et JS
+/css/*
+  Cache-Control: public, max-age=31536000
+  Content-Type: text/css
+
+/js/*
+  Cache-Control: public, max-age=31536000
+  Content-Type: application/javascript
