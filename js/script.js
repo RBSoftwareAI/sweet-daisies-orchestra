@@ -25,7 +25,7 @@ function initializeApp() {
     initScrollEffects();
     initParallax();
     initAnimations();
-    initFloatingPhotos();  // ✨ Nouvelle fonctionnalité : photos flottantes
+    initHeroInteractions();  // ✨ Nouvelles interactions Hero
     initGallery();
     initScrollIndicator();
     
@@ -542,163 +542,116 @@ function triggerPsychedelicMode() {
 }
 
 // ==============================================
-// PHOTOS FLOTTANTES - ANIMATIONS HERO
+// HERO INTERACTIONS - ÉNERGIE COLLECTIVE
 // ==============================================
-function initFloatingPhotos() {
-    console.log('🌸 Initialisation des photos flottantes');
+function initHeroInteractions() {
+    console.log('🎭 Initialisation des interactions Hero - Énergie Collective');
     
-    const floatingContainer = document.getElementById('floatingPhotos');
-    if (!floatingContainer) return;
+    const heroSection = document.getElementById('home');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
     
-    // Configuration des photos à animer
-    const photoConfigs = [
-        { src: 'images/sdo-1-150.jpg', alt: 'Sweet Daisies - Instruments' },
-        { src: 'images/sdo-2-150.jpg', alt: 'Sweet Daisies - Collectif' },
-        { src: 'images/sdo-7-150.jpg', alt: 'Sweet Daisies - Concentration' },
-        { src: 'images/sdo-4-150.jpg', alt: 'Sweet Daisies - Complicité' }
-    ];
+    if (!heroSection) return;
     
-    // État des animations
-    let animationState = {
-        isActive: true,
-        photoElements: [],
-        animationIntervals: []
-    };
-    
-    // Créer les éléments de photos flottantes
-    function createFloatingPhotos() {
-        photoConfigs.forEach((config, index) => {
-            const photoElement = document.createElement('div');
-            photoElement.className = 'floating-photo';
-            photoElement.innerHTML = `<img src="${config.src}" alt="${config.alt}" loading="lazy">`;
-            
-            floatingContainer.appendChild(photoElement);
-            animationState.photoElements.push(photoElement);
+    // Scroll smooth vers section About au clic sur scroll indicator
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+                const targetPosition = aboutSection.offsetTop - navbarHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
         });
     }
     
-    // Lancer une nouvelle photo avec timing aléatoire
-    function launchFloatingPhoto() {
-        if (!animationState.isActive) return;
-        
-        // Sélectionner une photo aléatoire
-        const randomPhoto = animationState.photoElements[Math.floor(Math.random() * animationState.photoElements.length)];
-        
-        // Reset de la position et de l'animation
-        randomPhoto.style.animation = 'none';
-        randomPhoto.offsetHeight; // Force reflow
-        
-        // Choisir une animation aléatoire
-        const animations = ['float-petals-1', 'float-petals-2', 'float-petals-3', 'float-petals-4'];
-        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-        const randomDuration = 12 + Math.random() * 8; // Entre 12 et 20 secondes (plus rapide, plus visible)
-        
-        // Appliquer l'animation
-        randomPhoto.style.animation = `${randomAnimation} ${randomDuration}s linear`;
-        
-        // Programmer la prochaine photo (plus fréquent pour plus de visibilité)
-        const nextLaunchDelay = 2000 + Math.random() * 4000; // Entre 2 et 6 secondes
-        setTimeout(launchFloatingPhoto, nextLaunchDelay);
-    }
+    // Parallax subtil sur l'image de fond du Hero
+    let ticking = false;
     
-    // Gérer la visibilité selon la section
-    function handleSectionVisibility() {
-        const heroSection = document.getElementById('home');
-        if (!heroSection) return;
+    function updateHeroParallax() {
+        const scrolled = window.pageYOffset;
+        const heroHeight = heroSection.offsetHeight;
+        const scrollProgress = Math.min(scrolled / heroHeight, 1);
         
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animationState.isActive = true;
-                    floatingContainer.style.display = 'block';
-                } else {
-                    animationState.isActive = false;
-                    floatingContainer.style.display = 'none';
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        
-        observer.observe(heroSection);
-    }
-    
-    // Gérer les préférences d'accessibilité
-    function handleReducedMotion() {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            console.log('🔇 Mode mouvement réduit détecté - animations simplifiées');
-            floatingContainer.style.display = 'none';
-            return false;
+        const heroImg = heroSection.querySelector('.hero-bg-img');
+        if (heroImg) {
+            // Effet parallax très subtil
+            const parallaxValue = scrollProgress * 20;
+            heroImg.style.transform = `scale(${1 + scrollProgress * 0.05}) translateY(${parallaxValue}px)`;
         }
-        return true;
+        
+        // Fade out du contenu Hero lors du scroll
+        const heroContent = heroSection.querySelector('.hero-content');
+        if (heroContent) {
+            const fadeOpacity = Math.max(1 - scrollProgress * 1.5, 0);
+            heroContent.style.opacity = fadeOpacity;
+            heroContent.style.transform = `translateY(${scrollProgress * 50}px)`;
+        }
+        
+        ticking = false;
     }
     
-    // Pause/reprise des animations au hover
-    function setupHoverControls() {
-        const heroSection = document.getElementById('home');
-        if (!heroSection) return;
-        
-        heroSection.addEventListener('mouseenter', () => {
-            animationState.photoElements.forEach(photo => {
-                photo.style.animationPlayState = 'paused';
-            });
+    function requestParallaxUpdate() {
+        if (!ticking) {
+            requestAnimationFrame(updateHeroParallax);
+            ticking = true;
+        }
+    }
+    
+    // Activer le parallax seulement sur desktop pour les performances
+    if (window.innerWidth > 768) {
+        window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
+    }
+    
+    // Interaction hover sur les service items
+    const serviceItems = heroSection.querySelectorAll('.service-item');
+    serviceItems.forEach((item, index) => {
+        item.addEventListener('mouseenter', () => {
+            item.style.transform = 'translateY(-4px) scale(1.05)';
         });
         
-        heroSection.addEventListener('mouseleave', () => {
-            animationState.photoElements.forEach(photo => {
-                photo.style.animationPlayState = 'running';
-            });
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'translateY(-2px) scale(1)';
+        });
+    });
+    
+    // Animation d'apparition séquentielle des éléments
+    function animateHeroElements() {
+        const elements = [
+            '.hero-badge',
+            '.hero-title',
+            '.hero-subtitle',
+            '.hero-description',
+            '.hero-services',
+            '.hero-cta'
+        ];
+        
+        elements.forEach((selector, index) => {
+            const element = heroSection.querySelector(selector);
+            if (element) {
+                element.style.animationDelay = `${0.3 + index * 0.3}s`;
+            }
         });
     }
     
-    // Performance : limiter les animations sur mobile
-    function isMobileDevice() {
-        return window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    }
+    // Initialiser les animations
+    animateHeroElements();
     
-    // Initialisation principale
-    function initialize() {
-        // Vérifier les préférences d'accessibilité
-        if (!handleReducedMotion()) return;
-        
-        // Créer les éléments
-        createFloatingPhotos();
-        
-        // Configurer les contrôles
-        setupHoverControls();
-        handleSectionVisibility();
-        
-        // Réduire la fréquence sur mobile
-        const initialDelay = isMobileDevice() ? 5000 : 2000;
-        
-        // Lancer les animations après un délai initial
-        setTimeout(() => {
-            launchFloatingPhoto();
-        }, initialDelay);
-        
-        console.log('✨ Photos flottantes initialisées avec succès');
-    }
+    console.log('✨ Hero "Énergie Collective" initialisé avec succès');
     
-    // Démarrer l'initialisation
-    initialize();
-    
-    // Interface publique pour contrôler les animations
-    window.FloatingPhotos = {
-        toggle: () => {
-            animationState.isActive = !animationState.isActive;
-            floatingContainer.style.display = animationState.isActive ? 'block' : 'none';
+    // Interface publique pour contrôler le Hero
+    window.HeroController = {
+        resetAnimations: animateHeroElements,
+        enableParallax: () => {
+            if (window.innerWidth > 768) {
+                window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
+            }
         },
-        pause: () => {
-            animationState.isActive = false;
-            animationState.photoElements.forEach(photo => {
-                photo.style.animationPlayState = 'paused';
-            });
-        },
-        resume: () => {
-            animationState.isActive = true;
-            animationState.photoElements.forEach(photo => {
-                photo.style.animationPlayState = 'running';
-            });
+        disableParallax: () => {
+            window.removeEventListener('scroll', requestParallaxUpdate);
         }
     };
 }
