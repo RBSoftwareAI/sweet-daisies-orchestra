@@ -542,15 +542,102 @@ function triggerPsychedelicMode() {
 }
 
 // ==============================================
-// HERO INTERACTIONS - ÉNERGIE COLLECTIVE
+// HERO CARROUSEL DYNAMIQUE
 // ==============================================
 function initHeroInteractions() {
-    console.log('🎭 Initialisation des interactions Hero - Énergie Collective');
+    console.log('🎠 Initialisation du Hero Carrousel Dynamique');
     
     const heroSection = document.getElementById('home');
     const scrollIndicator = document.querySelector('.scroll-indicator');
     
     if (!heroSection) return;
+    
+    // Configuration du carrousel
+    const carouselState = {
+        currentSlide: 0,
+        totalSlides: 3,
+        autoPlayInterval: null,
+        isPlaying: true,
+        slideDuration: 5000 // 5 secondes par slide
+    };
+    
+    const slides = heroSection.querySelectorAll('.hero-carousel-slide');
+    const slideContents = heroSection.querySelectorAll('.hero-slide-content');
+    const indicators = heroSection.querySelectorAll('.indicator');
+    
+    // Fonction pour changer de slide
+    function changeSlide(targetSlide, manual = false) {
+        if (targetSlide === carouselState.currentSlide) return;
+        
+        // Désactiver la slide actuelle
+        slides[carouselState.currentSlide]?.classList.remove('active');
+        slideContents[carouselState.currentSlide]?.classList.remove('active');
+        indicators[carouselState.currentSlide]?.classList.remove('active');
+        
+        // Activer la nouvelle slide
+        carouselState.currentSlide = targetSlide;
+        slides[carouselState.currentSlide]?.classList.add('active');
+        slideContents[carouselState.currentSlide]?.classList.add('active');
+        indicators[carouselState.currentSlide]?.classList.add('active');
+        
+        console.log(`🎭 Slide ${carouselState.currentSlide + 1}/${carouselState.totalSlides} ${manual ? '(manuel)' : '(auto)'}`);
+        
+        // Redémarrer l'autoplay si changement manuel
+        if (manual && carouselState.isPlaying) {
+            restartAutoPlay();
+        }
+    }
+    
+    // Slide suivante
+    function nextSlide() {
+        const nextIndex = (carouselState.currentSlide + 1) % carouselState.totalSlides;
+        changeSlide(nextIndex);
+    }
+    
+    // Démarrer l'autoplay
+    function startAutoPlay() {
+        if (carouselState.autoPlayInterval) return;
+        
+        carouselState.autoPlayInterval = setInterval(() => {
+            if (carouselState.isPlaying) {
+                nextSlide();
+            }
+        }, carouselState.slideDuration);
+        
+        console.log('▶️ Carrousel Hero - Autoplay démarré');
+    }
+    
+    // Arrêter l'autoplay
+    function stopAutoPlay() {
+        if (carouselState.autoPlayInterval) {
+            clearInterval(carouselState.autoPlayInterval);
+            carouselState.autoPlayInterval = null;
+        }
+    }
+    
+    // Redémarrer l'autoplay
+    function restartAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+    }
+    
+    // Gérer les clics sur les indicateurs
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            changeSlide(index, true);
+        });
+    });
+    
+    // Pause au hover sur le Hero
+    heroSection.addEventListener('mouseenter', () => {
+        carouselState.isPlaying = false;
+        console.log('⏸️ Carrousel Hero - Pause (hover)');
+    });
+    
+    heroSection.addEventListener('mouseleave', () => {
+        carouselState.isPlaying = true;
+        console.log('▶️ Carrousel Hero - Reprise (hover out)');
+    });
     
     // Scroll smooth vers section About au clic sur scroll indicator
     if (scrollIndicator) {
@@ -568,7 +655,7 @@ function initHeroInteractions() {
         });
     }
     
-    // Parallax subtil sur l'image de fond du Hero
+    // Parallax subtil sur les images du carrousel
     let ticking = false;
     
     function updateHeroParallax() {
@@ -576,19 +663,19 @@ function initHeroInteractions() {
         const heroHeight = heroSection.offsetHeight;
         const scrollProgress = Math.min(scrolled / heroHeight, 1);
         
-        const heroImg = heroSection.querySelector('.hero-bg-img');
-        if (heroImg) {
-            // Effet parallax très subtil
-            const parallaxValue = scrollProgress * 20;
-            heroImg.style.transform = `scale(${1 + scrollProgress * 0.05}) translateY(${parallaxValue}px)`;
-        }
-        
         // Fade out du contenu Hero lors du scroll
         const heroContent = heroSection.querySelector('.hero-content');
         if (heroContent) {
             const fadeOpacity = Math.max(1 - scrollProgress * 1.5, 0);
             heroContent.style.opacity = fadeOpacity;
             heroContent.style.transform = `translateY(${scrollProgress * 50}px)`;
+        }
+        
+        // Parallax sur l'image active
+        const activeImg = heroSection.querySelector('.hero-carousel-slide.active .hero-bg-img');
+        if (activeImg) {
+            const parallaxValue = scrollProgress * 20;
+            activeImg.style.transform = `scale(${1 + scrollProgress * 0.05}) translateY(${parallaxValue}px)`;
         }
         
         ticking = false;
@@ -618,41 +705,24 @@ function initHeroInteractions() {
         });
     });
     
-    // Animation d'apparition séquentielle des éléments
-    function animateHeroElements() {
-        const elements = [
-            '.hero-badge',
-            '.hero-title',
-            '.hero-subtitle',
-            '.hero-description',
-            '.hero-services',
-            '.hero-cta'
-        ];
-        
-        elements.forEach((selector, index) => {
-            const element = heroSection.querySelector(selector);
-            if (element) {
-                element.style.animationDelay = `${0.3 + index * 0.3}s`;
-            }
-        });
-    }
+    // Démarrer l'autoplay après un délai initial
+    setTimeout(() => {
+        startAutoPlay();
+    }, 3000); // 3 secondes avant le premier changement
     
-    // Initialiser les animations
-    animateHeroElements();
+    console.log('✨ Hero Carrousel Dynamique initialisé avec succès');
     
-    console.log('✨ Hero "Énergie Collective" initialisé avec succès');
-    
-    // Interface publique pour contrôler le Hero
+    // Interface publique pour contrôler le carrousel
     window.HeroController = {
-        resetAnimations: animateHeroElements,
-        enableParallax: () => {
-            if (window.innerWidth > 768) {
-                window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
-            }
+        nextSlide: () => changeSlide((carouselState.currentSlide + 1) % carouselState.totalSlides, true),
+        prevSlide: () => changeSlide((carouselState.currentSlide - 1 + carouselState.totalSlides) % carouselState.totalSlides, true),
+        goToSlide: (index) => changeSlide(index, true),
+        toggleAutoPlay: () => {
+            carouselState.isPlaying = !carouselState.isPlaying;
+            return carouselState.isPlaying;
         },
-        disableParallax: () => {
-            window.removeEventListener('scroll', requestParallaxUpdate);
-        }
+        getCurrentSlide: () => carouselState.currentSlide,
+        restart: restartAutoPlay
     };
 }
 
