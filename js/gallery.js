@@ -1,6 +1,6 @@
 /**
  * Gestionnaire du carousel de la galerie étendue
- * Gestion des 13 photos de groupe avec navigation et indicateurs
+ * Gestion des 12 photos de groupe avec navigation et indicateurs
  */
 
 /**
@@ -9,7 +9,7 @@
 class GalleryCarousel {
   constructor() {
     this.currentSlide = 0;
-    this.totalSlides = 13;
+    this.totalSlides = 12;
     this.autoPlayInterval = null;
     this.autoPlayDelay = 5000; // 5 secondes
     this.isAutoPlaying = true;
@@ -285,4 +285,4 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 }
 
 // Log de chargement
-console.log('🎠 Gallery Carousel JS chargé - 13 photos de groupe disponibles');
+console.log('🎠 Gallery Carousel JS chargé - 12 photos de groupe disponibles');
