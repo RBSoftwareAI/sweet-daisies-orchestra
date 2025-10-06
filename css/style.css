@@ -242,7 +242,7 @@ p {
 }
 
 /* ==============================================
-   HERO SECTION - CARROUSEL DYNAMIQUE
+   HERO SECTION - SPLIT SCREEN CRÉATIF
    ============================================== */
 .hero {
     position: relative;
@@ -254,45 +254,53 @@ p {
     background: #1a1a1a;
 }
 
-.hero-carousel-container {
+/* Split Screen - Côté gauche (Professionnalisme) */
+.hero-split-left {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 50%;
     height: 100%;
     z-index: 1;
+    overflow: hidden;
+    clip-path: polygon(0 0, 85% 0, 75% 100%, 0% 100%);
 }
 
-.hero-carousel-slide {
+/* Split Screen - Côté droit (Créativité) */
+.hero-split-right {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 50%;
     height: 100%;
-    opacity: 0;
-    transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1;
+    overflow: hidden;
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 15% 100%);
 }
 
-.hero-carousel-slide.active {
-    opacity: 1;
-}
-
-.hero-bg-img {
+.hero-split-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center center;
-    filter: brightness(0.6) contrast(1.1) saturate(1.2);
-    animation: kenBurns 8s ease-in-out infinite;
+    filter: brightness(0.7) contrast(1.2) saturate(1.1);
+    animation: subtleShift 15s ease-in-out infinite;
 }
 
-@keyframes kenBurns {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+@keyframes subtleShift {
+    0%, 100% { transform: scale(1.05) translateX(0); }
+    50% { transform: scale(1.08) translateX(-10px); }
 }
 
-.hero-overlay {
+.hero-split-left .hero-split-img {
+    animation-delay: 0s;
+}
+
+.hero-split-right .hero-split-img {
+    animation-delay: 7.5s;
+}
+
+.hero-split-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -300,83 +308,127 @@ p {
     height: 100%;
     background: linear-gradient(
         135deg,
-        rgba(26, 26, 26, 0.75) 0%,
-        rgba(0, 0, 0, 0.4) 30%,
-        rgba(0, 0, 0, 0.3) 70%,
-        rgba(26, 26, 26, 0.8) 100%
+        rgba(26, 26, 26, 0.6) 0%,
+        rgba(0, 0, 0, 0.4) 100%
     );
     z-index: 2;
+}
+
+/* Labels des sections */
+.hero-split-label {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    padding: 0.8rem 2rem;
+    background: rgba(255, 215, 0, 0.15);
+    border: 2px solid rgba(255, 215, 0, 0.6);
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.hero-split-label span {
+    color: var(--yellow-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Zone de jonction centrale */
+.hero-split-junction {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 50%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+        45deg,
+        rgba(26, 26, 26, 0.9) 0%,
+        rgba(0, 0, 0, 0.8) 30%,
+        rgba(0, 0, 0, 0.8) 70%,
+        rgba(26, 26, 26, 0.9) 100%
+    );
+    backdrop-filter: blur(15px);
+    border-left: 2px solid rgba(255, 215, 0, 0.3);
+    border-right: 2px solid rgba(255, 215, 0, 0.3);
 }
 
 .hero-content {
     position: relative;
     z-index: 10;
     text-align: center;
-    max-width: 900px;
-    padding: 0 20px;
+    max-width: 100%;
+    padding: 2rem;
     animation: heroContentReveal 1.5s ease-out;
 }
 
-/* Contenu dynamique du carrousel */
-.hero-dynamic-content {
-    position: relative;
-    min-height: 120px;
-}
-
-.hero-slide-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.hero-slide-content.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Contrôles du carrousel */
-.hero-carousel-controls {
-    position: absolute;
-    bottom: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-}
-
-.carousel-indicators {
+/* Valeurs duales spécifiques au split screen */
+.hero-dual-values {
     display: flex;
-    gap: 1rem;
-    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 2rem 0;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    background: transparent;
-    cursor: pointer;
+.hero-value {
+    flex: 1;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
     transition: all 0.3s ease;
-    position: relative;
 }
 
-.indicator.active {
-    background: var(--yellow-primary);
-    border-color: var(--yellow-primary);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+.hero-value:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.6);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
 }
 
-.indicator:hover {
-    border-color: rgba(255, 255, 255, 0.8);
-    transform: scale(1.2);
+.hero-value i {
+    font-size: 2rem;
+    color: var(--yellow-primary);
+    margin-bottom: 1rem;
+    display: block;
 }
 
-.indicator:not(.active):hover {
-    background: rgba(255, 255, 255, 0.3);
+.hero-value h3 {
+    font-size: 1.2rem;
+    color: var(--white-pure);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.hero-value p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Animation de révélation en diagonale */
+@keyframes diagonalReveal {
+    from {
+        opacity: 0;
+        transform: translateX(-30px) translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0) scale(1);
+    }
 }
 
 @keyframes heroContentReveal {
@@ -604,8 +656,29 @@ p {
    RESPONSIVE HERO
    ============================================== */
 @media (max-width: 768px) {
+    /* Split screen adaptatif sur mobile */
+    .hero-split-left {
+        width: 100%;
+        height: 50%;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+    }
+    
+    .hero-split-right {
+        width: 100%;
+        height: 50%;
+        top: 50%;
+        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+    }
+    
+    .hero-split-junction {
+        left: 10%;
+        width: 80%;
+        top: 35%;
+        height: 30%;
+    }
+    
     .hero-content {
-        padding: 0 15px;
+        padding: 1.5rem;
     }
     
     .hero-badge {
@@ -617,8 +690,18 @@ p {
         font-size: 0.9rem;
     }
     
-    .hero-dynamic-content {
-        min-height: 100px;
+    .hero-dual-values {
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .hero-value {
+        padding: 1rem;
+    }
+    
+    .hero-value i {
+        font-size: 1.5rem;
     }
     
     .hero-services {
@@ -644,8 +727,13 @@ p {
         max-width: 300px;
     }
     
-    .hero-carousel-controls {
-        bottom: 100px;
+    .hero-split-label {
+        top: 20px;
+        padding: 0.5rem 1rem;
+    }
+    
+    .hero-split-label span {
+        font-size: 0.85rem;
     }
     
     .scroll-indicator {
