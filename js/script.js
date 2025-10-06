@@ -552,10 +552,10 @@ function initFloatingPhotos() {
     
     // Configuration des photos à animer
     const photoConfigs = [
-        { src: 'images/sdo-1-75.jpg', alt: 'Sweet Daisies - Instruments' },
-        { src: 'images/sdo-2-75.jpg', alt: 'Sweet Daisies - Collectif' },
-        { src: 'images/sdo-7-75.jpg', alt: 'Sweet Daisies - Concentration' },
-        { src: 'images/sdo-4-75.jpg', alt: 'Sweet Daisies - Complicité' }
+        { src: 'images/sdo-1-150.jpg', alt: 'Sweet Daisies - Instruments' },
+        { src: 'images/sdo-2-150.jpg', alt: 'Sweet Daisies - Collectif' },
+        { src: 'images/sdo-7-150.jpg', alt: 'Sweet Daisies - Concentration' },
+        { src: 'images/sdo-4-150.jpg', alt: 'Sweet Daisies - Complicité' }
     ];
     
     // État des animations
@@ -591,13 +591,13 @@ function initFloatingPhotos() {
         // Choisir une animation aléatoire
         const animations = ['float-petals-1', 'float-petals-2', 'float-petals-3', 'float-petals-4'];
         const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-        const randomDuration = 18 + Math.random() * 12; // Entre 18 et 30 secondes
+        const randomDuration = 12 + Math.random() * 8; // Entre 12 et 20 secondes (plus rapide, plus visible)
         
         // Appliquer l'animation
         randomPhoto.style.animation = `${randomAnimation} ${randomDuration}s linear`;
         
-        // Programmer la prochaine photo
-        const nextLaunchDelay = 3000 + Math.random() * 7000; // Entre 3 et 10 secondes
+        // Programmer la prochaine photo (plus fréquent pour plus de visibilité)
+        const nextLaunchDelay = 2000 + Math.random() * 4000; // Entre 2 et 6 secondes
         setTimeout(launchFloatingPhoto, nextLaunchDelay);
     }
     
