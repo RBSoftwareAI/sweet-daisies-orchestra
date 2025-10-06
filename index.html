@@ -39,71 +39,77 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero hero-split-screen">
-        <!-- Split Screen gauche - Formation Professionnelle -->
-        <div class="hero-split-left">
-            <img src="images/sdo-13.jpg" alt="Sweet Daisies Orchestra - Formation Professionnelle" class="hero-split-img">
-            <div class="hero-split-overlay"></div>
-            <div class="hero-split-label">
-                <span>Professionnalisme</span>
+    <section id="home" class="hero hero-carousel">
+        <!-- Carrousel d'images de fond -->
+        <div class="hero-carousel-container">
+            <div class="hero-carousel-slide active">
+                <img src="images/sdo-2.jpg" alt="Sweet Daisies Orchestra - Créativité Musicale" class="hero-bg-img">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-carousel-slide">
+                <img src="images/sdo-13.jpg" alt="Sweet Daisies Orchestra - Formation Complète" class="hero-bg-img">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-carousel-slide">
+                <img src="images/sdo-14.jpg" alt="Sweet Daisies Orchestra - Esprit d'Équipe" class="hero-bg-img">
+                <div class="hero-overlay"></div>
             </div>
         </div>
         
-        <!-- Split Screen droite - Énergie Créative -->
-        <div class="hero-split-right">
-            <img src="images/sdo-2.jpg" alt="Sweet Daisies Orchestra - Énergie Créative" class="hero-split-img">
-            <div class="hero-split-overlay"></div>
-            <div class="hero-split-label">
-                <span>Créativité</span>
+        <!-- Contenu principal -->
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-text">🌼 Groupe de Musiciens</span>
+            </div>
+            <h1 class="hero-title">The Sweet Daisies Orchestra</h1>
+            
+            <!-- Sous-titres dynamiques selon l'image -->
+            <div class="hero-dynamic-content">
+                <div class="hero-slide-content active" data-slide="0">
+                    <p class="hero-subtitle">Créativité & Originalité</p>
+                    <p class="hero-description">Une approche innovante qui réinvente vos titres préférés avec fraîcheur et originalité.</p>
+                </div>
+                <div class="hero-slide-content" data-slide="1">
+                    <p class="hero-subtitle">10 Musiciens • 10 Univers</p>
+                    <p class="hero-description">Du jazz au rock, du classique au funk, chaque musicien apporte sa couleur unique.</p>
+                </div>
+                <div class="hero-slide-content" data-slide="2">
+                    <p class="hero-subtitle">Une Mission Partagée</p>
+                    <p class="hero-description">Unis par la passion musicale, nous créons des moments magiques pour vos événements.</p>
+                </div>
+            </div>
+            
+            <div class="hero-services">
+                <div class="service-item">
+                    <i class="fas fa-music"></i>
+                    <span>CONCERTS</span>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-heart"></i>
+                    <span>CÉRÉMONIES</span>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-building"></i>
+                    <span>COMITÉS D'ENTREPRISES</span>
+                </div>
+            </div>
+            
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-phone"></i> Nous contacter
+                </a>
+                <a href="#about" class="btn btn-secondary">
+                    <i class="fas fa-arrow-down"></i> Découvrir notre univers
+                </a>
             </div>
         </div>
         
-        <!-- Zone de jonction centrale avec le contenu -->
-        <div class="hero-split-junction">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="hero-badge-text">🌼 Groupe de Musiciens</span>
-                </div>
-                <h1 class="hero-title">The Sweet Daisies Orchestra</h1>
-                <p class="hero-subtitle">Professionnalisme & Créativité</p>
-                <p class="hero-description">L'alliance parfaite entre excellence musicale et innovation artistique pour transformer vos événements.</p>
-                
-                <div class="hero-dual-values">
-                    <div class="hero-value">
-                        <i class="fas fa-award"></i>
-                        <h3>Excellence</h3>
-                        <p>10 musiciens professionnels</p>
-                    </div>
-                    <div class="hero-value">
-                        <i class="fas fa-lightbulb"></i>
-                        <h3>Innovation</h3>
-                        <p>Réinvention créative</p>
-                    </div>
-                </div>
-                
-                <div class="hero-services">
-                    <div class="service-item">
-                        <i class="fas fa-music"></i>
-                        <span>CONCERTS</span>
-                    </div>
-                    <div class="service-item">
-                        <i class="fas fa-heart"></i>
-                        <span>CÉRÉMONIES</span>
-                    </div>
-                    <div class="service-item">
-                        <i class="fas fa-building"></i>
-                        <span>COMITÉS D'ENTREPRISES</span>
-                    </div>
-                </div>
-                
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">
-                        <i class="fas fa-phone"></i> Nous contacter
-                    </a>
-                    <a href="#about" class="btn btn-secondary">
-                        <i class="fas fa-arrow-down"></i> Découvrir notre univers
-                    </a>
-                </div>
+        <!-- Contrôles du carrousel -->
+        <div class="hero-carousel-controls">
+            <div class="carousel-indicators">
+                <button class="indicator active" data-slide="0" aria-label="Slide 1"></button>
+                <button class="indicator" data-slide="1" aria-label="Slide 2"></button>
+                <button class="indicator" data-slide="2" aria-label="Slide 3"></button>
             </div>
         </div>
         

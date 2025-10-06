@@ -542,15 +542,102 @@ function triggerPsychedelicMode() {
 }
 
 // ==============================================
-// HERO SPLIT SCREEN CRÉATIF
+// HERO CARROUSEL DYNAMIQUE
 // ==============================================
 function initHeroInteractions() {
-    console.log('🎨 Initialisation du Hero Split Screen Créatif');
+    console.log('🎠 Initialisation du Hero Carrousel Dynamique');
     
     const heroSection = document.getElementById('home');
     const scrollIndicator = document.querySelector('.scroll-indicator');
     
     if (!heroSection) return;
+    
+    // Configuration du carrousel
+    const carouselState = {
+        currentSlide: 0,
+        totalSlides: 3,
+        autoPlayInterval: null,
+        isPlaying: true,
+        slideDuration: 5000 // 5 secondes par slide
+    };
+    
+    const slides = heroSection.querySelectorAll('.hero-carousel-slide');
+    const slideContents = heroSection.querySelectorAll('.hero-slide-content');
+    const indicators = heroSection.querySelectorAll('.indicator');
+    
+    // Fonction pour changer de slide
+    function changeSlide(targetSlide, manual = false) {
+        if (targetSlide === carouselState.currentSlide) return;
+        
+        // Désactiver la slide actuelle
+        slides[carouselState.currentSlide]?.classList.remove('active');
+        slideContents[carouselState.currentSlide]?.classList.remove('active');
+        indicators[carouselState.currentSlide]?.classList.remove('active');
+        
+        // Activer la nouvelle slide
+        carouselState.currentSlide = targetSlide;
+        slides[carouselState.currentSlide]?.classList.add('active');
+        slideContents[carouselState.currentSlide]?.classList.add('active');
+        indicators[carouselState.currentSlide]?.classList.add('active');
+        
+        console.log(`🎭 Slide ${carouselState.currentSlide + 1}/${carouselState.totalSlides} ${manual ? '(manuel)' : '(auto)'}`);
+        
+        // Redémarrer l'autoplay si changement manuel
+        if (manual && carouselState.isPlaying) {
+            restartAutoPlay();
+        }
+    }
+    
+    // Slide suivante
+    function nextSlide() {
+        const nextIndex = (carouselState.currentSlide + 1) % carouselState.totalSlides;
+        changeSlide(nextIndex);
+    }
+    
+    // Démarrer l'autoplay
+    function startAutoPlay() {
+        if (carouselState.autoPlayInterval) return;
+        
+        carouselState.autoPlayInterval = setInterval(() => {
+            if (carouselState.isPlaying) {
+                nextSlide();
+            }
+        }, carouselState.slideDuration);
+        
+        console.log('▶️ Carrousel Hero - Autoplay démarré');
+    }
+    
+    // Arrêter l'autoplay
+    function stopAutoPlay() {
+        if (carouselState.autoPlayInterval) {
+            clearInterval(carouselState.autoPlayInterval);
+            carouselState.autoPlayInterval = null;
+        }
+    }
+    
+    // Redémarrer l'autoplay
+    function restartAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+    }
+    
+    // Gérer les clics sur les indicateurs
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            changeSlide(index, true);
+        });
+    });
+    
+    // Pause au hover sur le Hero
+    heroSection.addEventListener('mouseenter', () => {
+        carouselState.isPlaying = false;
+        console.log('⏸️ Carrousel Hero - Pause (hover)');
+    });
+    
+    heroSection.addEventListener('mouseleave', () => {
+        carouselState.isPlaying = true;
+        console.log('▶️ Carrousel Hero - Reprise (hover out)');
+    });
     
     // Scroll smooth vers section About au clic sur scroll indicator
     if (scrollIndicator) {
@@ -568,7 +655,7 @@ function initHeroInteractions() {
         });
     }
     
-    // Parallax et effets de scroll
+    // Parallax subtil sur les images du carrousel
     let ticking = false;
     
     function updateHeroParallax() {
@@ -584,25 +671,11 @@ function initHeroInteractions() {
             heroContent.style.transform = `translateY(${scrollProgress * 50}px)`;
         }
         
-        // Parallax sur les images split
-        const leftImg = heroSection.querySelector('.hero-split-left .hero-split-img');
-        const rightImg = heroSection.querySelector('.hero-split-right .hero-split-img');
-        
-        if (leftImg) {
-            const parallaxValue = scrollProgress * 30;
-            leftImg.style.transform = `scale(${1.05 + scrollProgress * 0.05}) translateY(${parallaxValue}px) translateX(${parallaxValue * 0.5}px)`;
-        }
-        
-        if (rightImg) {
-            const parallaxValue = scrollProgress * 30;
-            rightImg.style.transform = `scale(${1.05 + scrollProgress * 0.05}) translateY(${parallaxValue}px) translateX(${-parallaxValue * 0.5}px)`;
-        }
-        
-        // Effet sur la jonction centrale
-        const junction = heroSection.querySelector('.hero-split-junction');
-        if (junction) {
-            const blurValue = Math.min(scrollProgress * 20, 15);
-            junction.style.backdropFilter = `blur(${15 + blurValue}px)`;
+        // Parallax sur l'image active
+        const activeImg = heroSection.querySelector('.hero-carousel-slide.active .hero-bg-img');
+        if (activeImg) {
+            const parallaxValue = scrollProgress * 20;
+            activeImg.style.transform = `scale(${1 + scrollProgress * 0.05}) translateY(${parallaxValue}px)`;
         }
         
         ticking = false;
@@ -620,9 +693,9 @@ function initHeroInteractions() {
         window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
     }
     
-    // Interactions hover sur les éléments
+    // Interaction hover sur les service items
     const serviceItems = heroSection.querySelectorAll('.service-item');
-    serviceItems.forEach((item) => {
+    serviceItems.forEach((item, index) => {
         item.addEventListener('mouseenter', () => {
             item.style.transform = 'translateY(-4px) scale(1.05)';
         });
@@ -632,65 +705,24 @@ function initHeroInteractions() {
         });
     });
     
-    // Interactions hover sur les valeurs duales
-    const heroValues = heroSection.querySelectorAll('.hero-value');
-    heroValues.forEach((value, index) => {
-        value.addEventListener('mouseenter', () => {
-            // Effet de mise en avant
-            heroValues.forEach((v, i) => {
-                if (i !== index) {
-                    v.style.opacity = '0.6';
-                    v.style.transform = 'scale(0.95)';
-                }
-            });
-        });
-        
-        value.addEventListener('mouseleave', () => {
-            // Restaurer l'état normal
-            heroValues.forEach((v) => {
-                v.style.opacity = '1';
-                v.style.transform = 'scale(1)';
-            });
-        });
-    });
+    // Démarrer l'autoplay après un délai initial
+    setTimeout(() => {
+        startAutoPlay();
+    }, 3000); // 3 secondes avant le premier changement
     
-    // Animation d'apparition séquentielle des éléments
-    function animateHeroElements() {
-        const elements = [
-            '.hero-badge',
-            '.hero-title',
-            '.hero-subtitle',
-            '.hero-description',
-            '.hero-dual-values',
-            '.hero-services',
-            '.hero-cta'
-        ];
-        
-        elements.forEach((selector, index) => {
-            const element = heroSection.querySelector(selector);
-            if (element) {
-                element.style.animationDelay = `${0.3 + index * 0.2}s`;
-                element.style.animation = `diagonalReveal 1s ease-out ${element.style.animationDelay} both`;
-            }
-        });
-    }
+    console.log('✨ Hero Carrousel Dynamique initialisé avec succès');
     
-    // Initialiser les animations
-    animateHeroElements();
-    
-    console.log('✨ Hero Split Screen Créatif initialisé avec succès');
-    
-    // Interface publique pour contrôler le Hero
+    // Interface publique pour contrôler le carrousel
     window.HeroController = {
-        resetAnimations: animateHeroElements,
-        enableParallax: () => {
-            if (window.innerWidth > 768) {
-                window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
-            }
+        nextSlide: () => changeSlide((carouselState.currentSlide + 1) % carouselState.totalSlides, true),
+        prevSlide: () => changeSlide((carouselState.currentSlide - 1 + carouselState.totalSlides) % carouselState.totalSlides, true),
+        goToSlide: (index) => changeSlide(index, true),
+        toggleAutoPlay: () => {
+            carouselState.isPlaying = !carouselState.isPlaying;
+            return carouselState.isPlaying;
         },
-        disableParallax: () => {
-            window.removeEventListener('scroll', requestParallaxUpdate);
-        }
+        getCurrentSlide: () => carouselState.currentSlide,
+        restart: restartAutoPlay
     };
 }
 
