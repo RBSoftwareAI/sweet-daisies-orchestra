@@ -25,6 +25,7 @@ function initializeApp() {
     initScrollEffects();
     initParallax();
     initAnimations();
+    initFloatingPhotos();  // ✨ Nouvelle fonctionnalité : photos flottantes
     initGallery();
     initScrollIndicator();
     
@@ -538,6 +539,168 @@ function triggerPsychedelicMode() {
         document.body.classList.remove('psychedelic-mode');
         document.head.removeChild(style);
     }, 10000);
+}
+
+// ==============================================
+// PHOTOS FLOTTANTES - ANIMATIONS HERO
+// ==============================================
+function initFloatingPhotos() {
+    console.log('🌸 Initialisation des photos flottantes');
+    
+    const floatingContainer = document.getElementById('floatingPhotos');
+    if (!floatingContainer) return;
+    
+    // Configuration des photos à animer
+    const photoConfigs = [
+        { src: 'images/sdo-1-75.jpg', alt: 'Sweet Daisies - Instruments' },
+        { src: 'images/sdo-2-75.jpg', alt: 'Sweet Daisies - Collectif' },
+        { src: 'images/sdo-7-75.jpg', alt: 'Sweet Daisies - Concentration' },
+        { src: 'images/sdo-4-75.jpg', alt: 'Sweet Daisies - Complicité' }
+    ];
+    
+    // État des animations
+    let animationState = {
+        isActive: true,
+        photoElements: [],
+        animationIntervals: []
+    };
+    
+    // Créer les éléments de photos flottantes
+    function createFloatingPhotos() {
+        photoConfigs.forEach((config, index) => {
+            const photoElement = document.createElement('div');
+            photoElement.className = 'floating-photo';
+            photoElement.innerHTML = `<img src="${config.src}" alt="${config.alt}" loading="lazy">`;
+            
+            floatingContainer.appendChild(photoElement);
+            animationState.photoElements.push(photoElement);
+        });
+    }
+    
+    // Lancer une nouvelle photo avec timing aléatoire
+    function launchFloatingPhoto() {
+        if (!animationState.isActive) return;
+        
+        // Sélectionner une photo aléatoire
+        const randomPhoto = animationState.photoElements[Math.floor(Math.random() * animationState.photoElements.length)];
+        
+        // Reset de la position et de l'animation
+        randomPhoto.style.animation = 'none';
+        randomPhoto.offsetHeight; // Force reflow
+        
+        // Choisir une animation aléatoire
+        const animations = ['float-petals-1', 'float-petals-2', 'float-petals-3', 'float-petals-4'];
+        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+        const randomDuration = 18 + Math.random() * 12; // Entre 18 et 30 secondes
+        
+        // Appliquer l'animation
+        randomPhoto.style.animation = `${randomAnimation} ${randomDuration}s linear`;
+        
+        // Programmer la prochaine photo
+        const nextLaunchDelay = 3000 + Math.random() * 7000; // Entre 3 et 10 secondes
+        setTimeout(launchFloatingPhoto, nextLaunchDelay);
+    }
+    
+    // Gérer la visibilité selon la section
+    function handleSectionVisibility() {
+        const heroSection = document.getElementById('home');
+        if (!heroSection) return;
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animationState.isActive = true;
+                    floatingContainer.style.display = 'block';
+                } else {
+                    animationState.isActive = false;
+                    floatingContainer.style.display = 'none';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        observer.observe(heroSection);
+    }
+    
+    // Gérer les préférences d'accessibilité
+    function handleReducedMotion() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            console.log('🔇 Mode mouvement réduit détecté - animations simplifiées');
+            floatingContainer.style.display = 'none';
+            return false;
+        }
+        return true;
+    }
+    
+    // Pause/reprise des animations au hover
+    function setupHoverControls() {
+        const heroSection = document.getElementById('home');
+        if (!heroSection) return;
+        
+        heroSection.addEventListener('mouseenter', () => {
+            animationState.photoElements.forEach(photo => {
+                photo.style.animationPlayState = 'paused';
+            });
+        });
+        
+        heroSection.addEventListener('mouseleave', () => {
+            animationState.photoElements.forEach(photo => {
+                photo.style.animationPlayState = 'running';
+            });
+        });
+    }
+    
+    // Performance : limiter les animations sur mobile
+    function isMobileDevice() {
+        return window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    
+    // Initialisation principale
+    function initialize() {
+        // Vérifier les préférences d'accessibilité
+        if (!handleReducedMotion()) return;
+        
+        // Créer les éléments
+        createFloatingPhotos();
+        
+        // Configurer les contrôles
+        setupHoverControls();
+        handleSectionVisibility();
+        
+        // Réduire la fréquence sur mobile
+        const initialDelay = isMobileDevice() ? 5000 : 2000;
+        
+        // Lancer les animations après un délai initial
+        setTimeout(() => {
+            launchFloatingPhoto();
+        }, initialDelay);
+        
+        console.log('✨ Photos flottantes initialisées avec succès');
+    }
+    
+    // Démarrer l'initialisation
+    initialize();
+    
+    // Interface publique pour contrôler les animations
+    window.FloatingPhotos = {
+        toggle: () => {
+            animationState.isActive = !animationState.isActive;
+            floatingContainer.style.display = animationState.isActive ? 'block' : 'none';
+        },
+        pause: () => {
+            animationState.isActive = false;
+            animationState.photoElements.forEach(photo => {
+                photo.style.animationPlayState = 'paused';
+            });
+        },
+        resume: () => {
+            animationState.isActive = true;
+            animationState.photoElements.forEach(photo => {
+                photo.style.animationPlayState = 'running';
+            });
+        }
+    };
 }
 
 // ==============================================
