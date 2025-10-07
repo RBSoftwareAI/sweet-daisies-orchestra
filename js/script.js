@@ -192,33 +192,9 @@ function initScrollIndicator() {
 // ==============================================
 function initParallax() {
     const parallaxElements = document.querySelectorAll('.parallax-bg');
-    const parallaxSection = document.querySelector('.parallax-section');
     
     function updateParallax() {
         const scrollY = window.pageYOffset;
-        
-        // Effet parallaxe spécial pour la section instruments
-        if (parallaxSection && parallaxElements.length > 0) {
-            const sectionTop = parallaxSection.offsetTop;
-            const sectionHeight = parallaxSection.offsetHeight;
-            const windowHeight = window.innerHeight;
-            
-            // Vérifier si la section est dans le viewport
-            if (scrollY + windowHeight > sectionTop && scrollY < sectionTop + sectionHeight) {
-                const parallaxBg = parallaxElements[0];
-                
-                // Calculer le pourcentage de progression dans la section
-                const progress = (scrollY + windowHeight - sectionTop) / (windowHeight + sectionHeight);
-                
-                // Effet parallaxe vertical pour révéler les instruments
-                const yPos = -100 + (progress * 150); // De -100px à +50px
-                parallaxBg.style.transform = `translateY(${yPos}px)`;
-                
-                // Ajuster dynamiquement la position de background pour voir plus d'instruments
-                const bgPosY = 85 - (progress * 20); // De 85% à 65%
-                parallaxBg.style.backgroundPosition = `center ${bgPosY}%`;
-            }
-        }
         
         parallaxElements.forEach(element => {
             const rect = element.getBoundingClientRect();

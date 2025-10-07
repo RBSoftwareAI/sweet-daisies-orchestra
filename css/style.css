@@ -682,152 +682,49 @@ p {
 
 
 /* ==============================================
-   SECTION PARALLAXE AVEC INSTRUMENTS
+   PARALLAX SECTION
    ============================================== */
 .parallax-section {
     position: relative;
-    height: 400px; /* Hauteur augmentée pour mieux voir l'image */
+    height: 400px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #1a1a1a; /* Fond sombre de base */
 }
-
-
 
 .parallax-bg {
     position: absolute;
-    top: -50%;
+    top: -50px;
     left: 0;
     width: 100%;
-    height: 150%; /* Plus de hauteur pour l'effet parallaxe */
+    height: 120%;
     background-attachment: fixed;
-    background-position: center 75%; /* Position pour voir les instruments */
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    /* Filtre pour améliorer la visibilité */
-    filter: brightness(0.85) contrast(1.1) saturate(1.05);
-    z-index: 1;
-    will-change: transform;
-}
-
-/* Effet parallaxe amélioré pour grands écrans */
-@media (min-width: 1200px) {
-    .parallax-bg {
-        background-position: center 70%; /* Meilleure vue des instruments */
-    }
-}
-
-
-
-/* Overlay pour améliorer la lisibilité du texte */
-.parallax-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        /* Gradient central pour le texte */
-        radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 70%),
-        /* Gradient vertical doux */
-        linear-gradient(
-            180deg,
-            rgba(26, 26, 26, 0.4) 0%,
-            rgba(26, 26, 26, 0.3) 50%,
-            rgba(245, 247, 250, 0.4) 100%
-        );
-    z-index: 2;
+    filter: brightness(0.8) saturate(1.4);
 }
 
 .parallax-content {
     position: relative;
-    z-index: 3;
+    z-index: 2;
     text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.6);
     padding: 40px;
-    /* Design avec fond semi-transparent */
-    background: rgba(255, 255, 255, 0.94);
-    border-radius: 20px;
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 1);
-    backdrop-filter: blur(15px);
-    /* Animation d'entrée */
-    animation: contentFadeIn 1.5s ease-out;
-}
-
-@keyframes contentFadeIn {
-    from { 
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to { 
-        opacity: 1;
-        transform: translateY(0);
-    }
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
 }
 
 .parallax-content h2 {
-    color: var(--purple-psyche);
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
-    margin-bottom: 1.2rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
-    position: relative;
-}
-
-/* Pâquerette décorative - visible seulement sur grands écrans */
-@media (min-width: 768px) {
-    .parallax-content h2::before,
-    .parallax-content h2::after {
-        content: '🌼';
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 1.3rem;
-        opacity: 0.8;
-    }
-
-    .parallax-content h2::before {
-        left: -45px;
-    }
-
-    .parallax-content h2::after {
-        right: -45px;
-    }
-}
-
-/* Ajustements pour tablettes */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .parallax-bg {
-        background-size: 1100px auto;
-        background-position: center 90%;
-    }
-}
-
-/* Ligne décorative */
-.parallax-content h2 + p::before {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    margin: 0 auto 15px;
-    background: var(--yellow-primary);
-    border-radius: 2px;
+    color: var(--yellow-primary);
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1rem;
 }
 
 .parallax-content p {
-    color: #333;
-    font-size: clamp(1.05rem, 2vw, 1.25rem);
-    line-height: 1.7;
-    max-width: 550px;
-    margin: 0 auto;
-    font-weight: 500;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    color: var(--white-pure);
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
 }
 
 /* ==============================================
@@ -851,24 +748,6 @@ section:nth-child(odd) {
    ============================================== */
 .about {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(173, 216, 230, 0.3) 100%);
-    position: relative;
-}
-
-/* Transition en fondu depuis la section précédente */
-.about::before {
-    content: '';
-    position: absolute;
-    top: -80px;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(255, 255, 255, 0.9)
-    );
-    z-index: 1;
-    pointer-events: none;
 }
 
 .about-content {
@@ -2560,36 +2439,6 @@ body.modal-open {
     
     .slide-overlay h4 {
         font-size: 1.2rem;
-    }
-    
-    /* Section Parallaxe Mobile */
-    .parallax-section {
-        height: 350px;
-        padding: 0;
-    }
-    
-    .parallax-bg {
-        background-attachment: scroll; /* Fixe le problème parallaxe sur mobile */
-        background-position: center 75%;
-        background-size: cover;
-        filter: brightness(0.75);
-        top: 0;
-        height: 100%;
-        transform: none !important; /* Pas d'effet parallaxe sur mobile */
-    }
-    
-    .parallax-content {
-        padding: 30px 20px;
-        max-width: 90%;
-        margin: 0 auto;
-    }
-    
-    .parallax-content h2 {
-        font-size: 1.6rem;
-    }
-    
-    .parallax-content p {
-        font-size: 1rem;
     }
     
     .gallery-complement {
