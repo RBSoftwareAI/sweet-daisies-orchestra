@@ -465,7 +465,7 @@ p {
 .hero-description {
     font-size: clamp(1.1rem, 2.2vw, 1.4rem);
     color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
     line-height: 1.6;
     max-width: 700px;
     margin-left: auto;
@@ -656,7 +656,7 @@ p {
 @media (max-width: 480px) {
     .hero-description {
         font-size: 1rem;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
     
     .service-item {
@@ -910,6 +910,12 @@ section:nth-child(odd) {
     object-position: center 20%;  /* Positionne légèrement vers le haut sans excès */
     transition: all 0.3s ease;
     cursor: pointer;
+}
+
+/* Amélioration du centrage pour Clarisse et Mathieu */
+.musician-card[data-musician-id="rinaldo"] .musician-photo-rect,
+.musician-card[data-musician-id="petit"] .musician-photo-rect {
+    object-position: center 10%; /* Position plus haute pour un meilleur centrage */
 }
 
 .musician-photo-container:hover .musician-photo-rect {
@@ -2314,6 +2320,24 @@ body.modal-open {
     .gallery-item.large {
         grid-row: span 2;
         height: 372px;
+    }
+}
+
+/* Tablettes - Fix pour photos musiciens */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .musician-photo-container {
+        height: 280px; /* Hauteur légèrement augmentée pour tablette */
+    }
+    
+    .musician-photo-rect {
+        object-fit: cover;
+        object-position: center 25%; /* Meilleur centrage pour tablette */
+    }
+    
+    /* Amélioration spécifique pour Clarisse et Mathieu */
+    .musician-card[data-musician-id="rinaldo"] .musician-photo-rect,
+    .musician-card[data-musician-id="petit"] .musician-photo-rect {
+        object-position: center 15%; /* Position plus haute pour ces deux musiciens */
     }
 }
 
