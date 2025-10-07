@@ -898,7 +898,7 @@ section:nth-child(odd) {
 .musician-photo-container {
     position: relative;
     width: 100%;
-    height: 280px;  /* Augmenté de 250px à 280px pour plus d'espace */
+    height: 270px;  /* Réduit de 280px à 270px pour un meilleur équilibre */
     border-radius: 25px 25px 0 0;
     overflow: hidden;
 }
@@ -907,7 +907,7 @@ section:nth-child(odd) {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;  /* Positionne vers le haut pour voir les visages complets */
+    object-position: center 20%;  /* Positionne légèrement vers le haut sans excès */
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -1133,7 +1133,7 @@ section:nth-child(odd) {
     }
     
     .musician-photo-container {
-        height: 220px;  /* Augmenté de 200px à 220px pour mobile */
+        height: 210px;  /* Ajusté à 210px pour mobile */
     }
     
     .musician-info-container {
