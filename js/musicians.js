@@ -81,7 +81,7 @@ class MusiciansManager {
           <h4>${musician.instrument}</h4>
           <p class="musician-resume">${musician.resume}</p>
           <button class="read-more-btn" data-musician-id="${musician.id}">
-            <span>Lire la suite</span>
+            <span>Lire la bio</span>
             <i class="fas fa-chevron-right"></i>
           </button>
         </div>
@@ -165,7 +165,7 @@ class MusiciansManager {
       fullBio.style.maxHeight = Math.max(realHeight + 150, 400) + 'px'; // +150px pour le padding et marge de sécurité
       readMoreBtn.classList.add('expanded');
       
-      // Masquer le bouton "Lire la suite"
+      // Masquer le bouton "Lire la bio"
       readMoreBtn.style.display = 'none';
     });
 
@@ -197,7 +197,7 @@ class MusiciansManager {
     fullBio.classList.remove('expanded');
     readMoreBtn.classList.remove('expanded');
     
-    // Réafficher le bouton "Lire la suite" après l'animation
+    // Réafficher le bouton "Lire la bio" après l'animation
     setTimeout(() => {
       readMoreBtn.style.display = 'flex';
     }, 300);
