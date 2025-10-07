@@ -113,39 +113,67 @@ class GalleryModal {
   }
 
   makeImagesClickable() {
-    // Rendre le visuel artistique cliquable
-    const heroImage = document.querySelector('.gallery-hero img');
-    if (heroImage) {
-      heroImage.style.cursor = 'pointer';
-      heroImage.addEventListener('click', () => {
+    // Fonction pour attacher les événements à un élément cliquable
+    const attachClickableEvent = (element, imageSrc, title, description) => {
+      element.style.cursor = 'pointer';
+      element.addEventListener('click', () => {
         this.openModal({
-          src: heroImage.src,
-          alt: heroImage.alt,
-          title: '🌼 Visuel Artistique Sweet Daisies',
-          description: 'Notre univers visuel mêlant art et musique dans un style unique et coloré.'
+          src: imageSrc,
+          alt: title,
+          title: title,
+          description: description
         });
       });
-      
-      // Ajouter un indicateur visuel
-      this.addClickIndicator(heroImage.parentElement, 'Cliquer pour agrandir');
+    };
+
+    // Rendre le visuel artistique cliquable
+    const heroElement = document.querySelector('.gallery-hero.gallery-clickable');
+    if (heroElement) {
+      const heroImage = heroElement.querySelector('img');
+      if (heroImage) {
+        attachClickableEvent(heroElement, heroElement.dataset.image || heroImage.src, 
+          '🌼 Visuel Artistique Sweet Daisies',
+          'Notre univers visuel mêlant art et musique dans un style unique et coloré.');
+      }
     }
 
-    // Rendre le logo cliquable
-    const logoImage = document.querySelector('.gallery-item-small img');
-    if (logoImage) {
-      logoImage.style.cursor = 'pointer';
-      logoImage.addEventListener('click', () => {
-        this.openModal({
-          src: logoImage.src,
-          alt: logoImage.alt,
-          title: '🎵 Logo Sweet Daisies Orchestra',
-          description: 'Notre logo officiel représentant l\'identité visuelle du groupe.'
-        });
-      });
+    // Rendre tous les éléments gallery-clickable cliquables
+    const clickableElements = document.querySelectorAll('.gallery-clickable');
+    clickableElements.forEach(element => {
+      if (element.classList.contains('gallery-hero')) return; // Déjà traité
       
-      // Ajouter un indicateur visuel
-      this.addClickIndicator(logoImage.parentElement, 'Cliquer pour agrandir');
-    }
+      const img = element.querySelector('img');
+      if (!img) return;
+      
+      // Déterminer le titre et la description selon le type
+      let title = '🖼️ Image';
+      let description = 'Cliquez pour voir en grand format';
+      
+      if (element.classList.contains('gallery-item-small')) {
+        const overlay = element.querySelector('.gallery-overlay-small h4');
+        if (overlay) {
+          title = overlay.textContent;
+          const descElement = element.querySelector('.gallery-overlay-small p');
+          if (descElement) description = descElement.textContent;
+        }
+      } else if (element.classList.contains('musician-photo-rect') || element.classList.contains('musician-photo-container')) {
+        // Pour les photos de musiciens
+        const card = element.closest('.musician-card');
+        if (card) {
+          const nameElement = card.querySelector('h3');
+          const instrumentElement = card.querySelector('h4');
+          if (nameElement) {
+            title = `👤 ${nameElement.textContent}`;
+            if (instrumentElement) {
+              description = instrumentElement.textContent;
+            }
+          }
+        }
+      }
+      
+      const imageSrc = element.dataset.image || img.src;
+      attachClickableEvent(element, imageSrc, title, description);
+    });
   }
 
   addClickIndicator(container, text) {
@@ -268,11 +296,9 @@ window.openGalleryModal = (imageData) => {
   galleryModal.openModal(imageData);
 };
 
-// Debug global
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.includes('e2b.dev')) {
-  window.galleryModal = galleryModal;
-  console.log('🎯 Mode développement - galleryModal disponible globalement');
-}
+// Exposer globalement pour les interactions inter-modules
+window.galleryModal = galleryModal;
+console.log('🎯 galleryModal disponible globalement');
 
 // Log de chargement
 console.log('🖼️ Gallery Modal JS chargé - Visuel et logo cliquables');
