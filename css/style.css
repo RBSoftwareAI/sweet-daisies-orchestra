@@ -898,7 +898,7 @@ section:nth-child(odd) {
 .musician-photo-container {
     position: relative;
     width: 100%;
-    height: 250px;
+    height: 280px;  /* Augmenté de 250px à 280px pour plus d'espace */
     border-radius: 25px 25px 0 0;
     overflow: hidden;
 }
@@ -907,6 +907,7 @@ section:nth-child(odd) {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;  /* Positionne vers le haut pour voir les visages complets */
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -1132,7 +1133,7 @@ section:nth-child(odd) {
     }
     
     .musician-photo-container {
-        height: 200px;
+        height: 220px;  /* Augmenté de 200px à 220px pour mobile */
     }
     
     .musician-info-container {
