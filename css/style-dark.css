@@ -1,23 +1,26 @@
 /* ==============================================
-   VARIABLES CSS - PALETTE PSYCHÉDÉLIQUE 60-70
+   VARIABLES CSS - PALETTE MODERNE ÉLÉGANTE
    ============================================== */
 :root {
-    /* Couleurs principales */
-    --yellow-primary: #FFD700;    /* Jaune vif */
-    --yellow-daisy: #FFDE00;      /* Jaune pâquerette */
+    /* Couleurs principales - Thème sombre élégant */
+    --yellow-primary: #FFD700;    /* Or principal - accent */
+    --yellow-soft: #FFC107;       /* Jaune doux */
+    --yellow-pale: #FFF3CD;       /* Jaune pâle */
     --white-pure: #FFFFFF;        /* Blanc pur */
-    --pink-soft: #FFB6C1;         /* Rose doux */
     
-    /* Couleurs d'arrière-plan */
-    --blue-sky: #ADD8E6;          /* Bleu ciel */
-    --green-mint: #98FF98;        /* Vert menthe */
-    --pink-orange: #FF69B4;       /* Rose-orange */
+    /* Nouvelle palette sombre */
+    --dark-primary: #0A0A0A;      /* Noir profond */
+    --dark-secondary: #1A1A1A;    /* Gris très foncé */
+    --dark-tertiary: #2A2A2A;     /* Gris foncé */
+    --gray-medium: #4A4A4A;       /* Gris moyen */
+    --gray-light: #8A8A8A;        /* Gris clair */
+    --gray-lighter: #CACACA;      /* Gris très clair */
     
-    /* Couleurs complémentaires */
-    --purple-psyche: #9370DB;     /* Violet psychédélique */
-    --orange-retro: #FFA500;      /* Orange rétro */
-    --green-grass: #90EE90;       /* Vert herbe */
-    --pink-hot: #FF1493;          /* Rose chaud */
+    /* Couleurs d'accent modernes */
+    --accent-warm: #FF6B6B;       /* Rouge corail */
+    --accent-cool: #4ECDC4;       /* Turquoise */
+    --accent-purple: #7B68EE;     /* Violet doux */
+    --accent-green: #51CF66;      /* Vert menthe moderne */
     
     /* Typographie */
     --font-primary: 'Poppins', sans-serif;
@@ -46,9 +49,28 @@ html {
 body {
     font-family: var(--font-secondary);
     line-height: 1.6;
-    color: #333;
-    background: linear-gradient(135deg, var(--blue-sky) 0%, var(--green-mint) 50%, var(--pink-soft) 100%);
+    color: var(--gray-lighter);
+    background: var(--dark-primary);
     min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Animation globale d'apparition au scroll */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Classe pour animer les éléments */
+.animate-on-scroll {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
 }
 
 .container {
@@ -63,8 +85,8 @@ body {
 h1, h2, h3, h4 {
     font-family: var(--font-primary);
     font-weight: 700;
-    color: var(--yellow-primary);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: var(--white-pure);
+    text-shadow: none;
 }
 
 h1 {
@@ -86,7 +108,7 @@ h3 {
 h4 {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
-    color: var(--orange-retro);
+    color: var(--yellow-primary);
 }
 
 p {
@@ -201,7 +223,7 @@ p {
 
 .nav-menu a {
     text-decoration: none;
-    color: #333;
+    color: var(--gray-lighter);
     font-weight: 500;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -215,7 +237,7 @@ p {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--yellow-primary), var(--orange-retro));
+    background: var(--yellow-primary);
     transition: width 0.3s ease;
 }
 
@@ -224,7 +246,7 @@ p {
 }
 
 .nav-menu a:hover {
-    color: var(--orange-retro);
+    color: var(--yellow-primary);
 }
 
 .hamburger {
@@ -236,7 +258,7 @@ p {
 .hamburger span {
     width: 25px;
     height: 3px;
-    background: #E6C200;  /* Jaune assombri pour meilleur contraste */
+    background: var(--yellow-primary);
     margin: 3px 0;
     transition: 0.3s;
 }
@@ -682,152 +704,106 @@ p {
 
 
 /* ==============================================
-   SECTION PARALLAXE AVEC INSTRUMENTS
+   SECTION DE TRANSITION - DESIGN MODERNE
    ============================================== */
 .parallax-section {
     position: relative;
-    height: 400px; /* Hauteur augmentée pour mieux voir l'image */
+    padding: 100px 0;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #1a1a1a; /* Fond sombre de base */
+    background: linear-gradient(
+        180deg, 
+        var(--dark-secondary) 0%, 
+        var(--dark-tertiary) 50%, 
+        var(--dark-secondary) 100%
+    );
 }
 
-
-
-.parallax-bg {
-    position: absolute;
-    top: -50%;
-    left: 0;
-    width: 100%;
-    height: 150%; /* Plus de hauteur pour l'effet parallaxe */
-    background-attachment: fixed;
-    background-position: center 75%; /* Position pour voir les instruments */
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* Filtre pour améliorer la visibilité */
-    filter: brightness(0.85) contrast(1.1) saturate(1.05);
-    z-index: 1;
-    will-change: transform;
-}
-
-/* Effet parallaxe amélioré pour grands écrans */
-@media (min-width: 1200px) {
-    .parallax-bg {
-        background-position: center 70%; /* Meilleure vue des instruments */
-    }
-}
-
-
-
-/* Overlay pour améliorer la lisibilité du texte */
-.parallax-overlay {
+/* Motif géométrique de fond */
+.parallax-section::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        /* Gradient central pour le texte */
-        radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 70%),
-        /* Gradient vertical doux */
-        linear-gradient(
-            180deg,
-            rgba(26, 26, 26, 0.4) 0%,
-            rgba(26, 26, 26, 0.3) 50%,
-            rgba(245, 247, 250, 0.4) 100%
-        );
+    background-image: 
+        linear-gradient(45deg, transparent 48%, var(--yellow-primary) 49%, var(--yellow-primary) 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, var(--yellow-primary) 49%, var(--yellow-primary) 51%, transparent 52%);
+    background-size: 40px 40px;
+    background-position: center;
+    opacity: 0.03;
+    z-index: 1;
+}
+
+/* Effet de lumière centrale */
+.parallax-section::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 215, 0, 0.1) 0%,
+        transparent 70%
+    );
     z-index: 2;
+}
+
+.parallax-bg {
+    display: none; /* Suppression de l'image */
 }
 
 .parallax-content {
     position: relative;
     z-index: 3;
     text-align: center;
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 40px;
-    /* Design avec fond semi-transparent */
-    background: rgba(255, 255, 255, 0.94);
+    padding: 60px 20px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 215, 0, 0.05) 0%,
+        rgba(255, 255, 255, 0.02) 100%
+    );
+    border: 1px solid rgba(255, 215, 0, 0.1);
     border-radius: 20px;
+    backdrop-filter: blur(10px);
     box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 1);
-    backdrop-filter: blur(15px);
-    /* Animation d'entrée */
-    animation: contentFadeIn 1.5s ease-out;
-}
-
-@keyframes contentFadeIn {
-    from { 
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to { 
-        opacity: 1;
-        transform: translateY(0);
-    }
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .parallax-content h2 {
-    color: var(--purple-psyche);
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
-    margin-bottom: 1.2rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+    color: var(--white-pure);
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1.5rem;
     position: relative;
+    display: inline-block;
 }
 
-/* Pâquerette décorative - visible seulement sur grands écrans */
-@media (min-width: 768px) {
-    .parallax-content h2::before,
-    .parallax-content h2::after {
-        content: '🌼';
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 1.3rem;
-        opacity: 0.8;
-    }
-
-    .parallax-content h2::before {
-        left: -45px;
-    }
-
-    .parallax-content h2::after {
-        right: -45px;
-    }
-}
-
-/* Ajustements pour tablettes */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .parallax-bg {
-        background-size: 1100px auto;
-        background-position: center 90%;
-    }
-}
-
-/* Ligne décorative */
-.parallax-content h2 + p::before {
+/* Accent sous le titre */
+.parallax-content h2::after {
     content: '';
-    display: block;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    margin: 0 auto 15px;
     background: var(--yellow-primary);
     border-radius: 2px;
 }
 
 .parallax-content p {
-    color: #333;
-    font-size: clamp(1.05rem, 2vw, 1.25rem);
-    line-height: 1.7;
-    max-width: 550px;
+    color: var(--gray-lighter);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    line-height: 1.8;
+    opacity: 0.9;
+    max-width: 700px;
     margin: 0 auto;
-    font-weight: 500;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 /* ==============================================
@@ -836,39 +812,71 @@ p {
 section {
     padding: var(--section-padding);
     position: relative;
+    background: var(--dark-primary);
+    transition: background 0.5s ease;
 }
 
+/* Animation de séparateur entre sections */
+section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--yellow-primary),
+        transparent
+    );
+    opacity: 0.3;
+}
+
+/* Suppression des fonds alternés pour une cohérence */
+section:nth-child(even),
+section:nth-child(odd) {
+    background: transparent;
+}
+
+/* Sections avec fond légèrement différent */
 section:nth-child(even) {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--dark-secondary);
 }
 
 section:nth-child(odd) {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--dark-primary);
 }
 
 /* ==============================================
-   À PROPOS
+   À PROPOS - DESIGN MODERNE SOMBRE
    ============================================== */
 .about {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(173, 216, 230, 0.3) 100%);
+    background: linear-gradient(
+        180deg, 
+        var(--dark-primary) 0%, 
+        var(--dark-secondary) 100%
+    );
     position: relative;
+    overflow: hidden;
 }
 
-/* Transition en fondu depuis la section précédente */
+/* Décoration géométrique subtile */
 .about::before {
     content: '';
     position: absolute;
-    top: -80px;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(255, 255, 255, 0.9)
+    top: -200px;
+    right: -200px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 215, 0, 0.05) 0%,
+        transparent 70%
     );
+    border-radius: 50%;
     z-index: 1;
-    pointer-events: none;
 }
 
 .about-content {
@@ -876,62 +884,100 @@ section:nth-child(odd) {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .about-text h2 {
-    color: var(--purple-psyche);
+    color: var(--white-pure);
     text-align: left;
     margin-bottom: 0.5rem;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    position: relative;
+    display: inline-block;
+}
+
+/* Accent doré sur le titre */
+.about-text h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 60px;
+    height: 3px;
+    background: var(--yellow-primary);
+    border-radius: 2px;
 }
 
 .about-text h3 {
-    color: var(--orange-retro);
+    color: var(--yellow-primary);
     font-size: 1.3rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     font-weight: 600;
+    opacity: 0.9;
 }
 
 .about-text p {
-    font-size: 1.1rem;
-    color: #444;
-    line-height: 1.7;
+    font-size: 1.15rem;
+    color: var(--gray-lighter);
+    line-height: 1.8;
     margin-bottom: 1.5rem;
+    opacity: 0.85;
 }
 
 .about-text strong {
-    color: var(--pink-hot);
+    color: var(--yellow-primary);
     font-weight: 700;
 }
 
 .about-services {
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     padding: 2rem;
-    background: rgba(255, 215, 0, 0.1);
+    background: linear-gradient(
+        135deg,
+        rgba(255, 215, 0, 0.05) 0%,
+        rgba(255, 255, 255, 0.02) 100%
+    );
+    border: 1px solid rgba(255, 215, 0, 0.2);
     border-radius: 15px;
-    border-left: 5px solid var(--yellow-primary);
+    backdrop-filter: blur(5px);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .about-services h4 {
-    color: var(--purple-psyche);
-    margin-bottom: 1rem;
+    color: var(--white-pure);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .about-services ul {
     list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 }
 
 .about-services li {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-    color: #555;
+    gap: 0.8rem;
+    padding: 0.5rem 0;
+    color: var(--gray-lighter);
     font-weight: 500;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.about-services li:hover {
+    transform: translateX(5px);
+    color: var(--white-pure);
 }
 
 .about-services i {
-    color: var(--pink-hot);
-    font-size: 1.1rem;
+    color: var(--yellow-primary);
+    font-size: 1.2rem;
+    min-width: 20px;
 }
 
 .about-image {
@@ -942,26 +988,64 @@ section:nth-child(odd) {
     width: 100%;
     max-width: 500px;
     border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 215, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    filter: brightness(0.9) contrast(1.1);
 }
 
 .about-image img:hover {
-    transform: scale(1.05);
+    transform: scale(1.02) translateY(-5px);
+    box-shadow: 
+        0 40px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 2px rgba(255, 215, 0, 0.2),
+        0 0 40px rgba(255, 215, 0, 0.1);
 }
 
 /* ==============================================
    MUSICIENS - GRILLE VERTICALE AVEC EXPAND/COLLAPSE
    ============================================== */
 .musicians {
-    background: linear-gradient(135deg, var(--green-mint) 0%, var(--blue-sky) 50%, var(--pink-soft) 100%);
+    background: var(--dark-secondary);
+    position: relative;
+}
+
+/* Motif géométrique subtil */
+.musicians::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(255, 215, 0, 0.01) 10px,
+            rgba(255, 215, 0, 0.01) 20px
+        );
+    z-index: 1;
+}
+
+.musicians .container {
+    position: relative;
+    z-index: 2;
+}
+
+.musicians h2 {
+    color: var(--white-pure);
+    margin-bottom: 3rem;
 }
 
 .musicians-intro {
     text-align: center;
     font-size: 1.2rem;
-    color: #555;
+    color: var(--gray-lighter);
     margin-bottom: 3rem;
+    opacity: 0.9;
 }
 
 .musicians-vertical-container {
@@ -979,12 +1063,12 @@ section:nth-child(odd) {
 }
 
 .musician-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--dark-tertiary);
     border-radius: 25px;
     padding: 0;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border: 2px solid transparent;
+    border: 1px solid rgba(255, 215, 0, 0.1);
     position: relative;
     overflow: hidden;
     display: flex;
@@ -999,14 +1083,16 @@ section:nth-child(odd) {
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--yellow-primary), var(--orange-retro), var(--pink-hot));
+    height: 3px;
+    background: linear-gradient(90deg, var(--yellow-primary), var(--yellow-soft));
     z-index: 2;
 }
 
 .musician-card:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(255, 215, 0, 0.1);
     border-color: var(--yellow-primary);
 }
 
@@ -1076,17 +1162,18 @@ section:nth-child(odd) {
 }
 
 .musician-info-container h3 {
-    color: var(--purple-psyche);
+    color: var(--white-pure);
     font-size: 1.4rem;
     margin-bottom: 0.5rem;
     font-weight: 600;
 }
 
 .musician-info-container h4 {
-    color: var(--pink-hot);
+    color: var(--yellow-primary);
     font-size: 1rem;
     margin-bottom: 1.5rem;
     font-weight: 500;
+    opacity: 0.9;
 }
 
 /* Ancien style circulaire (gardé pour compatibilité) */
@@ -1293,14 +1380,21 @@ section:nth-child(odd) {
    RÉPERTOIRE
    ============================================== */
 .repertoire {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(152, 255, 152, 0.2) 100%);
+    background: var(--dark-primary);
+    position: relative;
+}
+
+.repertoire h2 {
+    color: var(--white-pure);
+    margin-bottom: 2rem;
 }
 
 .repertoire-intro {
     text-align: center;
     font-size: 1.2rem;
-    color: #555;
+    color: var(--gray-lighter);
     margin-bottom: 3rem;
+    opacity: 0.9;
 }
 
 .repertoire-sections {
@@ -1311,21 +1405,24 @@ section:nth-child(odd) {
 }
 
 .repertoire-section {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--dark-secondary);
     border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    border: 2px solid transparent;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 215, 0, 0.1);
     transition: all 0.3s ease;
 }
 
 .repertoire-section:hover {
     border-color: var(--yellow-primary);
     transform: translateY(-5px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(255, 215, 0, 0.1);
 }
 
 .repertoire-section h3 {
-    color: var(--purple-psyche);
+    color: var(--white-pure);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -1334,13 +1431,14 @@ section:nth-child(odd) {
 }
 
 .repertoire-section h3 i {
-    color: var(--pink-hot);
+    color: var(--yellow-primary);
 }
 
 .repertoire-subtitle {
-    color: var(--orange-retro);
+    color: var(--yellow-soft);
     font-style: italic;
     margin-bottom: 1.5rem;
+    opacity: 0.8;
 }
 
 .song-list {
@@ -1353,26 +1451,27 @@ section:nth-child(odd) {
     align-items: center;
     padding: 0.8rem;
     margin-bottom: 0.5rem;
-    background: rgba(255, 215, 0, 0.1);
+    background: rgba(255, 215, 0, 0.05);
     border-radius: 10px;
-    border-left: 4px solid var(--yellow-primary);
+    border-left: 3px solid var(--yellow-primary);
     transition: all 0.2s ease;
 }
 
 .song-item:hover {
-    background: rgba(255, 215, 0, 0.2);
+    background: rgba(255, 215, 0, 0.1);
     transform: translateX(5px);
 }
 
 .song-title {
     font-weight: 600;
-    color: #333;
+    color: var(--white-pure);
 }
 
 .song-artist {
     font-style: italic;
-    color: var(--purple-psyche);
+    color: var(--gray-lighter);
     font-size: 0.9rem;
+    opacity: 0.8;
 }
 
 .repertoire-categories {
@@ -1381,7 +1480,7 @@ section:nth-child(odd) {
 }
 
 .category h4 {
-    color: var(--pink-hot);
+    color: var(--yellow-primary);
     border-bottom: 2px solid var(--yellow-primary);
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
@@ -1394,16 +1493,17 @@ section:nth-child(odd) {
 .category li {
     padding: 0.4rem;
     margin-bottom: 0.3rem;
-    background: rgba(147, 112, 219, 0.1);
+    background: rgba(255, 215, 0, 0.05);
     border-radius: 8px;
-    color: #555;
+    color: var(--gray-lighter);
     font-size: 0.95rem;
     transition: all 0.2s ease;
 }
 
 .category li:hover {
-    background: rgba(147, 112, 219, 0.2);
+    background: rgba(255, 215, 0, 0.1);
     transform: translateX(3px);
+    color: var(--white-pure);
 }
 
 .download-link {
@@ -1421,38 +1521,47 @@ section:nth-child(odd) {
 .future-section {
     text-align: center;
     padding: 2rem;
-    background: rgba(147, 112, 219, 0.1);
+    background: var(--dark-secondary);
     border-radius: 15px;
-    border: 2px dashed var(--purple-psyche);
+    border: 2px dashed rgba(255, 215, 0, 0.3);
 }
 
 .future-section h3 {
-    color: var(--purple-psyche);
+    color: var(--white-pure);
     margin-bottom: 1rem;
 }
 
 .future-section p {
-    color: #666;
+    color: var(--gray-lighter);
     margin-bottom: 0.5rem;
+    opacity: 0.9;
 }
 
 .future-section small {
-    color: var(--orange-retro);
+    color: var(--yellow-soft);
     font-style: italic;
+    opacity: 0.7;
 }
 
 /* ==============================================
    GALERIE ÉTENDUE AVEC CAROUSEL
    ============================================== */
 .gallery {
-    background: linear-gradient(135deg, var(--pink-soft) 0%, var(--blue-sky) 50%, var(--green-mint) 100%);
+    background: var(--dark-secondary);
+    position: relative;
+}
+
+.gallery h2 {
+    color: var(--white-pure);
+    margin-bottom: 1rem;
 }
 
 .gallery-intro {
     text-align: center;
     font-size: 1.2rem;
-    color: #555;
+    color: var(--gray-lighter);
     margin-bottom: 3rem;
+    opacity: 0.9;
 }
 
 /* Galerie principale */
@@ -1874,10 +1983,11 @@ section:nth-child(odd) {
     position: relative;
     max-width: 95vw;
     max-height: 95vh;
-    background: white;
+    background: var(--dark-tertiary);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
     transform: scale(0.8) translateY(50px);
     transition: transform 0.3s ease;
 }
@@ -1893,9 +2003,9 @@ section:nth-child(odd) {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.7);
-    border: none;
-    color: white;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--yellow-primary);
+    color: var(--yellow-primary);
     font-size: 1.5rem;
     cursor: pointer;
     z-index: 10001;
@@ -1906,7 +2016,8 @@ section:nth-child(odd) {
 }
 
 .gallery-modal-close:hover {
-    background: var(--pink-hot);
+    background: var(--yellow-primary);
+    color: var(--dark-primary);
     transform: scale(1.1);
 }
 
@@ -1926,21 +2037,22 @@ section:nth-child(odd) {
 
 .gallery-modal-info {
     padding: 2rem;
-    background: linear-gradient(135deg, var(--yellow-primary), var(--yellow-daisy));
+    background: var(--dark-secondary);
 }
 
 .gallery-modal-info h3 {
-    color: var(--purple-psyche);
+    color: var(--white-pure);
     font-size: 1.8rem;
     margin-bottom: 1rem;
     font-family: var(--font-primary);
 }
 
 .gallery-modal-info p {
-    color: #333;
+    color: var(--gray-lighter);
     font-size: 1.1rem;
     line-height: 1.6;
     margin: 0;
+    opacity: 0.9;
 }
 
 .gallery-modal-controls {
@@ -2121,14 +2233,21 @@ body.modal-open {
    CONTACT
    ============================================== */
 .contact {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 182, 193, 0.3) 100%);
+    background: var(--dark-primary);
+    position: relative;
+}
+
+.contact h2 {
+    color: var(--white-pure);
+    margin-bottom: 1rem;
 }
 
 .contact-intro {
     text-align: center;
     font-size: 1.2rem;
-    color: #555;
+    color: var(--gray-lighter);
     margin-bottom: 3rem;
+    opacity: 0.9;
 }
 
 .contact-content {
@@ -2143,53 +2262,60 @@ body.modal-open {
     gap: 1rem;
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--dark-secondary);
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
 }
 
 .contact-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(255, 215, 0, 0.1);
+    border-color: var(--yellow-primary);
 }
 
 .contact-item i {
     font-size: 1.5rem;
-    color: var(--pink-hot);
+    color: var(--yellow-primary);
     margin-top: 0.2rem;
 }
 
 .contact-item h3 {
-    color: var(--purple-psyche);
+    color: var(--white-pure);
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
 }
 
 .contact-item a {
-    color: var(--orange-retro);
+    color: var(--yellow-soft);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .contact-item a:hover {
-    color: var(--pink-hot);
+    color: var(--yellow-primary);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
 .contact-services {
-    background: rgba(147, 112, 219, 0.1);
+    background: var(--dark-secondary);
     padding: 2rem;
     border-radius: 20px;
-    border: 2px solid var(--purple-psyche);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .contact-services h3 {
-    color: var(--purple-psyche);
+    color: var(--white-pure);
     margin-bottom: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .contact-services h4 {
-    color: var(--orange-retro);
+    color: var(--yellow-primary);
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
@@ -2202,14 +2328,21 @@ body.modal-open {
 .contact-services li {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
     margin-bottom: 0.8rem;
-    color: #555;
+    color: var(--gray-lighter);
     font-weight: 500;
+    transition: transform 0.3s ease;
+}
+
+.contact-services li:hover {
+    transform: translateX(5px);
+    color: var(--white-pure);
 }
 
 .contact-services i {
-    color: var(--pink-hot);
+    color: var(--yellow-primary);
+    min-width: 20px;
 }
 
 .music-styles {
@@ -2219,16 +2352,19 @@ body.modal-open {
 }
 
 .style-tag {
-    background: linear-gradient(135deg, var(--yellow-primary), var(--orange-retro));
-    color: #333;
+    background: transparent;
+    color: var(--yellow-primary);
     padding: 0.5rem 1rem;
     border-radius: 25px;
+    border: 1px solid var(--yellow-primary);
     font-size: 0.8rem;
     font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .style-tag:hover {
+    background: var(--yellow-primary);
+    color: var(--dark-primary);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
 }
@@ -2237,9 +2373,10 @@ body.modal-open {
    FOOTER
    ============================================== */
 .footer {
-    background: linear-gradient(135deg, #333 0%, #555 50%, var(--purple-psyche) 100%);
-    color: white;
+    background: var(--dark-primary);
+    color: var(--gray-lighter);
     padding: 3rem 0 1rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.1);
 }
 
 .footer-content {
@@ -2266,7 +2403,7 @@ body.modal-open {
 }
 
 .footer-logo p {
-    color: #ccc;
+    color: var(--gray-light);
     font-size: 0.9rem;
 }
 
@@ -2560,36 +2697,6 @@ body.modal-open {
     
     .slide-overlay h4 {
         font-size: 1.2rem;
-    }
-    
-    /* Section Parallaxe Mobile */
-    .parallax-section {
-        height: 350px;
-        padding: 0;
-    }
-    
-    .parallax-bg {
-        background-attachment: scroll; /* Fixe le problème parallaxe sur mobile */
-        background-position: center 75%;
-        background-size: cover;
-        filter: brightness(0.75);
-        top: 0;
-        height: 100%;
-        transform: none !important; /* Pas d'effet parallaxe sur mobile */
-    }
-    
-    .parallax-content {
-        padding: 30px 20px;
-        max-width: 90%;
-        margin: 0 auto;
-    }
-    
-    .parallax-content h2 {
-        font-size: 1.6rem;
-    }
-    
-    .parallax-content p {
-        font-size: 1rem;
     }
     
     .gallery-complement {
