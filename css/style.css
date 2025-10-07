@@ -920,25 +920,27 @@ section:nth-child(odd) {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: rgba(0, 0, 0, 0.7);
-    color: var(--yellow-primary);
-    padding: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #FFD700;
+    padding: 10px;
     border-radius: 50%;
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1;  /* Toujours visible */
+    visibility: visible;  /* Toujours visible */
     transition: all 0.3s ease;
     pointer-events: none;
     z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .musician-photo-container:hover .photo-click-indicator {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1.1);
+    transform: scale(1.15);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .photo-click-indicator i {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
 .musician-info-container {
@@ -1855,38 +1857,36 @@ section:nth-child(odd) {
 /* Indicateurs de clic */
 .click-indicator {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 15px;
+    right: 15px;
     background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 25px;
+    color: #FFD700;
+    padding: 8px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    opacity: 0;
-    visibility: hidden;
+    justify-content: center;
+    opacity: 1;  /* Toujours visible */
+    visibility: visible;  /* Toujours visible */
     transition: all 0.3s ease;
     pointer-events: none;
     z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .gallery-hero:hover .click-indicator,
 .gallery-item-small:hover .click-indicator {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, -50%) scale(1.05);
+    transform: scale(1.15);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .click-indicator i {
-    font-size: 1.2rem;
-    color: var(--yellow-primary);
+    font-size: 1rem;
+    font-weight: bold;
 }
 
-.click-indicator span {
-    font-weight: 600;
-}
+/* Texte supprimé - icône seule plus claire */
 
 /* Notification */
 .gallery-notification {
