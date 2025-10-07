@@ -63,14 +63,10 @@ class MusiciansManager {
     
     // Réinitialiser les fonctionnalités de modal pour les nouvelles cartes
     setTimeout(() => {
-      console.log('🔄 Tentative de réinitialisation des modales...', window.galleryModal);
       if (window.galleryModal && typeof window.galleryModal.makeImagesClickable === 'function') {
-        console.log('✅ Appel de makeImagesClickable');
         window.galleryModal.makeImagesClickable();
-      } else {
-        console.log('❌ galleryModal non disponible');
       }
-    }, 500); // Augmenté à 500ms
+    }, 500);
   }
 
   createMusicianCard(musician, index) {

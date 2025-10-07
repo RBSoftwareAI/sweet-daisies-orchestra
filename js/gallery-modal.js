@@ -139,7 +139,6 @@ class GalleryModal {
 
     // Rendre tous les éléments gallery-clickable cliquables
     const clickableElements = document.querySelectorAll('.gallery-clickable');
-    console.log('🎯 Éléments cliquables trouvés:', clickableElements.length, clickableElements);
     
     clickableElements.forEach((element, index) => {
       if (element.classList.contains('gallery-hero')) return; // Déjà traité
@@ -174,14 +173,6 @@ class GalleryModal {
       }
       
       const imageSrc = element.dataset.image || img.src;
-      console.log(`🖼️ Élément ${index}:`, {
-        element: element,
-        classes: element.classList.toString(),
-        title: title,
-        description: description,
-        imageSrc: imageSrc
-      });
-      
       attachClickableEvent(element, imageSrc, title, description);
     });
   }
