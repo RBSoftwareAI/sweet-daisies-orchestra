@@ -139,7 +139,9 @@ class GalleryModal {
 
     // Rendre tous les éléments gallery-clickable cliquables
     const clickableElements = document.querySelectorAll('.gallery-clickable');
-    clickableElements.forEach(element => {
+    console.log('🎯 Éléments cliquables trouvés:', clickableElements.length, clickableElements);
+    
+    clickableElements.forEach((element, index) => {
       if (element.classList.contains('gallery-hero')) return; // Déjà traité
       
       const img = element.querySelector('img');
@@ -156,12 +158,12 @@ class GalleryModal {
           const descElement = element.querySelector('.gallery-overlay-small p');
           if (descElement) description = descElement.textContent;
         }
-      } else if (element.classList.contains('musician-photo-rect') || element.classList.contains('musician-photo-container')) {
+      } else if (element.classList.contains('musician-photo-container')) {
         // Pour les photos de musiciens
         const card = element.closest('.musician-card');
         if (card) {
-          const nameElement = card.querySelector('h3');
-          const instrumentElement = card.querySelector('h4');
+          const nameElement = card.querySelector('.musician-info-container h3');
+          const instrumentElement = card.querySelector('.musician-info-container h4');
           if (nameElement) {
             title = `👤 ${nameElement.textContent}`;
             if (instrumentElement) {
@@ -172,6 +174,14 @@ class GalleryModal {
       }
       
       const imageSrc = element.dataset.image || img.src;
+      console.log(`🖼️ Élément ${index}:`, {
+        element: element,
+        classes: element.classList.toString(),
+        title: title,
+        description: description,
+        imageSrc: imageSrc
+      });
+      
       attachClickableEvent(element, imageSrc, title, description);
     });
   }

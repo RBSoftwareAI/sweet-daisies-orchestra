@@ -63,10 +63,14 @@ class MusiciansManager {
     
     // Réinitialiser les fonctionnalités de modal pour les nouvelles cartes
     setTimeout(() => {
+      console.log('🔄 Tentative de réinitialisation des modales...', window.galleryModal);
       if (window.galleryModal && typeof window.galleryModal.makeImagesClickable === 'function') {
+        console.log('✅ Appel de makeImagesClickable');
         window.galleryModal.makeImagesClickable();
+      } else {
+        console.log('❌ galleryModal non disponible');
       }
-    }, 100);
+    }, 500); // Augmenté à 500ms
   }
 
   createMusicianCard(musician, index) {
@@ -77,9 +81,8 @@ class MusiciansManager {
     const photoPath = `assets/bios/${musician.photo}`;
     
     card.innerHTML = `
-      <div class="musician-photo-container">
-        <img src="${photoPath}" alt="${musician.firstName} ${musician.lastName}" class="musician-photo-rect gallery-clickable" 
-             data-image="${photoPath}"
+      <div class="musician-photo-container gallery-clickable" data-image="${photoPath}">
+        <img src="${photoPath}" alt="${musician.firstName} ${musician.lastName}" class="musician-photo-rect" 
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div class="musician-icon-fallback" style="display: none; width: 100%; height: 250px; border-radius: 15px; background: linear-gradient(135deg, var(--yellow-primary), var(--orange-retro)); align-items: center; justify-content: center;">
           <i class="${musician.icon}" style="font-size: 3rem; color: white;"></i>
