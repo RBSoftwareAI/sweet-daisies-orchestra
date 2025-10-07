@@ -60,6 +60,13 @@ class MusiciansManager {
     });
 
     console.log('🌼 Section musiciens générée avec', this.musiciansData.length, 'cartes');
+    
+    // Réinitialiser les fonctionnalités de modal pour les nouvelles cartes
+    setTimeout(() => {
+      if (window.galleryModal && typeof window.galleryModal.makeImagesClickable === 'function') {
+        window.galleryModal.makeImagesClickable();
+      }
+    }, 500);
   }
 
   createMusicianCard(musician, index) {
@@ -70,21 +77,23 @@ class MusiciansManager {
     const photoPath = `assets/bios/${musician.photo}`;
     
     card.innerHTML = `
-      <div class="musician-header">
-        <img src="${photoPath}" alt="${musician.firstName} ${musician.lastName}" class="musician-photo" 
+      <div class="musician-photo-container gallery-clickable" data-image="${photoPath}">
+        <img src="${photoPath}" alt="${musician.firstName} ${musician.lastName}" class="musician-photo-rect" 
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="musician-icon-fallback" style="display: none; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--yellow-primary), var(--orange-retro)); align-items: center; justify-content: center; margin-right: 1.5rem;">
-          <i class="${musician.icon}" style="font-size: 2.5rem; color: white;"></i>
+        <div class="musician-icon-fallback" style="display: none; width: 100%; height: 250px; border-radius: 15px; background: linear-gradient(135deg, var(--yellow-primary), var(--orange-retro)); align-items: center; justify-content: center;">
+          <i class="${musician.icon}" style="font-size: 3rem; color: white;"></i>
         </div>
-        <div class="musician-basic-info">
-          <h3>${musician.firstName} ${musician.lastName}</h3>
-          <h4>${musician.instrument}</h4>
-          <p class="musician-resume">${musician.resume}</p>
-          <button class="read-more-btn" data-musician-id="${musician.id}">
-            <span>Lire la suite</span>
-            <i class="fas fa-chevron-right"></i>
-          </button>
+        <div class="photo-click-indicator">
+          <i class="fas fa-search-plus"></i>
         </div>
+      </div>
+      <div class="musician-info-container">
+        <h3>${musician.firstName} ${musician.lastName}</h3>
+        <h4>${musician.instrument}</h4>
+        <button class="read-more-btn" data-musician-id="${musician.id}">
+          <span>Lire la bio</span>
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
       <div class="musician-full-bio" data-musician-id="${musician.id}">
         <div class="bio-content">${musician.biographie_complete}</div>
@@ -165,7 +174,7 @@ class MusiciansManager {
       fullBio.style.maxHeight = Math.max(realHeight + 150, 400) + 'px'; // +150px pour le padding et marge de sécurité
       readMoreBtn.classList.add('expanded');
       
-      // Masquer le bouton "Lire la suite"
+      // Masquer le bouton "Lire la bio"
       readMoreBtn.style.display = 'none';
     });
 
@@ -197,7 +206,7 @@ class MusiciansManager {
     fullBio.classList.remove('expanded');
     readMoreBtn.classList.remove('expanded');
     
-    // Réafficher le bouton "Lire la suite" après l'animation
+    // Réafficher le bouton "Lire la bio" après l'animation
     setTimeout(() => {
       readMoreBtn.style.display = 'flex';
     }, 300);

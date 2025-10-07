@@ -236,7 +236,7 @@ p {
 .hamburger span {
     width: 25px;
     height: 3px;
-    background: var(--yellow-primary);
+    background: #E6C200;  /* Jaune assombri pour meilleur contraste */
     margin: 3px 0;
     transition: 0.3s;
 }
@@ -850,10 +850,11 @@ section:nth-child(odd) {
 
 .musicians-grid-vertical {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .musician-card {
@@ -865,6 +866,10 @@ section:nth-child(odd) {
     border: 2px solid transparent;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
+    margin: 0 auto;
 }
 
 .musician-card::before {
@@ -884,23 +889,96 @@ section:nth-child(odd) {
     border-color: var(--yellow-primary);
 }
 
+/* Ancien style musician-header (remplacé par le design rectangulaire) */
 .musician-header {
-    display: flex;
-    align-items: center;
-    padding: 2rem;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
-    border-radius: 25px 25px 0 0;
+    display: none; /* Design rectangulaire utilisé à la place */
 }
 
+/* Nouveau style pour les photos rectangulaires */
+.musician-photo-container {
+    position: relative;
+    width: 100%;
+    height: 270px;  /* Réduit de 280px à 270px pour un meilleur équilibre */
+    border-radius: 25px 25px 0 0;
+    overflow: hidden;
+}
+
+.musician-photo-rect {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;  /* Positionne légèrement vers le haut sans excès */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.musician-photo-container:hover .musician-photo-rect {
+    transform: scale(1.05);
+}
+
+.photo-click-indicator {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #FFD700;
+    padding: 10px;
+    border-radius: 50%;
+    opacity: 1;  /* Toujours visible */
+    visibility: visible;  /* Toujours visible */
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    animation: subtlePulse 3s ease-in-out infinite;
+}
+
+.musician-photo-container:hover .photo-click-indicator {
+    transform: scale(1.15);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.photo-click-indicator i {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.musician-info-container {
+    padding: 1.5rem;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.musician-info-container h3 {
+    color: var(--purple-psyche);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.musician-info-container h4 {
+    color: var(--pink-hot);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+/* Ancien style circulaire (gardé pour compatibilité) */
 .musician-photo {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid var(--yellow-primary);
     margin-right: 1.5rem;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .musician-card:hover .musician-photo {
@@ -908,28 +986,21 @@ section:nth-child(odd) {
     transform: scale(1.05);
 }
 
+/* Anciens styles musician-basic-info (remplacés par musician-info-container) */
 .musician-basic-info {
-    flex: 1;
+    display: none; /* Remplacé par musician-info-container */
 }
 
 .musician-basic-info h3 {
-    color: var(--purple-psyche);
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
+    display: none;
 }
 
 .musician-basic-info h4 {
-    color: var(--pink-hot);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
+    display: none;
 }
 
 .musician-resume {
-    color: #666;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    display: none; /* Texte supprimé selon les spécifications */
     margin-bottom: 1rem;
 }
 
@@ -1003,23 +1074,7 @@ section:nth-child(odd) {
 }
 
 .bio-citation {
-    background: linear-gradient(135deg, var(--pink-soft), var(--yellow-daisy));
-    padding: 1rem 1.5rem;
-    border-radius: 15px;
-    border-left: 4px solid var(--pink-hot);
-    font-style: italic;
-    color: #444;
-    position: relative;
-}
-
-.bio-citation::before {
-    content: '"';
-    font-size: 3rem;
-    color: var(--pink-hot);
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    font-family: serif;
+    display: none; /* Bande de texte supprimée */
 }
 
 .collapse-btn {
@@ -1073,19 +1128,35 @@ section:nth-child(odd) {
     .musicians-grid-vertical {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        padding: 0 15px;
     }
     
-    .musician-header {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.5rem;
+    .musician-card {
+        max-width: 100%;
     }
     
+    .musician-photo-container {
+        height: 210px;  /* Ajusté à 210px pour mobile */
+    }
+    
+    .musician-info-container {
+        padding: 1rem;
+    }
+    
+    .musician-info-container h3 {
+        font-size: 1.2rem;
+    }
+    
+    .musician-info-container h4 {
+        font-size: 0.9rem;
+    }
+    
+    /* Ancien style circulaire pour compatibilité */
     .musician-photo {
         margin-right: 0;
         margin-bottom: 1rem;
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
     }
     
     .musician-basic-info h3 {
@@ -1504,6 +1575,18 @@ section:nth-child(odd) {
     background: var(--yellow-primary);
 }
 
+.gallery-item-medium {
+    position: relative;
+    height: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
 .gallery-item-small:hover {
     transform: translateY(-10px);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
@@ -1546,6 +1629,45 @@ section:nth-child(odd) {
     color: var(--yellow-primary);
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
+}
+
+.gallery-item-medium img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item-medium:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-overlay-medium {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item-medium:hover .gallery-overlay-medium {
+    transform: translateY(0);
+}
+
+.gallery-overlay-medium h4 {
+    color: var(--yellow-primary);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.gallery-overlay-medium p {
+    font-size: 0.95rem;
+    opacity: 0.9;
 }
 
 .gallery-overlay-small p {
@@ -1736,37 +1858,46 @@ section:nth-child(odd) {
 /* Indicateurs de clic */
 .click-indicator {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 15px;
+    right: 15px;
     background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 25px;
+    color: #FFD700;
+    padding: 8px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    opacity: 0;
-    visibility: hidden;
+    justify-content: center;
+    opacity: 1;  /* Toujours visible */
+    visibility: visible;  /* Toujours visible */
     transition: all 0.3s ease;
     pointer-events: none;
     z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    animation: subtlePulse 3s ease-in-out infinite;
 }
 
 .gallery-hero:hover .click-indicator,
 .gallery-item-small:hover .click-indicator {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, -50%) scale(1.05);
+    transform: scale(1.15);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .click-indicator i {
-    font-size: 1.2rem;
-    color: var(--yellow-primary);
+    font-size: 1rem;
+    font-weight: bold;
 }
 
-.click-indicator span {
-    font-weight: 600;
+/* Animation subtile pour attirer l'attention sur les indicateurs */
+@keyframes subtlePulse {
+    0%, 100% { 
+        opacity: 1; 
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.8; 
+        transform: scale(1.05);
+    }
 }
 
 /* Notification */
