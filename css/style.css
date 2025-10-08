@@ -320,7 +320,7 @@ p {
 /* Contenu dynamique du carrousel */
 .hero-dynamic-content {
     position: relative;
-    min-height: 160px;
+    min-height: 200px;
 }
 
 .hero-slide-content {
@@ -465,14 +465,14 @@ p {
 .hero-description {
     font-size: clamp(1.1rem, 2.2vw, 1.4rem);
     color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 6rem;
-    line-height: 1.7;
+    margin-bottom: 8rem;
+    line-height: 1.8;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     animation: descriptionReveal 2s ease-out 0.9s both;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
 }
 
 @keyframes descriptionReveal {
@@ -619,7 +619,7 @@ p {
     }
     
     .hero-dynamic-content {
-        min-height: 140px;
+        min-height: 180px;
     }
     
     .hero-services {
@@ -657,8 +657,13 @@ p {
 @media (max-width: 480px) {
     .hero-description {
         font-size: 1rem;
-        margin-bottom: 3.5rem;
-        padding-bottom: 1.5rem;
+        margin-bottom: 6rem;
+        padding-bottom: 3rem;
+        line-height: 1.9;
+    }
+    
+    .hero-dynamic-content {
+        min-height: 200px;
     }
     
     /* Positioning spécifique mobile pour Clarisse et Mathieu */
