@@ -2,8 +2,6 @@
    VARIABLES CSS - PALETTE PSYCHÉDÉLIQUE 60-70
    ============================================== */
 :root {
-
-    
     /* Couleurs principales */
     --yellow-primary: #FFD700;    /* Jaune vif */
     --yellow-daisy: #FFDE00;      /* Jaune pâquerette */
@@ -322,7 +320,7 @@ p {
 /* Contenu dynamique du carrousel */
 .hero-dynamic-content {
     position: relative;
-    min-height: 200px;
+    min-height: 120px;
 }
 
 .hero-slide-content {
@@ -467,14 +465,13 @@ p {
 .hero-description {
     font-size: clamp(1.1rem, 2.2vw, 1.4rem);
     color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 8rem;
-    line-height: 1.8;
+    margin-bottom: 3rem;
+    line-height: 1.6;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     animation: descriptionReveal 2s ease-out 0.9s both;
-    padding-bottom: 2rem;
 }
 
 @keyframes descriptionReveal {
@@ -607,14 +604,6 @@ p {
    RESPONSIVE HERO
    ============================================== */
 @media (max-width: 768px) {
-    /* Correction pour Safari mobile et iPhone */
-    .hero {
-        height: 100vh;
-        height: calc(100vh - env(safe-area-inset-top));
-        min-height: 100vh;
-        min-height: 100dvh;
-    }
-    
     .hero-content {
         padding: 0 15px;
     }
@@ -629,7 +618,7 @@ p {
     }
     
     .hero-dynamic-content {
-        min-height: 180px;
+        min-height: 100px;
     }
     
     .hero-services {
@@ -667,22 +656,7 @@ p {
 @media (max-width: 480px) {
     .hero-description {
         font-size: 1rem;
-        margin-bottom: 6rem;
-        padding-bottom: 3rem;
-        line-height: 1.9;
-    }
-    
-    .hero-dynamic-content {
-        min-height: 200px;
-    }
-    
-    /* Positioning spécifique mobile pour Clarisse et Mathieu */
-    .musician-card[data-musician-id="rinaldo"] .musician-photo-rect {
-        object-position: center 20%; /* Position ajustée pour Clarisse sur mobile */
-    }
-    
-    .musician-card[data-musician-id="petit"] .musician-photo-rect {
-        object-position: center 30%; /* Position ajustée pour Mathieu sur mobile */
+        margin-bottom: 2rem;
     }
     
     .service-item {
@@ -697,39 +671,6 @@ p {
     .service-item span {
         font-size: 0.9rem;
     }
-}
-
-/* Corrections spécifiques pour iPhone et Safari mobile */
-@media screen and (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
-    .hero {
-        height: calc(var(--vh, 1vh) * 100);
-        min-height: calc(var(--vh, 1vh) * 100);
-    }
-    
-    .hero-content {
-        padding-top: 20px; /* Espace supplémentaire en haut */
-        padding-bottom: 20px; /* Espace supplémentaire en bas */
-    }
-    
-    .hero-title {
-        font-size: clamp(2.8rem, 7vw, 4.5rem); /* Taille légèrement réduite pour plus d'espace */
-        margin-bottom: 1rem;
-        line-height: 1.05; /* Line-height plus serré pour économiser l'espace */
-    }
-}
-
-/* Styles spécifiques pour les appareils iOS détectés par JavaScript */
-.ios-device .hero {
-    height: calc(var(--vh, 1vh) * 100);
-    min-height: calc(var(--vh, 1vh) * 95); /* Léger ajustement pour iOS */
-}
-
-.ios-device.portrait-mode .hero-content {
-    transform: translateY(-10px); /* Léger décalage vers le haut en mode portrait */
-}
-
-.ios-device .hero-title {
-    font-size: clamp(2.5rem, 6.5vw, 4rem); /* Titre légèrement plus petit sur iOS */
 }
 
 /* Animation de rotation pour la fleur pâquerette */
@@ -971,15 +912,6 @@ section:nth-child(odd) {
     cursor: pointer;
 }
 
-/* Amélioration du centrage pour Clarisse et Mathieu */
-.musician-card[data-musician-id="rinaldo"] .musician-photo-rect {
-    object-position: center 15%; /* Position ajustée spécifiquement pour Clarisse */
-}
-
-.musician-card[data-musician-id="petit"] .musician-photo-rect {
-    object-position: center 25%; /* Position ajustée spécifiquement pour Mathieu */
-}
-
 .musician-photo-container:hover .musician-photo-rect {
     transform: scale(1.05);
 }
@@ -1052,6 +984,17 @@ section:nth-child(odd) {
 .musician-card:hover .musician-photo {
     border-color: var(--pink-hot);
     transform: scale(1.05);
+}
+
+/* Corrections spécifiques pour le recadrage des photos */
+/* Mathieu Petit - Ajustement pour meilleur cadrage du visage */
+.musician-card[data-musician-id="petit"] .musician-photo-rect {
+    object-position: center 25%;
+}
+
+/* Clarisse Rinaldo - Ajustement pour meilleur cadrage du visage */
+.musician-card[data-musician-id="rinaldo"] .musician-photo-rect {
+    object-position: center 30%;
 }
 
 /* Anciens styles musician-basic-info (remplacés par musician-info-container) */
@@ -2382,36 +2325,6 @@ body.modal-open {
     .gallery-item.large {
         grid-row: span 2;
         height: 372px;
-    }
-}
-
-/* Desktop - Assurer un espacement suffisant pour le hero text */
-@media screen and (min-width: 1025px) {
-    .hero-description {
-        margin-bottom: 5.5rem; /* Marge importante sur desktop pour éviter le chevauchement */
-    }
-}
-
-/* Tablettes - Fix pour photos musiciens et hero text */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-    /* Fix pour le texte hero qui déborde */
-    .hero-description {
-        margin-bottom: 6rem; /* Marge encore plus importante sur tablette */
-    }
-    
-    .musician-photo-container {
-        height: 280px; /* Hauteur légèrement augmentée pour tablette */
-    }
-    
-    .musician-photo-rect {
-        object-fit: cover;
-        object-position: center 25%; /* Meilleur centrage pour tablette */
-    }
-    
-    /* Amélioration spécifique pour Clarisse et Mathieu */
-    .musician-card[data-musician-id="rinaldo"] .musician-photo-rect,
-    .musician-card[data-musician-id="petit"] .musician-photo-rect {
-        object-position: center 8%; /* Position très haute pour ces deux musiciens sur tablette */
     }
 }
 
