@@ -1,0 +1,26 @@
+# Robots.txt pour The Sweet Daisies Orchestra
+# Site officiel : sweet-daisies-orchestra.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sweet-daisies-orchestra.com/sitemap.xml
+
+# Fichiers à ne pas indexer
+Disallow: /dev_server.py
+Disallow: /debug_*
+Disallow: /test-*
+Disallow: /inject_debug.js
+Disallow: /_headers
+Disallow: /.git/
+Disallow: /.DS_Store
+
+# Autoriser l'indexation des ressources importantes
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /assets/
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1

@@ -1,0 +1,71 @@
+{
+  "name": "The Sweet Daisies Orchestra",
+  "short_name": "Sweet Daisies",
+  "description": "Collectif de 10 musiciens - Jazz, rock, classique revisités avec originalité. Concerts, cérémonies, événements d'entreprise à Besançon et région.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2c5530",
+  "orientation": "portrait-primary",
+  "categories": ["music", "entertainment", "lifestyle"],
+  "lang": "fr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Contacter The Sweet Daisies Orchestra",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "images/android-chrome-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Musiciens",
+      "short_name": "Équipe",
+      "description": "Découvrir les musiciens",
+      "url": "/#musicians",
+      "icons": [
+        {
+          "src": "images/android-chrome-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Répertoire",
+      "short_name": "Musique",
+      "description": "Explorer notre répertoire musical",
+      "url": "/#repertoire",
+      "icons": [
+        {
+          "src": "images/android-chrome-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
