@@ -465,7 +465,7 @@ p {
 .hero-description {
     font-size: clamp(1.1rem, 2.2vw, 1.4rem);
     color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
     line-height: 1.6;
     max-width: 700px;
     margin-left: auto;
@@ -657,6 +657,12 @@ p {
     .hero-description {
         font-size: 1rem;
         margin-bottom: 2.5rem;
+    }
+    
+    /* Positioning spécifique mobile pour Clarisse et Mathieu */
+    .musician-card[data-musician-id="rinaldo"] .musician-photo-rect,
+    .musician-card[data-musician-id="petit"] .musician-photo-rect {
+        object-position: center 3%; /* Position encore plus haute sur mobile */
     }
     
     .service-item {
@@ -915,7 +921,7 @@ section:nth-child(odd) {
 /* Amélioration du centrage pour Clarisse et Mathieu */
 .musician-card[data-musician-id="rinaldo"] .musician-photo-rect,
 .musician-card[data-musician-id="petit"] .musician-photo-rect {
-    object-position: center 10%; /* Position plus haute pour un meilleur centrage */
+    object-position: center 5%; /* Position beaucoup plus haute pour un meilleur centrage du visage */
 }
 
 .musician-photo-container:hover .musician-photo-rect {
@@ -2323,8 +2329,20 @@ body.modal-open {
     }
 }
 
-/* Tablettes - Fix pour photos musiciens */
+/* Desktop - Assurer un espacement suffisant pour le hero text */
+@media screen and (min-width: 1025px) {
+    .hero-description {
+        margin-bottom: 5.5rem; /* Marge importante sur desktop pour éviter le chevauchement */
+    }
+}
+
+/* Tablettes - Fix pour photos musiciens et hero text */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
+    /* Fix pour le texte hero qui déborde */
+    .hero-description {
+        margin-bottom: 6rem; /* Marge encore plus importante sur tablette */
+    }
+    
     .musician-photo-container {
         height: 280px; /* Hauteur légèrement augmentée pour tablette */
     }
@@ -2337,7 +2355,7 @@ body.modal-open {
     /* Amélioration spécifique pour Clarisse et Mathieu */
     .musician-card[data-musician-id="rinaldo"] .musician-photo-rect,
     .musician-card[data-musician-id="petit"] .musician-photo-rect {
-        object-position: center 15%; /* Position plus haute pour ces deux musiciens */
+        object-position: center 8%; /* Position très haute pour ces deux musiciens sur tablette */
     }
 }
 
