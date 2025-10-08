@@ -320,7 +320,7 @@ p {
 /* Contenu dynamique du carrousel */
 .hero-dynamic-content {
     position: relative;
-    min-height: 100px;
+    min-height: 120px;
 }
 
 .hero-slide-content {
