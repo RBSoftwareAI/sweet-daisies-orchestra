@@ -667,9 +667,12 @@ p {
     }
     
     /* Positioning spécifique mobile pour Clarisse et Mathieu */
-    .musician-card[data-musician-id="rinaldo"] .musician-photo-rect,
+    .musician-card[data-musician-id="rinaldo"] .musician-photo-rect {
+        object-position: center 20%; /* Position ajustée pour Clarisse sur mobile */
+    }
+    
     .musician-card[data-musician-id="petit"] .musician-photo-rect {
-        object-position: center 3%; /* Position encore plus haute sur mobile */
+        object-position: center 30%; /* Position ajustée pour Mathieu sur mobile */
     }
     
     .service-item {
@@ -926,9 +929,12 @@ section:nth-child(odd) {
 }
 
 /* Amélioration du centrage pour Clarisse et Mathieu */
-.musician-card[data-musician-id="rinaldo"] .musician-photo-rect,
+.musician-card[data-musician-id="rinaldo"] .musician-photo-rect {
+    object-position: center 15%; /* Position ajustée spécifiquement pour Clarisse */
+}
+
 .musician-card[data-musician-id="petit"] .musician-photo-rect {
-    object-position: center 5%; /* Position beaucoup plus haute pour un meilleur centrage du visage */
+    object-position: center 25%; /* Position ajustée spécifiquement pour Mathieu */
 }
 
 .musician-photo-container:hover .musician-photo-rect {
