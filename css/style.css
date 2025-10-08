@@ -465,7 +465,7 @@ p {
 .hero-description {
     font-size: clamp(1.1rem, 2.2vw, 1.4rem);
     color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
     line-height: 1.6;
     max-width: 700px;
     margin-left: auto;
@@ -654,18 +654,9 @@ p {
 }
 
 @media (max-width: 480px) {
-    .hero {
-        min-height: 85vh; /* Utiliser min-height au lieu de height pour plus de flexibilité */
-        padding: 10px 0; /* Padding réduit mais présent */
-    }
-    
-    .hero-content {
-        padding: 20px 15px; /* Padding sur le contenu plutôt que sur le hero */
-    }
-    
     .hero-description {
         font-size: 1rem;
-        margin-bottom: 1.5rem; /* Réduit de 2rem à 1.5rem */
+        margin-bottom: 2rem;
     }
     
     .service-item {
