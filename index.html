@@ -6,6 +6,75 @@
     <title>The Sweet Daisies Orchestra - Collectif de Musiciens</title>
     <meta name="description" content="The Sweet Daisies Orchestra - 10 musiciens, 10 univers musicaux. Concerts, cérémonies, comités d'entreprise. Jazz, rock, classique revisités avec originalité.">
     
+    <!-- Métadonnées Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="The Sweet Daisies Orchestra - Collectif de Musiciens">
+    <meta property="og:description" content="10 musiciens, 10 univers musicaux. Concerts, cérémonies, comités d'entreprise. Jazz, rock, classique revisités avec originalité à Besançon et région.">
+    <meta property="og:url" content="https://sweet-daisies-orchestra.com">
+    <meta property="og:site_name" content="The Sweet Daisies Orchestra">
+    <meta property="og:image" content="https://sweet-daisies-orchestra.com/images/sdo-2.jpg">
+    <meta property="og:image:alt" content="The Sweet Daisies Orchestra - Formation musicale complète">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Métadonnées Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Sweet Daisies Orchestra - Collectif de Musiciens">
+    <meta name="twitter:description" content="10 musiciens, 10 univers musicaux. Concerts, cérémonies, comités d'entreprise. Jazz, rock, classique revisités avec originalité.">
+    <meta name="twitter:image" content="https://sweet-daisies-orchestra.com/images/sdo-2.jpg">
+    <meta name="twitter:image:alt" content="The Sweet Daisies Orchestra - Formation musicale complète">
+    
+    <!-- Métadonnées additionnelles -->
+    <meta name="keywords" content="musiciens, orchestre, Besançon, jazz, rock, classique, concerts, événements, cérémonies, comités entreprise, Sweet Daisies Orchestra">
+    <meta name="author" content="The Sweet Daisies Orchestra">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sweet-daisies-orchestra.com">
+    
+    <!-- Favicons et App Icons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/android-chrome-512x512.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2c5530">
+    <meta name="msapplication-TileColor" content="#2c5530">
+    
+    <!-- Google Analytics 4 -->
+    <!-- IMPORTANT: Remplacer G-XXXXXXXXXX par votre vrai ID de mesure Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            page_title: 'The Sweet Daisies Orchestra',
+            custom_map: {
+                'custom_parameter_1': 'musician_collective',
+                'custom_parameter_2': 'besancon_music'
+            }
+        });
+        
+        // Événements personnalisés pour le suivi
+        function trackContact(method) {
+            gtag('event', 'contact_attempt', {
+                'contact_method': method,
+                'page_location': window.location.href
+            });
+        }
+        
+        function trackSectionView(section) {
+            gtag('event', 'section_view', {
+                'section_name': section,
+                'page_location': window.location.href
+            });
+        }
+    </script>
+    
     <!-- Fonts Google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
@@ -602,5 +671,64 @@
     <script src="js/gallery.js"></script>
     <script src="js/gallery-modal.js"></script>
     <script src="js/musicians.js"></script>
+    
+    <!-- Service Worker Registration (PWA) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker enregistré:', registration.scope);
+                        
+                        // Vérifier les mises à jour
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('🔄 Nouvelle version disponible');
+                                    // Optionnel: Notifier l'utilisateur qu'une mise à jour est disponible
+                                }
+                            });
+                        });
+                    })
+                    .catch((error) => {
+                        console.log('❌ Échec enregistrement Service Worker:', error);
+                    });
+            });
+        } else {
+            console.log('❌ Service Worker non supporté par ce navigateur');
+        }
+        
+        // Gestion de l'installation PWA
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('📱 PWA installable détectée');
+        });
+        
+        // Événements personnalisés Google Analytics
+        document.addEventListener('DOMContentLoaded', () => {
+            // Track navigation clicks
+            document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const section = e.target.getAttribute('href').replace('#', '');
+                    if (typeof trackSectionView === 'function') {
+                        trackSectionView(section);
+                    }
+                });
+            });
+            
+            // Track contact attempts
+            document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const method = e.target.getAttribute('href').includes('tel:') ? 'phone' : 'email';
+                    if (typeof trackContact === 'function') {
+                        trackContact(method);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

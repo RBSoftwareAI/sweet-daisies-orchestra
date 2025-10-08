@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Page d'accueil -->
+  <url>
+    <loc>https://sweet-daisies-orchestra.com/</loc>
+    <lastmod>2024-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://sweet-daisies-orchestra.com/images/logo.jpg</image:loc>
+      <image:caption>Logo The Sweet Daisies Orchestra</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sweet-daisies-orchestra.com/images/sdo-2.jpg</image:loc>
+      <image:caption>Sweet Daisies Orchestra - Créativité Musicale</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Section À Propos -->
+  <url>
+    <loc>https://sweet-daisies-orchestra.com/#about</loc>
+    <lastmod>2024-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Section Musiciens -->
+  <url>
+    <loc>https://sweet-daisies-orchestra.com/#musicians</loc>
+    <lastmod>2024-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sweet-daisies-orchestra.com/images/musicians/</image:loc>
+      <image:caption>Les musiciens du Sweet Daisies Orchestra</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Section Répertoire -->
+  <url>
+    <loc>https://sweet-daisies-orchestra.com/#repertoire</loc>
+    <lastmod>2024-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Section Galerie -->
+  <url>
+    <loc>https://sweet-daisies-orchestra.com/#gallery</loc>
+    <lastmod>2024-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://sweet-daisies-orchestra.com/images/sdo-13.jpg</image:loc>
+      <image:caption>Sweet Daisies Orchestra - Formation Complète</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Section Contact -->
+  <url>
+    <loc>https://sweet-daisies-orchestra.com/#contact</loc>
+    <lastmod>2024-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>
