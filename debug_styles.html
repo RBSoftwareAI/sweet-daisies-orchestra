@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Styles</title>
+</head>
+<body>
+    <script>
+        // Se connecter au site et inspecter les styles
+        async function debugStyles() {
+            try {
+                const response = await fetch('https://8000-im2h1vrujfguuqhsguvll-6532622b.e2b.dev/css/style.css');
+                const cssText = await response.text();
+                
+                // Chercher la règle hero-description
+                const match = cssText.match(/\.hero-description\s*{[^}]*}/g);
+                console.log('Règles CSS trouvées pour .hero-description:', match);
+                
+                // Chercher margin-bottom
+                const marginMatch = cssText.match(/margin-bottom:\s*[^;]+/g);
+                console.log('Toutes les règles margin-bottom:', marginMatch);
+                
+                // Chercher spécifiquement dans la section hero-description
+                const heroSection = cssText.match(/\.hero-description[\s\S]*?margin-bottom:\s*([^;]+)/);
+                console.log('margin-bottom pour hero-description:', heroSection ? heroSection[1] : 'Non trouvé');
+                
+            } catch (err) {
+                console.error('Erreur:', err);
+            }
+        }
+        
+        window.addEventListener('load', debugStyles);
+    </script>
+    
+    <h1>Debug CSS - Voir console</h1>
+</body>
+</html>

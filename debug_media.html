@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Media Queries</title>
+</head>
+<body>
+    <script>
+        async function debugMediaQueries() {
+            try {
+                const response = await fetch('https://8000-im2h1vrujfguuqhsguvll-6532622b.e2b.dev/css/style.css');
+                const cssText = await response.text();
+                
+                // Chercher toutes les media queries qui contiennent hero-description
+                const mediaMatches = cssText.match(/@media[^{]*{[^{}]*(?:{[^{}]*}[^{}]*)*[^{}]*\.hero-description[^{}]*{[^}]*}[^{}]*(?:{[^{}]*}[^{}]*)*}/g);
+                console.log('Media queries avec .hero-description:', mediaMatches);
+                
+                // Chercher la largeur actuelle de l'écran
+                console.log('Largeur écran:', window.innerWidth, 'px');
+                console.log('Hauteur écran:', window.innerHeight, 'px');
+                
+                // Tester quelques media queries communes
+                console.log('max-width: 768px:', window.matchMedia('(max-width: 768px)').matches);
+                console.log('max-width: 480px:', window.matchMedia('(max-width: 480px)').matches);
+                console.log('max-width: 1024px:', window.matchMedia('(max-width: 1024px)').matches);
+                
+                // Vérifier le style calculé actuel
+                setTimeout(() => {
+                    const heroElement = document.querySelector('.hero-description');
+                    if (heroElement) {
+                        const computed = getComputedStyle(heroElement);
+                        console.log('Style calculé margin-bottom:', computed.marginBottom);
+                        console.log('Style calculé margin:', computed.margin);
+                    } else {
+                        console.log('Élément .hero-description non trouvé dans cette page');
+                    }
+                }, 100);
+                
+            } catch (err) {
+                console.error('Erreur:', err);
+            }
+        }
+        
+        window.addEventListener('load', debugMediaQueries);
+    </script>
+    
+    <h1>Debug Media Queries - Voir console</h1>
+    <p>Largeur: <span id="width"></span>px</p>
+    <script>
+        document.getElementById('width').textContent = window.innerWidth;
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Real Site</title>
+</head>
+<body>
+    <script>
+        // Script à copier-coller dans la console du vrai site
+        const checkScript = `
+// === SCRIPT DE DEBUG À COPIER DANS LA CONSOLE DE VOTRE SITE ===
+console.log('🔍 DEBUG HERO-DESCRIPTION');
+console.log('Largeur écran:', window.innerWidth, 'px');
+
+const heroEl = document.querySelector('.hero-description');
+if (!heroEl) {
+    console.log('❌ Élément .hero-description NON TROUVÉ');
+} else {
+    console.log('✅ Élément trouvé');
+    const computed = getComputedStyle(heroEl);
+    console.log('📏 margin-bottom calculé:', computed.marginBottom);
+    console.log('📏 margin complet:', computed.margin);
+    
+    // Vérifier media queries
+    console.log('📱 Media queries:');
+    console.log('  max-width 480px:', window.matchMedia('(max-width: 480px)').matches);
+    console.log('  max-width 768px:', window.matchMedia('(max-width: 768px)').matches);
+    console.log('  max-width 1024px:', window.matchMedia('(max-width: 1024px)').matches);
+    
+    // Vérifier toutes les règles CSS appliquées
+    console.log('📋 Règles CSS pour cet élément:');
+    const sheets = document.styleSheets;
+    for (let sheet of sheets) {
+        try {
+            for (let rule of sheet.cssRules) {
+                if (rule.selectorText && rule.selectorText.includes('.hero-description')) {
+                    console.log('  Règle:', rule.selectorText, '- margin-bottom:', 
+                        rule.style.marginBottom || 'non défini');
+                }
+            }
+        } catch(e) { /* CORS */ }
+    }
+}
+        `;
+        
+        document.body.innerHTML = \`
+            <h1>Script de Debug</h1>
+            <p><strong>Copiez ce script et collez-le dans la console de votre site:</strong></p>
+            <textarea readonly style="width:100%;height:300px;">\${checkScript}</textarea>
+            <p>Ou testez sur: <a href="https://8000-im2h1vrujfguuqhsguvll-6532622b.e2b.dev" target="_blank">Site de test</a></p>
+        \`;
+    </script>
+</body>
+</html>
