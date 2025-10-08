@@ -2,6 +2,9 @@
    VARIABLES CSS - PALETTE PSYCHÉDÉLIQUE 60-70
    ============================================== */
 :root {
+    /* Viewport height dynamique pour mobile */
+    --vh: 1vh;
+    
     /* Couleurs principales */
     --yellow-primary: #FFD700;    /* Jaune vif */
     --yellow-daisy: #FFDE00;      /* Jaune pâquerette */
@@ -247,6 +250,7 @@ p {
 .hero {
     position: relative;
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100); /* Utilise la vraie hauteur calculée en JS */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -605,6 +609,14 @@ p {
    RESPONSIVE HERO
    ============================================== */
 @media (max-width: 768px) {
+    /* Correction pour Safari mobile et iPhone */
+    .hero {
+        height: 100vh;
+        height: calc(100vh - env(safe-area-inset-top));
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+    
     .hero-content {
         padding: 0 15px;
     }
@@ -687,6 +699,39 @@ p {
     .service-item span {
         font-size: 0.9rem;
     }
+}
+
+/* Corrections spécifiques pour iPhone et Safari mobile */
+@media screen and (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+    .hero {
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+    
+    .hero-content {
+        padding-top: 20px; /* Espace supplémentaire en haut */
+        padding-bottom: 20px; /* Espace supplémentaire en bas */
+    }
+    
+    .hero-title {
+        font-size: clamp(2.8rem, 7vw, 4.5rem); /* Taille légèrement réduite pour plus d'espace */
+        margin-bottom: 1rem;
+        line-height: 1.05; /* Line-height plus serré pour économiser l'espace */
+    }
+}
+
+/* Styles spécifiques pour les appareils iOS détectés par JavaScript */
+.ios-device .hero {
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: calc(var(--vh, 1vh) * 95); /* Léger ajustement pour iOS */
+}
+
+.ios-device.portrait-mode .hero-content {
+    transform: translateY(-10px); /* Léger décalage vers le haut en mode portrait */
+}
+
+.ios-device .hero-title {
+    font-size: clamp(2.5rem, 6.5vw, 4rem); /* Titre légèrement plus petit sur iOS */
 }
 
 /* Animation de rotation pour la fleur pâquerette */

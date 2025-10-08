@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeApp() {
     console.log('🌼 Sweet Daisies Orchestra - Site chargé !');
     
+    // Correction viewport mobile en premier
+    fixMobileViewport();
+    
     // Initialisation des fonctionnalités
     initNavigation();
     initScrollEffects();
@@ -845,6 +848,53 @@ function addCustomCSS() {
 
 // Ajouter les styles CSS personnalisés
 addCustomCSS();
+
+// ==============================================
+// CORRECTION VIEWPORT MOBILE
+// ==============================================
+
+/**
+ * Corrige les problèmes de viewport sur mobile (iPhone Safari notamment)
+ * Le problème : 100vh inclut la barre d'adresse sur Safari mobile
+ * La solution : Calculer la vraie hauteur disponible
+ */
+function fixMobileViewport() {
+    // Fonction pour calculer et appliquer la vraie hauteur de viewport
+    function setRealVH() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        
+        // Log pour debug en mode développement
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log(`📱 Viewport mobile corrigé: ${vh}px (height: ${window.innerHeight}px)`);
+        }
+    }
+    
+    // Appliquer immédiatement
+    setRealVH();
+    
+    // Recalculer lors des redimensionnements (orientation, barre d'adresse)
+    window.addEventListener('resize', setRealVH);
+    window.addEventListener('orientationchange', () => {
+        // Délai pour laisser le temps au navigateur de s'adapter
+        setTimeout(setRealVH, 100);
+    });
+    
+    // Détection spécifique iOS/Safari pour des corrections supplémentaires
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
+    if (isIOS || isSafari) {
+        document.body.classList.add('ios-device');
+        
+        // Correction supplémentaire pour iPhone en mode portrait
+        if (window.screen.height > window.screen.width) {
+            document.body.classList.add('portrait-mode');
+        }
+        
+        console.log(`🍎 Appareil iOS/Safari détecté - Corrections appliquées`);
+    }
+}
 
 // ==============================================
 // DEBUGGING ET DÉVELOPPEMENT
