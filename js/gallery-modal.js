@@ -133,7 +133,7 @@ class GalleryModal {
       if (heroImage) {
         attachClickableEvent(heroElement, heroElement.dataset.image || heroImage.src, 
           '🌼 Visuel Artistique Sweet Daisies',
-          'Notre univers visuel mêlant art et musique dans un style unique et coloré.');
+          'L\'univers visuel des Sweet Daisies Orchestra.');
       }
     }
 
