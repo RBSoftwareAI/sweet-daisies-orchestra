@@ -45,34 +45,76 @@
     <meta name="msapplication-TileColor" content="#2c5530">
     
     <!-- Google Analytics 4 -->
-    <!-- IMPORTANT: Remplacer G-XXXXXXXXXX par votre vrai ID de mesure Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- Google tag (gtag.js) - Configuration Sweet Daisies Orchestra -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS5W1KM7Z5"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX', {
+        
+        // Configuration de base Google Analytics
+        gtag('config', 'G-SS5W1KM7Z5', {
             page_title: 'The Sweet Daisies Orchestra',
             custom_map: {
                 'custom_parameter_1': 'musician_collective',
                 'custom_parameter_2': 'besancon_music'
-            }
+            },
+            // Paramètres avancés pour le suivi
+            send_page_view: true,
+            anonymize_ip: true,
+            allow_google_signals: true,
+            cookie_flags: 'SameSite=None;Secure'
         });
         
-        // Événements personnalisés pour le suivi
+        // Événements personnalisés pour le suivi Sweet Daisies Orchestra
         function trackContact(method) {
             gtag('event', 'contact_attempt', {
                 'contact_method': method,
-                'page_location': window.location.href
+                'page_location': window.location.href,
+                'event_category': 'engagement',
+                'event_label': 'sweet_daisies_contact'
             });
+            console.log('📊 Analytics: Contact attempt tracked -', method);
         }
         
         function trackSectionView(section) {
             gtag('event', 'section_view', {
                 'section_name': section,
-                'page_location': window.location.href
+                'page_location': window.location.href,
+                'event_category': 'navigation',
+                'event_label': 'sweet_daisies_section'
             });
+            console.log('📊 Analytics: Section view tracked -', section);
         }
+        
+        function trackMusicianClick(musician) {
+            gtag('event', 'musician_profile_view', {
+                'musician_name': musician,
+                'event_category': 'content',
+                'event_label': 'musician_interest'
+            });
+            console.log('📊 Analytics: Musician profile viewed -', musician);
+        }
+        
+        function trackGalleryView(image) {
+            gtag('event', 'gallery_interaction', {
+                'image_name': image,
+                'event_category': 'media',
+                'event_label': 'photo_engagement'
+            });
+            console.log('📊 Analytics: Gallery image viewed -', image);
+        }
+        
+        // Suivi automatique du temps passé sur le site
+        let startTime = Date.now();
+        window.addEventListener('beforeunload', function() {
+            const timeSpent = Math.round((Date.now() - startTime) / 1000);
+            gtag('event', 'page_engagement', {
+                'time_spent': timeSpent,
+                'event_category': 'engagement',
+                'event_label': 'session_duration'
+            });
+        });
     </script>
     
     <!-- Fonts Google -->
