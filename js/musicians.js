@@ -72,6 +72,7 @@ class MusiciansManager {
   createMusicianCard(musician, index) {
     const card = document.createElement('div');
     card.className = 'musician-card';
+    card.setAttribute('data-musician-id', musician.id);
     card.style.animationDelay = `${index * 0.1}s`;
 
     const photoPath = `assets/bios/${musician.photo}`;
