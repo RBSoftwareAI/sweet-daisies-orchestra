@@ -1,0 +1,93 @@
+<!-- 
+    SECTION YOUTUBE - THE SWEET DAISIES ORCHESTRA
+    À intégrer dans index.html, section #repertoire
+    
+    INSTRUCTIONS :
+    1. Remplacer [VIDEO_ID_1] et [VIDEO_ID_2] par les vrais IDs YouTube
+    2. Remplacer [CHANNEL_HANDLE] par le handle de la chaîne (ex: @sweetdaisiesorchestra)
+    3. Ajouter le CSS depuis youtube-section-styles.css dans /css/style.css
+-->
+
+<!-- Section Vidéos YouTube -->
+<div class="youtube-section">
+    <h3><i class="fab fa-youtube"></i> Nos Vidéos</h3>
+    <p class="youtube-intro">Découvrez nos performances en live sur notre chaîne YouTube</p>
+    
+    <div class="youtube-videos">
+        <!-- Vidéo 1 : A Whiter Shade of Pale -->
+        <div class="youtube-video-card">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/[VIDEO_ID_1]" 
+                    title="A Whiter Shade of Pale - Procol Harum | The Sweet Daisies Orchestra"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h4>A Whiter Shade of Pale</h4>
+                <p class="video-artist">Procol Harum</p>
+                <p class="video-description">Classique rock des années 60 revisité avec notre touche unique</p>
+            </div>
+        </div>
+        
+        <!-- Vidéo 2 : Mad About You -->
+        <div class="youtube-video-card">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/[VIDEO_ID_2]" 
+                    title="Mad About You - Hooverphonic | The Sweet Daisies Orchestra"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h4>Mad About You</h4>
+                <p class="video-artist">Hooverphonic</p>
+                <p class="video-description">Trip-hop belge élégant et atmosphérique</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="youtube-cta">
+        <a href="https://www.youtube.com/@[CHANNEL_HANDLE]" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+            <i class="fab fa-youtube"></i> Voir toutes nos vidéos sur YouTube
+        </a>
+    </div>
+</div>
+
+<!-- Section Audio (à venir) -->
+<div class="future-content">
+    <div class="future-section">
+        <h3><i class="fas fa-headphones"></i> Extraits Audio</h3>
+        <p>Découvrez prochainement l'intégralité de notre répertoire en audio</p>
+        <small>Disponible prochainement</small>
+    </div>
+</div>
+
+<!-- 
+    TEMPLATE POUR AJOUTER D'AUTRES VIDÉOS :
+    Copier-coller ce bloc et remplacer les valeurs
+    
+    <div class="youtube-video-card">
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/[VIDEO_ID_N]" 
+                title="[TITRE] - [ARTISTE] | The Sweet Daisies Orchestra"
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </div>
+        <div class="video-info">
+            <h4>[TITRE]</h4>
+            <p class="video-artist">[ARTISTE]</p>
+            <p class="video-description">[Description courte du titre]</p>
+        </div>
+    </div>
+-->
