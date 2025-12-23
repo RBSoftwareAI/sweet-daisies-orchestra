@@ -36,3 +36,6 @@ build/
 
 # Wrangler
 .wrangler/
+
+# Documentation personnelle (non versionnée)
+documentation_personnelle/
