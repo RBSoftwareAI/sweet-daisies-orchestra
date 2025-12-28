@@ -39,3 +39,29 @@ build/
 
 # Documentation personnelle (non versionnée)
 documentation_personnelle/
+
+# ========================================
+# GUIDES YOUTUBE - NE PAS COMMITER
+# Documentation générée pour YouTube
+# ========================================
+
+# Fichiers Markdown des guides
+Guide_Configuration_YouTube_SDO.md
+Guide_Visuels_YouTube_SDO.md
+Recommandations_Modifications_Site_Web.md
+Recapitulatif_YouTube_SDO.md
+README_Guides_YouTube.md
+
+# Dossier et archives des guides
+guides_youtube_sdo_*/
+guides_youtube_sdo_*.tar.gz
+
+# PDF des guides
+guides_pdf/
+guides_pdf_*.tar.gz
+
+# Script de conversion
+convert_md_to_pdf.py
+
+# Fichiers d'information
+LISEZ-MOI-GUIDES-PDF.txt

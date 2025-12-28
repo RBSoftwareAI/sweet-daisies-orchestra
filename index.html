@@ -293,7 +293,12 @@
                     <div class="repertoire-content">
                         <div class="song-list">
                             <div class="song-item">
-                                <span class="song-title">A Whiter Shade of Pale</span>
+                                <span class="song-title">
+                                    A Whiter Shade of Pale
+                                    <a href="#video-whiter-shade" class="media-indicator video-available" title="Vidéo disponible - Cliquez pour voir">
+                                        <i class="fas fa-video"></i>
+                                    </a>
+                                </span>
                                 <span class="song-artist">Procol Harum</span>
                             </div>
                             <div class="song-item">
@@ -337,7 +342,12 @@
                                 <span class="song-artist">Elton John</span>
                             </div>
                             <div class="song-item">
-                                <span class="song-title">Mad About You</span>
+                                <span class="song-title">
+                                    Mad About You
+                                    <a href="#video-mad-about-you" class="media-indicator video-available" title="Vidéo disponible - Cliquez pour voir">
+                                        <i class="fas fa-video"></i>
+                                    </a>
+                                </span>
                                 <span class="song-artist">Hooverphonic</span>
                             </div>
                         </div>
@@ -407,17 +417,74 @@
                 </div>
             </div>
 
-            <!-- Espaces réservés pour futurs contenus -->
-            <div class="future-content">
-                <div class="future-section">
-                    <h3><i class="fas fa-headphones"></i> Extraits Audio</h3>
-                    <p>Découvrez prochainement nos interprétations en audio</p>
-                    <small>Disponible dans ~1 mois</small>
+            <!-- Section Contenus Médias -->
+            <div class="media-content-sections">
+                <!-- EXTRAITS VIDÉO - DISPONIBLE -->
+                <div class="video-section-repertoire">
+                    <h3><i class="fas fa-video"></i> Extraits Vidéo - Nos Concerts Live</h3>
+                    <p class="section-intro">Découvrez nos interprétations en concert</p>
+                    
+                    <div class="video-grid-repertoire">
+                        <!-- Vidéo 1 : A Whiter Shade of Pale -->
+                        <div class="video-item-repertoire" id="video-whiter-shade">
+                            <div class="video-wrapper-repertoire">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/PNi-h2lVzFg" 
+                                    title="A Whiter Shade of Pale - Procol Harum | The Sweet Daisies Orchestra"
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="video-info-repertoire">
+                                <h4>A Whiter Shade of Pale</h4>
+                                <p class="video-artist">Procol Harum</p>
+                                <div class="video-meta">
+                                    <span><i class="fas fa-calendar"></i> Concert Live</span>
+                                    <span><i class="fas fa-music"></i> Rock Progressif</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vidéo 2 : Mad About You -->
+                        <div class="video-item-repertoire" id="video-mad-about-you">
+                            <div class="video-wrapper-repertoire">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/xaFoAaA2Sa0" 
+                                    title="Mad About You - Hooverphonic | The Sweet Daisies Orchestra"
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="video-info-repertoire">
+                                <h4>Mad About You</h4>
+                                <p class="video-artist">Hooverphonic</p>
+                                <div class="video-meta">
+                                    <span><i class="fas fa-calendar"></i> Concert Live</span>
+                                    <span><i class="fas fa-music"></i> Trip Hop / Jazz</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton vers la chaîne YouTube -->
+                    <div class="youtube-cta">
+                        <p class="youtube-text">Retrouvez tous nos concerts et performances live</p>
+                        <a href="https://www.youtube.com/@TheSweetDaisiesOrchestra" target="_blank" class="btn btn-youtube" onclick="if(typeof trackYouTubeClick === 'function') trackYouTubeClick();">
+                            <i class="fab fa-youtube"></i> Notre Chaîne YouTube
+                        </a>
+                        <p class="youtube-subscribe">
+                            <small>Abonnez-vous pour ne rien manquer de nos prochaines vidéos !</small>
+                        </p>
+                    </div>
                 </div>
-                <div class="future-section">
-                    <h3><i class="fas fa-video"></i> Extraits Vidéo</h3>
-                    <p>Regardez nos performances en live</p>
-                    <small>Disponible dans ~1 mois</small>
+
+                <!-- EXTRAITS AUDIO - À VENIR (Optionnel) -->
+                <div class="audio-section-repertoire future-content-section">
+                    <h3><i class="fas fa-headphones"></i> Extraits Audio</h3>
+                    <p>L'audio de nos concerts est disponible sur les vidéos YouTube ci-dessus.</p>
+                    <p><small>Des versions audio haute qualité seront disponibles prochainement.</small></p>
                 </div>
             </div>
         </div>
@@ -645,6 +712,14 @@
                             <a href="https://www.instagram.com/p/DPPQw5ejmy1/?igsh=c3dybjh5bjQ2eDR0" target="_blank">@sweetdaisiesorchestra</a>
                         </div>
                     </div>
+                    
+                    <div class="contact-item">
+                        <i class="fab fa-youtube"></i>
+                        <div>
+                            <h3>YouTube</h3>
+                            <a href="https://www.youtube.com/@TheSweetDaisiesOrchestra" target="_blank">The Sweet Daisies Orchestra</a>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="contact-services">
@@ -697,8 +772,9 @@
                     <p><i class="fas fa-envelope"></i> sdorchestra25@gmail.com</p>
                     <p><i class="fas fa-phone"></i> +33 6 64 67 16 24</p>
                     <div class="footer-social">
-                        <a href="https://www.facebook.com/profile.php?id=61581444306820" target="_blank"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/p/DPPQw5ejmy1/?igsh=c3dybjh5bjQ2eDR0" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61581444306820" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/p/DPPQw5ejmy1/?igsh=c3dybjh5bjQ2eDR0" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@TheSweetDaisiesOrchestra" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
@@ -744,6 +820,18 @@
             });
         } else {
             console.log('❌ Service Worker non supporté par ce navigateur');
+        }
+        
+        // Tracking des clics YouTube
+        function trackYouTubeClick() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'youtube_channel_visit', {
+                    'event_category': 'outbound',
+                    'event_label': 'youtube_channel',
+                    'value': 1
+                });
+            }
+            console.log('📊 Analytics: YouTube channel click tracked');
         }
         
         // Gestion de l'installation PWA
