@@ -2878,3 +2878,251 @@ body.modal-open {
 .musician-info {
     position: relative;
 }
+
+/* =================================
+   SECTION VIDÉOS RÉPERTOIRE
+   ================================= */
+
+.media-content-sections {
+    margin-top: 3rem;
+}
+
+.video-section-repertoire {
+    background: linear-gradient(135deg, rgba(173, 216, 230, 0.15) 0%, rgba(152, 255, 152, 0.15) 50%, rgba(255, 182, 193, 0.15) 100%);
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.video-section-repertoire h3 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.section-intro {
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+}
+
+.video-grid-repertoire {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .video-grid-repertoire {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+.video-item-repertoire {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.video-item-repertoire:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.video-wrapper-repertoire {
+    position: relative;
+    padding-bottom: 56.25%; /* Ratio 16:9 */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-wrapper-repertoire iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-info-repertoire {
+    padding: 1.5rem;
+}
+
+.video-info-repertoire h4 {
+    color: #333;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.video-artist {
+    color: #666;
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.video-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #888;
+    flex-wrap: wrap;
+}
+
+.video-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* Bouton YouTube */
+.youtube-cta {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+}
+
+.youtube-text {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.btn-youtube {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 2.5rem;
+    background: #FF0000;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+}
+
+.btn-youtube:hover {
+    background: #CC0000;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+}
+
+.btn-youtube i {
+    font-size: 1.5rem;
+}
+
+.youtube-subscribe {
+    margin-top: 1rem;
+    color: #666;
+}
+
+/* Section Audio Future */
+.audio-section-repertoire {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    border: 2px dashed #ddd;
+}
+
+.audio-section-repertoire h3 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.future-content-section p {
+    color: #666;
+    margin: 0.5rem 0;
+}
+
+/* Indicateurs de Média dans la Liste */
+.song-item {
+    position: relative;
+}
+
+.media-indicator {
+    margin-left: 0.5rem;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.video-available {
+    color: #FF0000;
+}
+
+.audio-available {
+    color: #1DB954;
+}
+
+.media-indicator:hover {
+    transform: scale(1.3);
+    filter: brightness(1.2);
+}
+
+/* Animations */
+@keyframes pulse-video {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.video-available:hover {
+    animation: pulse-video 1s infinite;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .video-section-repertoire {
+        padding: 2rem 1.5rem;
+    }
+    
+    .video-section-repertoire h3 {
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-grid-repertoire {
+        gap: 1.5rem;
+    }
+    
+    .video-info-repertoire {
+        padding: 1rem;
+    }
+    
+    .video-info-repertoire h4 {
+        font-size: 1.2rem;
+    }
+    
+    .btn-youtube {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .video-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
