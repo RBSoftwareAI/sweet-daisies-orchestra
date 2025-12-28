@@ -65,3 +65,8 @@ convert_md_to_pdf.py
 
 # Fichiers d'information
 LISEZ-MOI-GUIDES-PDF.txt
+# Instructions PR et guides YouTube (ne pas committer)
+GUIDE_RAPIDE_PR.txt
+INSTRUCTIONS_PR_YOUTUBE_FIX.md
+RESUME_FINAL_CORRECTIONS_YOUTUBE.txt
+PROCHAINES_ETAPES_YOUTUBE.md
