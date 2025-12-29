@@ -1268,7 +1268,7 @@ section:nth-child(odd) {
 
 .song-title {
     font-weight: 600;
-    color: #333;
+    color: var(--dark-slate);
 }
 
 .song-artist {
@@ -2898,7 +2898,7 @@ body.modal-open {
 
 .video-section-repertoire h3 {
     text-align: center;
-    color: #333;
+    color: var(--dark-slate);
     font-size: 2rem;
     margin-bottom: 1rem;
     font-weight: 700;
@@ -2960,7 +2960,7 @@ body.modal-open {
 }
 
 .video-info-repertoire h4 {
-    color: #333;
+    color: var(--dark-slate);
     font-size: 1.4rem;
     margin-bottom: 0.5rem;
     font-weight: 600;
