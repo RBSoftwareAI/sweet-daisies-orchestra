@@ -18,3 +18,16 @@
 *.tmp
 *.log
 .DS_Store
+
+# Guides et documentation divers
+Guide_*.md
+PROCHAINES_*.md
+README_Guides*.md
+RESUME_*.txt
+Recapitulatif_*.md
+Recommandations_*.md
+convert_md_to_pdf.py
+guides_pdf/
+guides_pdf_*.tar.gz
+guides_youtube_*.tar.gz
+guides_youtube_*/
