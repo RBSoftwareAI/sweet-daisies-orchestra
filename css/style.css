@@ -3205,8 +3205,22 @@ body.modal-open {
     font-size: 0.85rem;
     transition: all 0.2s ease;
     text-decoration: none;
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.media-indicator i {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-style: normal !important;
+}
+
+.media-indicator .fa-video {
+    display: inline-block !important;
+    visibility: visible !important;
 }
 
 .video-available {
@@ -3220,6 +3234,23 @@ body.modal-open {
 .media-indicator:hover {
     transform: scale(1.3);
     filter: brightness(1.2);
+}
+
+/* Fallback emoji pour les icônes (visible si Font Awesome bloqué) */
+.icon-fallback {
+    display: none;
+    font-style: normal;
+}
+
+/* Si Font Awesome ne charge pas, on affiche l'emoji */
+.media-indicator .fas:not([class*="fa-"]) + .icon-fallback,
+.media-indicator i:empty + .icon-fallback {
+    display: inline !important;
+}
+
+/* Cacher l'emoji si Font Awesome est chargé */
+.fas.fa-video + .icon-fallback {
+    display: none !important;
 }
 
 /* Animations */
