@@ -1,72 +1,20 @@
-# Fichiers système
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Documentation files (ne pas versionner)
+*RECAP*.txt
+*RECAP*.md
+*DESIGN*.txt
+*INSTRUCTIONS*.txt
+*INSTRUCTIONS*.md
+*SOLUTION*.txt
+*SOLUTION*.md
+*GUIDE*.txt
+*GUIDE*.md
+*VERIFICATION*.txt
+*ACTION*.txt
+*INDEX*.txt
+*LISEZ*.txt
+*NETTOYAGE*.txt
 
-# Logs
+# Fichiers temporaires
+*.tmp
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Environnement
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Node modules (si utilisé)
-node_modules/
-npm-debug.log*
-
-# Build folders
-dist/
-build/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Wrangler
-.wrangler/
-
-# Documentation personnelle (non versionnée)
-documentation_personnelle/
-
-# ========================================
-# GUIDES YOUTUBE - NE PAS COMMITER
-# Documentation générée pour YouTube
-# ========================================
-
-# Fichiers Markdown des guides
-Guide_Configuration_YouTube_SDO.md
-Guide_Visuels_YouTube_SDO.md
-Recommandations_Modifications_Site_Web.md
-Recapitulatif_YouTube_SDO.md
-README_Guides_YouTube.md
-
-# Dossier et archives des guides
-guides_youtube_sdo_*/
-guides_youtube_sdo_*.tar.gz
-
-# PDF des guides
-guides_pdf/
-guides_pdf_*.tar.gz
-
-# Script de conversion
-convert_md_to_pdf.py
-
-# Fichiers d'information
-LISEZ-MOI-GUIDES-PDF.txt
-# Instructions PR et guides YouTube (ne pas committer)
-GUIDE_RAPIDE_PR.txt
-INSTRUCTIONS_PR_YOUTUBE_FIX.md
-RESUME_FINAL_CORRECTIONS_YOUTUBE.txt
-PROCHAINES_ETAPES_YOUTUBE.md
+.DS_Store
