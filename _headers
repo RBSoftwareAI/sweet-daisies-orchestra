@@ -29,14 +29,14 @@
   Cache-Control: public, max-age=31536000, immutable
   Vary: Accept-Encoding
 
-# Headers pour CSS et JS
+# Headers pour CSS et JS - Cache réduit pour permettre les mises à jour
 /css/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600, must-revalidate
   Content-Type: text/css
   Vary: Accept-Encoding
 
 /js/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600, must-revalidate
   Content-Type: application/javascript
   Vary: Accept-Encoding
 
