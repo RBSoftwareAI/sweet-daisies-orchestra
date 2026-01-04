@@ -3243,13 +3243,11 @@ body.modal-open {
     filter: brightness(1.2);
 }
 
-/* Fallback emoji pour les icônes (visible si Font Awesome bloqué) */
+/* Fallback emoji pour les icônes */
 .icon-fallback {
-    display: none !important;
+    display: inline;
     font-style: normal;
-    position: absolute;
-    left: 0;
-    top: 0;
+    margin-left: 0.5rem; /* Espacement entre FA et emoji */
 }
 
 /* Si Font Awesome ne charge pas, on affiche l'emoji */
@@ -3261,16 +3259,6 @@ body.modal-open {
     .media-indicator .fas {
         display: none !important;
     }
-}
-
-/* Cacher l'emoji si Font Awesome est chargé - priorité absolue */
-.fas.fa-video + .icon-fallback,
-.media-indicator i[class*="fa-"] + .icon-fallback {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    width: 0 !important;
-    height: 0 !important;
 }
 
 /* Animations */
