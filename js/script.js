@@ -882,45 +882,10 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 }
 
 // ==============================================
-// GESTION DES ICÔNES VIDÉO ET FALLBACK
+// ICÔNES VIDÉO - PAS DE DÉTECTION
 // ==============================================
-function initIconsFallback() {
-    // Vérifier si Font Awesome est chargé
-    setTimeout(() => {
-        const testIcon = document.createElement('i');
-        testIcon.className = 'fas fa-video';
-        testIcon.style.cssText = 'position: absolute; left: -9999px;';
-        document.body.appendChild(testIcon);
-        
-        const isFontAwesomeLoaded = window.getComputedStyle(testIcon, ':before').content !== 'none';
-        
-        if (isFontAwesomeLoaded) {
-            // Font Awesome est chargé, cacher tous les emojis
-            document.querySelectorAll('.icon-fallback').forEach(emoji => {
-                emoji.style.display = 'none';
-                emoji.style.visibility = 'hidden';
-                emoji.style.opacity = '0';
-            });
-            console.log('✅ Font Awesome chargé - Utilisation des icônes FA');
-        } else {
-            // Font Awesome n'est pas chargé, afficher les emojis
-            document.querySelectorAll('.icon-fallback').forEach(emoji => {
-                emoji.style.display = 'inline';
-                emoji.style.visibility = 'visible';
-                emoji.style.opacity = '1';
-            });
-            document.querySelectorAll('.media-indicator i').forEach(icon => {
-                icon.style.display = 'none';
-            });
-            console.log('⚠️ Font Awesome non chargé - Utilisation des emojis de fallback');
-        }
-        
-        document.body.removeChild(testIcon);
-    }, 100);
-}
-
-// Initialiser la gestion des icônes
-initIconsFallback();
+// Les icônes Font Awesome et emojis sont tous deux présents
+// Affichage géré uniquement par CSS
 
 // Message de bienvenue
 console.log(`
