@@ -3209,6 +3209,9 @@ body.modal-open {
     align-items: center;
     visibility: visible !important;
     opacity: 1 !important;
+    position: relative;
+    width: 1em;
+    height: 1em;
 }
 
 .media-indicator i {
@@ -3227,6 +3230,10 @@ body.modal-open {
     color: #FF0000;
 }
 
+.video-black {
+    color: #000000;
+}
+
 .audio-available {
     color: #1DB954;
 }
@@ -3238,19 +3245,32 @@ body.modal-open {
 
 /* Fallback emoji pour les icônes (visible si Font Awesome bloqué) */
 .icon-fallback {
-    display: none;
+    display: none !important;
     font-style: normal;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 /* Si Font Awesome ne charge pas, on affiche l'emoji */
-.media-indicator .fas:not([class*="fa-"]) + .icon-fallback,
-.media-indicator i:empty + .icon-fallback {
-    display: inline !important;
+@supports not (font-family: "Font Awesome 6 Free") {
+    .media-indicator .fas + .icon-fallback {
+        display: inline !important;
+        position: static;
+    }
+    .media-indicator .fas {
+        display: none !important;
+    }
 }
 
-/* Cacher l'emoji si Font Awesome est chargé */
-.fas.fa-video + .icon-fallback {
+/* Cacher l'emoji si Font Awesome est chargé - priorité absolue */
+.fas.fa-video + .icon-fallback,
+.media-indicator i[class*="fa-"] + .icon-fallback {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
 }
 
 /* Animations */
