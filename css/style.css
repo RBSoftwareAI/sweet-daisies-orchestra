@@ -3243,7 +3243,7 @@ body.modal-open {
     filter: brightness(1.2);
 }
 
-/* Fallback emoji pour les icônes - MASQUÉ PAR DÉFAUT */
+/* Fallback emoji - SUPPRIMÉ COMPLÈTEMENT - Utilisation exclusive de Font Awesome */
 .icon-fallback {
     display: none !important;
     visibility: hidden !important;
