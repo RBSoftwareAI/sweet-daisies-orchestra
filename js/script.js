@@ -885,38 +885,59 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 // GESTION DES ICÔNES VIDÉO ET FALLBACK
 // ==============================================
 function initIconsFallback() {
-    // Vérifier si Font Awesome est chargé
+    // Par défaut, cacher TOUS les emojis immédiatement
+    document.querySelectorAll('.icon-fallback').forEach(emoji => {
+        emoji.style.display = 'none !important';
+        emoji.style.visibility = 'hidden !important';
+        emoji.style.opacity = '0 !important';
+        emoji.style.width = '0 !important';
+        emoji.style.height = '0 !important';
+        emoji.style.position = 'absolute !important';
+    });
+    
+    // Vérifier si Font Awesome est chargé avec plusieurs méthodes
     setTimeout(() => {
         const testIcon = document.createElement('i');
         testIcon.className = 'fas fa-video';
-        testIcon.style.cssText = 'position: absolute; left: -9999px;';
+        testIcon.style.cssText = 'position: absolute; left: -9999px; font-family: "Font Awesome 6 Free";';
         document.body.appendChild(testIcon);
         
-        const isFontAwesomeLoaded = window.getComputedStyle(testIcon, ':before').content !== 'none';
+        const computedStyle = window.getComputedStyle(testIcon, ':before');
+        const isFontAwesomeLoaded = (
+            computedStyle.content !== 'none' && 
+            computedStyle.content !== '' &&
+            computedStyle.fontFamily.includes('Font Awesome')
+        );
         
         if (isFontAwesomeLoaded) {
-            // Font Awesome est chargé, cacher tous les emojis
-            document.querySelectorAll('.icon-fallback').forEach(emoji => {
-                emoji.style.display = 'none';
-                emoji.style.visibility = 'hidden';
-                emoji.style.opacity = '0';
+            // Font Awesome est chargé - Afficher les icônes FA, masquer les emojis
+            document.querySelectorAll('.media-indicator i.fas').forEach(icon => {
+                icon.style.display = 'inline-block';
+                icon.style.visibility = 'visible';
+                icon.style.opacity = '1';
             });
-            console.log('✅ Font Awesome chargé - Utilisation des icônes FA');
+            document.querySelectorAll('.icon-fallback').forEach(emoji => {
+                emoji.remove(); // Supprimer complètement l'emoji du DOM
+            });
+            console.log('✅ Font Awesome chargé - Utilisation des icônes FA (emojis supprimés)');
         } else {
-            // Font Awesome n'est pas chargé, afficher les emojis
+            // Font Awesome n'est pas chargé - Afficher les emojis, masquer FA
             document.querySelectorAll('.icon-fallback').forEach(emoji => {
                 emoji.style.display = 'inline';
                 emoji.style.visibility = 'visible';
                 emoji.style.opacity = '1';
+                emoji.style.width = 'auto';
+                emoji.style.height = 'auto';
+                emoji.style.position = 'static';
             });
-            document.querySelectorAll('.media-indicator i').forEach(icon => {
+            document.querySelectorAll('.media-indicator i.fas').forEach(icon => {
                 icon.style.display = 'none';
             });
             console.log('⚠️ Font Awesome non chargé - Utilisation des emojis de fallback');
         }
         
         document.body.removeChild(testIcon);
-    }, 100);
+    }, 200);
 }
 
 // Initialiser la gestion des icônes

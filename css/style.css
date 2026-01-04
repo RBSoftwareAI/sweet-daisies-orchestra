@@ -3243,34 +3243,36 @@ body.modal-open {
     filter: brightness(1.2);
 }
 
-/* Fallback emoji pour les icônes (visible si Font Awesome bloqué) */
+/* Fallback emoji pour les icônes - MASQUÉ PAR DÉFAUT */
 .icon-fallback {
-    display: none !important;
-    font-style: normal;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-/* Si Font Awesome ne charge pas, on affiche l'emoji */
-@supports not (font-family: "Font Awesome 6 Free") {
-    .media-indicator .fas + .icon-fallback {
-        display: inline !important;
-        position: static;
-    }
-    .media-indicator .fas {
-        display: none !important;
-    }
-}
-
-/* Cacher l'emoji si Font Awesome est chargé - priorité absolue */
-.fas.fa-video + .icon-fallback,
-.media-indicator i[class*="fa-"] + .icon-fallback {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
     width: 0 !important;
     height: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+}
+
+/* Masquage absolu de l'emoji - PRIORITÉ MAXIMALE */
+.fas.fa-video + .icon-fallback,
+.media-indicator i[class*="fa-"] + .icon-fallback,
+.media-indicator .icon-fallback,
+span.icon-fallback {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+    font-size: 0 !important;
+    pointer-events: none !important;
 }
 
 /* Animations */
